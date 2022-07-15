@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -38,6 +39,7 @@ class Avaliador(models.Model):
     nome = models.CharField(max_length=200)
     tipo = models.CharField(max_length=100, choices=TIPO_AVALIADOR)
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, related_name='tipo_avaliadores')
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 
     def __str__(self):
         return str(self.nome)+' - '+str(self.tipo)

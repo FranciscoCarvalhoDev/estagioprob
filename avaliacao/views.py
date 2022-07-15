@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 
 from avaliacao.forms import AvaliacaoForm
 from datetime import datetime
@@ -194,7 +195,15 @@ def add_criterios(request, avaliacao):
 def cad_avaliacao(request):
     form = AvaliacaoForm()
 
-    context = {'form': form}
+    #id recebido do form
+    id_funcionario = 1
+
+
+    funcionario = Funcionario
+    funcionario = funcionario.objects.get(pk=id_funcionario)
+
+
+    context = {'form': form, 'funcionario':funcionario}
 
     print(request.POST)
 
@@ -202,3 +211,27 @@ def cad_avaliacao(request):
         insert_avaliacao(request)
 
     return render(request, 'form_cad_avaliacao.html', context)
+
+
+def entrar(request):
+    context = {'msg': ''}
+
+    if request.method == 'POST':
+        usuario = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+
+        user = authenticate(username=usuario, password=senha)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                print(user.profile.funcionario.cargo)
+
+
+                return redirect('/cadastro/avaliacao')
+            else:
+                context = {'msg': 'Usuario não está ativo'}
+        else:
+            context = {'msg': 'Não foi possível logar'}
+
+    return render(request, 'form_auth.html', context)

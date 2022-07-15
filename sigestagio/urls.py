@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from avaliacao.views import cad_avaliacao
+from avaliacao.views import cad_avaliacao, entrar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cadastro/avaliacao', cad_avaliacao, name='cad_avaliacao'),
+    path('entrar', entrar, name='login')
 ]
