@@ -47,12 +47,9 @@ def test_cad():
     #
 
 
-def insert_avaliacao(request):
+def insert_avaliacao(request, id_funcionario):
     #id do usuario do ativo
     id_avaliador = 1
-
-    # vindo da url form
-    id_funcionario = 1
 
     # add funcionario avaliado
     funcionario_avaliado = Funcionario
@@ -192,25 +189,30 @@ def add_criterios(request, avaliacao):
             avaliacao=avaliacao
         )
 
-def cad_avaliacao(request):
-    form = AvaliacaoForm()
-
-    #id recebido do form
-    id_funcionario = 1
+def cad_avaliacao(request, id_funcionario):
+    context = None
 
 
-    funcionario = Funcionario
-    funcionario = funcionario.objects.get(pk=id_funcionario)
+    if request.method == 'GET':
+        funcionario = Funcionario
+        funcionario = funcionario.objects.get(pk=id_funcionario)
 
-
-    context = {'form': form, 'funcionario':funcionario}
-
-    print(request.POST)
+        context = {'funcionario': funcionario}
+        return render(request, 'form_cad_avaliacao.html', context)
 
     if request.method == 'POST':
-        insert_avaliacao(request)
+        insert_avaliacao(request, id_funcionario)
+        return redirect('list_avaliados')
 
-    return render(request, 'form_cad_avaliacao.html', context)
+
+
+def list_avaliados(request):
+    funcionarios = Funcionario.objects.filter(grupo='TI01')
+
+    print(funcionarios)
+    context = {'funcionarios': funcionarios}
+
+    return render(request, 'list_funcionarios.html', context)
 
 
 def entrar(request):

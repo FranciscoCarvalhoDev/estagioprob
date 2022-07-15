@@ -1,0 +1,37 @@
+{% extends 'layout_base.html' %}
+
+{% block title %}
+Entrar
+{% endblock %}
+
+
+
+{% block content %}
+
+<style xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+    body, .layout_txt, .form-control:disabled, .form-control[readonly]{
+       background:#fbfcff;
+    }
+
+
+</style>
+
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content align-items-center h-100">
+{% for funcionario in funcionarios %}
+    <a href="{% url 'cad_avaliacao' funcionario.id %}">{{funcionario}}<br />
+
+      {%endfor%}
+      </div>
+    </div>
+
+</section>
+
+{% endblock %}
+<script>
+
+
+</script>
+
