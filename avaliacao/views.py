@@ -49,7 +49,8 @@ def test_cad():
 
 def insert_avaliacao(request, id_funcionario):
     #id do usuario do ativo
-    id_avaliador = 1
+    id_avaliador = request.user.profile.id
+    print(request.user.profile.id)
 
     # add funcionario avaliado
     funcionario_avaliado = Funcionario
@@ -207,7 +208,7 @@ def cad_avaliacao(request, id_funcionario):
 
 
 def list_avaliados(request):
-    funcionarios = Funcionario.objects.filter(grupo='TI01')
+    funcionarios = Funcionario.objects.filter(grupo=request.user.profile.funcionario.grupo, avaliavel=True)
 
     print(funcionarios)
     context = {'funcionarios': funcionarios}
@@ -230,7 +231,7 @@ def entrar(request):
                 print(user.profile.funcionario.cargo)
 
 
-                return redirect('/cadastro/avaliacao')
+                return redirect('/lista/avaliados')
             else:
                 context = {'msg': 'Usuario não está ativo'}
         else:
