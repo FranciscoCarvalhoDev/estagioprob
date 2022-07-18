@@ -9,24 +9,12 @@ class Funcionario(models.Model):
     cargo = models.CharField(max_length=100)
     depto = models.CharField(max_length=255)
     funcao = models.CharField(max_length=255)
-    grupo = models.CharField(max_length=255)
+    grupo_avaliacao = models.CharField(max_length=255, help_text="Grupo de funcionarios a ser avaliados por um Chefe Imediato")
+    subgrupo_avaliacao = models.CharField(max_length=255, help_text="Grupo para avaliação do colega")
     avaliavel = models.BooleanField()
 
     def __str__(self):
         return self.nome
-
-
-NIVEL = [
-    ('Chefia', 'Chefia'),
-    ('Colega', 'Colega'),
-    ('Própria', 'Própria'),
-
-]
-
-TIPO_AVALIACAO = [
-    ('Trimestral', 'Trimestral'),
-    ('Anual', 'Anual'),
-]
 
 
 class Avaliador(models.Model):
@@ -40,28 +28,36 @@ class Avaliador(models.Model):
     tipo = models.CharField(max_length=100, choices=TIPO_AVALIADOR)
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, related_name='tipo_avaliadores')
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    grupo_avaliado = models.CharField(max_length=255)
 
     def __str__(self):
         return str(self.nome)+' - '+str(self.tipo)
 
 
 class Avaliacao(models.Model):
+    TIPO_AVALIACAO = [
+        ('Trimestral', 'Trimestral'),
+        ('Anual', 'Anual'),
+    ]
+
+    NIVEL = [
+        ('Chefia', 'Chefia'),
+        ('Colega', 'Colega'),
+        ('Própria', 'Própria'),
+
+    ]
+
     data = models.DateField()
     tipo = models.CharField(max_length=100, choices=TIPO_AVALIACAO)
-    nivel = models.CharField(max_length=255, choices=NIVEL)
+    tipo_avaliador = models.CharField(max_length=255, choices=NIVEL, help_text="Realizado por Chefe, Colega ou pelo proprio funcionario ")
     media = models.CharField(max_length=100, null=True)
-    periodo = models.CharField(max_length=255)
+    periodo = models.CharField(max_length=255, help_text="Periodo avaliado")
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, related_name='avaliacao')
     avaliador = models.ForeignKey(Avaliador, on_delete=models.CASCADE, related_name='avaliador')
 
     def __str__(self):
         return str(self.avaliador)+' - '+str(self.periodo)
 
-
-# class avaliacaoFuncionario(models.Model):
-#     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, related_name='avaliacao_funcionario' )
-#     avaliacao = models.ForeignKey(Avaliacao, on_delete=models.CASCADE, related_name='avaliacao_funcionario')
-#
 
 class Criterio(models.Model):
 

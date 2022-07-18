@@ -66,7 +66,7 @@ def insert_avaliacao(request, id_funcionario):
     avaliacao = avaliacao.objects.create(
         data='2022-10-12',
         tipo='Trimestral',
-        nivel='Chefia',
+        tipo_avaliador='Chefia',
         media='0',
         periodo='2022/1',
         avaliador=avaliador,
@@ -208,7 +208,16 @@ def cad_avaliacao(request, id_funcionario):
 
 
 def list_avaliados(request):
-    funcionarios = Funcionario.objects.filter(grupo=request.user.profile.funcionario.grupo, avaliavel=True)
+
+    if request.user.profile.tipo == 'Chefe':
+        funcionarios = Funcionario.objects.filter(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True)
+    else:
+        if request.user.profile.tipo == 'Colega':
+            funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.funcionario.subgrupo_avaliacao, avaliavel=True)
+            ##IPC retorna o colega e o proprio usuário
+        else:
+            funcionarios = Funcionario.objects.filter(id=request.user.profile.funcionario.id, avaliavel=True)
+
 
     print(funcionarios)
     context = {'funcionarios': funcionarios}
