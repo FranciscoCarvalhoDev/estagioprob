@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.db.models import Q
 
 from avaliacao.forms import AvaliacaoForm
 from datetime import datetime
@@ -213,16 +214,17 @@ def cad_avaliacao(request, id_funcionario):
 def list_avaliados(request):
 
     if request.user.profile.tipo == 'Chefe':
-        funcionarios = Funcionario.objects.filter(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True)
+        funcionarios = Funcionario.objects.filter(Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True))
     else:
         if request.user.profile.tipo == 'Colega':
-            funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.funcionario.subgrupo_avaliacao, avaliavel=True)
+            # funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True)
+            funcionarios = Funcionario.objects.filter(Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True) | Q(id=request.user.profile.funcionario.id))
+
             ##IPC retorna o colega e o proprio usuário
         else:
             funcionarios = Funcionario.objects.filter(id=request.user.profile.funcionario.id, avaliavel=True)
 
 
-    print(funcionarios)
     context = {'funcionarios': funcionarios}
 
     return render(request, 'list_funcionarios.html', context)
