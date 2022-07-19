@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from avaliacao.forms import AvaliacaoForm
@@ -46,7 +47,7 @@ def test_cad():
     f1.avaliacao.add(avaliacao)
     #
 
-
+@login_required
 def insert_avaliacao(request, id_funcionario):
     #id do usuario do ativo
     id_avaliador = request.user.profile.id
@@ -190,6 +191,8 @@ def add_criterios(request, avaliacao):
             avaliacao=avaliacao
         )
 
+
+@login_required
 def cad_avaliacao(request, id_funcionario):
     context = None
 
@@ -206,7 +209,7 @@ def cad_avaliacao(request, id_funcionario):
         return redirect('list_avaliados')
 
 
-
+@login_required
 def list_avaliados(request):
 
     if request.user.profile.tipo == 'Chefe':

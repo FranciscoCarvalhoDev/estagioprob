@@ -18,6 +18,7 @@ from django.urls import path
 from avaliacao.views import cad_avaliacao, entrar, list_avaliados
 
 urlpatterns = [
+    path('', entrar, name='login'),
     path('admin/', admin.site.urls),
     path('lista/avaliados', list_avaliados, name='list_avaliados'),
     path('cadastro/avaliacao/<int:id_funcionario>', cad_avaliacao, name='cad_avaliacao'),
