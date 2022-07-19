@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.http import HttpResponseNotFound
 
 from avaliacao.forms import AvaliacaoForm
 from datetime import datetime
@@ -207,6 +208,8 @@ def cad_avaliacao(request, id_funcionario):
 
     if request.method == 'POST':
         insert_avaliacao(request, id_funcionario)
+        # insert_avaliacao(request, 3)
+
         return redirect('list_avaliados')
 
 
@@ -219,11 +222,6 @@ def list_avaliados(request):
         if request.user.profile.tipo == 'Colega':
             # funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True)
             funcionarios = Funcionario.objects.filter(Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True) | Q(id=request.user.profile.funcionario.id))
-
-            ##IPC retorna o colega e o proprio usuário
-        else:
-            funcionarios = Funcionario.objects.filter(id=request.user.profile.funcionario.id, avaliavel=True)
-
 
     context = {'funcionarios': funcionarios}
 
