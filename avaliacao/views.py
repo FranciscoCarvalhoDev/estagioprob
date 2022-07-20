@@ -3,55 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import HttpResponseNotFound
-
-from avaliacao.forms import AvaliacaoForm
 from datetime import datetime
 
-# def cad_avaliacao(request):
-#     form = AvaliacaoForm()
-#
-#     context = {'form': form}
-#
-#     return render(request, 'form_cad_avaliacao.html', context)
 from avaliacao.models import Criterio, Avaliacao, Funcionario, Avaliador
 
 
-def test_cad():
-    # id do usuario do ativo
-    id_avaliador = 1
-
-
-
-
-    # add Avaliador
-    avaliador = Funcionario
-    avaliador = Funcionario.objects.get(pk=id_avaliador)
-    # avaliacao.avaliacao.add(avaliador)
-    avaliacao = Avaliacao
-
-
-
-    avaliacao = avaliacao.objects.create(
-        data='2022-10-12',
-        tipo='Trimestral',
-        nivel='Chefia',
-        media='0',
-        periodo='2022/1',
-        avaliador=avaliador
-    )
-
-    # vindo da url form
-    id_funcionario = 2
-    # add funcionario avaliado
-    funcionario_avaliado = Funcionario
-    f1 = Funcionario.objects.get(pk=id_funcionario)
-    #
-    f1.avaliacao.add(avaliacao)
-    #
-
 @login_required
 def insert_avaliacao(request, id_funcionario):
-    #id do usuario do ativo
+    # id do usuario do ativo
     id_avaliador = request.user.profile.id
     print(request.user.profile.id)
 
@@ -67,7 +26,7 @@ def insert_avaliacao(request, id_funcionario):
     avaliacao = Avaliacao
 
     avaliacao = avaliacao.objects.create(
-        data='2022-10-12',
+        data=datetime.now(),
         tipo='Trimestral',
         tipo_avaliador='Chefia',
         media='0',
@@ -76,26 +35,38 @@ def insert_avaliacao(request, id_funcionario):
         funcionario=funcionario_avaliado,
     )
 
-    add_criterios(request, avaliacao)
+    medias_criterios, media_avaliacao = add_criterios(request, avaliacao)
+
+    print(medias_criterios)
+    print(media_avaliacao)
+
+    avaliacao.media = media_avaliacao
+    avaliacao.save(force_update=True)
+
 
 
 def add_criterios(request, avaliacao):
-    itens_assiduidade = 1
-    itens_disciplina = 5
-    itens_iniciativa = 10
-    itens_produtividade = 15
-    itens_responsabilidade = 20
-    itens_cooperacao = 24
-    itens_dinamismo = 29
-    itens_adaptabilidade = 31
-    itens_urbanidade = 34
-    itens_relacoes = 36
+    inicio_assiduidade = 1
+    inicio_disciplina = 5
+    inicio_iniciativa = 10
+    inicio_produtividade = 15
+    inicio_responsabilidade = 20
+    inicio_cooperacao = 24
+    inicio_dinamismo = 29
+    inicio_adaptabilidade = 31
+    inicio_urbanidade = 34
+    inicio_relacoes = 36
 
     criterio1 = Criterio
 
-    for item in range(itens_assiduidade, itens_disciplina):
+    media_avaliacao = 0
 
-        #Cadastra cada um dos itens
+    # ASSIDUIDADE
+    pontos_assiduidade = 0
+    itens_assiduidade = inicio_disciplina - inicio_assiduidade
+
+    for item in range(inicio_assiduidade, inicio_disciplina):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
@@ -103,9 +74,16 @@ def add_criterios(request, avaliacao):
             avaliacao=avaliacao
         )
 
-    for item in range(itens_disciplina, itens_iniciativa):
+        pontos_assiduidade += float(request.POST.get('pt_criterio' + str(item)))
 
-        #Cadastra cada um dos itens
+    media_assiduidade = pontos_assiduidade / itens_assiduidade
+
+    # DISCIPLINA
+    pontos_disciplina = 0
+    itens_disciplina = inicio_iniciativa - inicio_disciplina
+
+    for item in range(inicio_disciplina, inicio_iniciativa):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
@@ -113,91 +91,154 @@ def add_criterios(request, avaliacao):
             avaliacao=avaliacao
         )
 
-    for item in range(itens_iniciativa, itens_produtividade):
+        pontos_disciplina += float(request.POST.get('pt_criterio' + str(item)))
 
-        #Cadastra cada um dos itens
+    media_disciplina = pontos_disciplina / itens_disciplina
+
+    # INICIATIVA
+    pontos_iniciativa = 0
+    itens_iniciativa = inicio_produtividade - inicio_iniciativa
+
+    for item in range(inicio_iniciativa, inicio_produtividade):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
             categoria='3. Capacidade de Iniciativa',
             avaliacao=avaliacao
         )
+        pontos_iniciativa += float(request.POST.get('pt_criterio' + str(item)))
 
-    for item in range(itens_produtividade,itens_responsabilidade ):
 
-        #Cadastra cada um dos itens
+    media_iniciativa = pontos_iniciativa / itens_iniciativa
+
+    # PRODUTIVIDADE
+    pontos_produtividade = 0
+    itens_produtividade = inicio_responsabilidade - inicio_produtividade
+
+    for item in range(inicio_produtividade, inicio_responsabilidade):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
             categoria='3. Capacidade de Iniciativa',
             avaliacao=avaliacao
         )
+        pontos_produtividade += float(request.POST.get('pt_criterio' + str(item)))
 
-    for item in range(itens_responsabilidade,itens_cooperacao ):
+    media_produtividade = pontos_produtividade / itens_produtividade
 
-        #Cadastra cada um dos itens
+    # RESPONSABILIDADE
+    pontos_responsabilidade = 0
+    itens_responsabilidade = inicio_cooperacao - inicio_responsabilidade
+
+    for item in range(inicio_responsabilidade, inicio_cooperacao):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
             categoria='3. Capacidade de Iniciativa',
             avaliacao=avaliacao
         )
+        pontos_responsabilidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    for item in range(itens_cooperacao,itens_dinamismo ):
 
-        #Cadastra cada um dos itens
+    media_responsabilidade = pontos_responsabilidade / itens_responsabilidade
+
+    # COOPERACAO
+    pontos_cooperacao = 0
+    itens_cooperacao = inicio_dinamismo - inicio_cooperacao
+
+    for item in range(inicio_cooperacao, inicio_dinamismo):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
             categoria='3. Capacidade de Iniciativa',
             avaliacao=avaliacao
         )
+        pontos_cooperacao += float(request.POST.get('pt_criterio' + str(item)))
 
-    for item in range(itens_dinamismo,itens_adaptabilidade ):
 
-        #Cadastra cada um dos itens
+    media_cooperacao = pontos_cooperacao / itens_cooperacao
+
+    # DINAMISMO
+    pontos_dinamismo = 0
+    itens_dinamismo = inicio_adaptabilidade - inicio_dinamismo
+
+    for item in range(inicio_dinamismo, inicio_adaptabilidade):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
             categoria='3. Capacidade de Iniciativa',
             avaliacao=avaliacao
         )
+        pontos_dinamismo += float(request.POST.get('pt_criterio' + str(item)))
 
-    for item in range(itens_adaptabilidade,itens_urbanidade):
 
-        #Cadastra cada um dos itens
+    media_dinamismo = pontos_dinamismo / itens_dinamismo
+
+    # ADAPTABILIDADE
+    pontos_adaptabilidade = 0
+    itens_adaptabilidade = inicio_urbanidade - inicio_adaptabilidade
+
+    for item in range(inicio_adaptabilidade, inicio_urbanidade):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
             categoria='3. Capacidade de Iniciativa',
             avaliacao=avaliacao
         )
+        pontos_adaptabilidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    for item in range(itens_urbanidade,itens_relacoes):
 
-        #Cadastra cada um dos itens
+    media_adaptabilidade = pontos_adaptabilidade / itens_adaptabilidade
+
+    # URBANIDADE
+    pontos_urbanidade = 0
+    itens_urbanidade = inicio_relacoes - inicio_urbanidade
+
+    for item in range(inicio_urbanidade, inicio_relacoes):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
             categoria='3. Capacidade de Iniciativa',
             avaliacao=avaliacao
         )
+        pontos_urbanidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    for item in range(itens_relacoes,40):
 
-        #Cadastra cada um dos itens
+    media_urbanidade = pontos_urbanidade / itens_urbanidade
+
+    # RELACOES
+    pontos_relacoes = 0
+    itens_relacoes = 40 - inicio_relacoes
+
+    for item in range(inicio_relacoes, 40):
+        # Cadastra cada um dos itens
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
             categoria='3. Capacidade de Iniciativa',
             avaliacao=avaliacao
         )
+        pontos_relacoes += float(request.POST.get('pt_criterio' + str(item)))
 
+
+    media_relacoes = pontos_relacoes / itens_relacoes
+
+    medias_criterios = [media_assiduidade, media_disciplina, media_iniciativa, media_produtividade, media_responsabilidade, \
+           media_cooperacao, media_dinamismo, media_adaptabilidade, media_urbanidade, media_relacoes]
+
+    media_avaliacao = sum(medias_criterios) / len(medias_criterios)
+    return medias_criterios, media_avaliacao
 
 @login_required
 def cad_avaliacao(request, id_funcionario):
     context = None
-
 
     if request.method == 'GET':
         funcionario = Funcionario
@@ -215,13 +256,15 @@ def cad_avaliacao(request, id_funcionario):
 
 @login_required
 def list_avaliados(request):
-
     if request.user.profile.tipo == 'Chefe':
-        funcionarios = Funcionario.objects.filter(Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True))
+        funcionarios = Funcionario.objects.filter(
+            Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True))
     else:
         if request.user.profile.tipo == 'Colega':
             # funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True)
-            funcionarios = Funcionario.objects.filter(Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True) | Q(id=request.user.profile.funcionario.id))
+            funcionarios = Funcionario.objects.filter(
+                Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True) | Q(
+                    id=request.user.profile.funcionario.id))
 
     context = {'funcionarios': funcionarios}
 
@@ -241,7 +284,6 @@ def entrar(request):
             if user.is_active:
                 login(request, user)
                 print(user.profile.funcionario.cargo)
-
 
                 return redirect('/lista/avaliados')
             else:
