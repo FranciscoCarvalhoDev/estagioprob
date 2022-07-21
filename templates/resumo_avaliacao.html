@@ -1,0 +1,246 @@
+{% extends 'layout_base.html' %}
+
+{% block title %}
+Registrar Avaliação
+{% endblock %}
+{% block header %}
+Registrar Avaliação
+{% endblock %}
+
+
+{% block content %}
+{{avaliacao.data}}<br />
+
+<style>
+body, h4, table, th, tr{
+ color:#000;
+}
+    h4, .tab-resumo-avaliacao{
+
+        font-family:times;
+        margin-top:2em;
+
+    }
+    .table-bordered th{
+        font-size:0.8em;
+        text-align:center;
+    }
+
+
+
+
+.table-bordered>:not(caption)>*>* {
+    padding-bottom: 0.2em;
+    }
+
+    .h-table :nth-child(1){
+        max-width:85% !important;
+    }
+
+    tr :nth-child(2){
+        width:15% !important;
+    }
+
+    .table-bordered{
+        border-color:#000;
+    }
+</style>
+
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>1. Assiduidade Pontualidade</h4>
+    <tr class="h-table">
+        <th>QUESITOS</th>
+        <th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '1. Assiduidade Pontualidade' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>2. Disciplina</h4>
+    <tr>
+        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '2. Disciplina' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>3. Capacidade de Iniciativa</h4>
+    <tr>
+        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '3. Capacidade de Iniciativa' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>4. Produtividade</h4>
+    <tr>
+        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '4. Produtividade' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>5. Responsabilidade</h4>
+    <tr>
+        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '5. Responsabilidade' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>6. Cooperação</h4>
+    <tr>
+        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '6. Cooperação' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>7. Dinamismo</h4>
+    <tr>
+        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '7. Dinamismo' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>8. Adaptabilidade</h4>
+    <tr>
+        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '8. Adaptabilidade' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>9. Urbanidade</h4>
+    <tr>
+        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '9. Urbanidade' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+<table class="table tab-resumo-avaliacao table-bordered">
+    <h4>10. Relações Interpessoais</h4>
+    <tr>
+        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
+    </tr>
+{% for criterio in criterios %}
+    <tr>
+
+    {% if criterio.categoria == '10. Relações Interpessoais' %}
+                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+
+
+
+    {%endif%}
+    </tr>
+
+{% endfor %}
+</table>
+
+{% endblock %}
+

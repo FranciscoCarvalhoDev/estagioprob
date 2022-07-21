@@ -43,6 +43,8 @@ def insert_avaliacao(request, id_funcionario):
     avaliacao.media = media_avaliacao
     avaliacao.save(force_update=True)
 
+    return avaliacao
+
 
 
 def add_criterios(request, avaliacao):
@@ -121,7 +123,7 @@ def add_criterios(request, avaliacao):
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
-            categoria='3. Capacidade de Iniciativa',
+            categoria='4. Produtividade',
             avaliacao=avaliacao
         )
         pontos_produtividade += float(request.POST.get('pt_criterio' + str(item)))
@@ -137,7 +139,7 @@ def add_criterios(request, avaliacao):
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
-            categoria='3. Capacidade de Iniciativa',
+            categoria='5. Responsabilidade',
             avaliacao=avaliacao
         )
         pontos_responsabilidade += float(request.POST.get('pt_criterio' + str(item)))
@@ -154,7 +156,7 @@ def add_criterios(request, avaliacao):
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
-            categoria='3. Capacidade de Iniciativa',
+            categoria='6. Cooperação',
             avaliacao=avaliacao
         )
         pontos_cooperacao += float(request.POST.get('pt_criterio' + str(item)))
@@ -171,7 +173,7 @@ def add_criterios(request, avaliacao):
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
-            categoria='3. Capacidade de Iniciativa',
+            categoria='7. Dinamismo',
             avaliacao=avaliacao
         )
         pontos_dinamismo += float(request.POST.get('pt_criterio' + str(item)))
@@ -188,7 +190,7 @@ def add_criterios(request, avaliacao):
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
-            categoria='3. Capacidade de Iniciativa',
+            categoria='8. Adaptabilidade',
             avaliacao=avaliacao
         )
         pontos_adaptabilidade += float(request.POST.get('pt_criterio' + str(item)))
@@ -205,7 +207,7 @@ def add_criterios(request, avaliacao):
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
-            categoria='3. Capacidade de Iniciativa',
+            categoria='9. Urbanidade',
             avaliacao=avaliacao
         )
         pontos_urbanidade += float(request.POST.get('pt_criterio' + str(item)))
@@ -222,7 +224,7 @@ def add_criterios(request, avaliacao):
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
-            categoria='3. Capacidade de Iniciativa',
+            categoria='10. Relações Interpessoais',
             avaliacao=avaliacao
         )
         pontos_relacoes += float(request.POST.get('pt_criterio' + str(item)))
@@ -248,10 +250,23 @@ def cad_avaliacao(request, id_funcionario):
         return render(request, 'form_cad_avaliacao.html', context)
 
     if request.method == 'POST':
-        insert_avaliacao(request, id_funcionario)
+        avaliacao = insert_avaliacao(request, id_funcionario)
         # insert_avaliacao(request, 3)
 
-        return redirect('list_avaliados')
+        print(avaliacao)
+        context = {'avaliacao':avaliacao}
+
+        return render(request,'resumo_avaliacao.html',context)
+
+def resumo_avaliacao(request, id_avaliacao):
+    avaliacao = Avaliacao.objects.get(pk=id_avaliacao)
+    criterios = Criterio.objects.filter(avaliacao=avaliacao)
+    # criterios = Criterio.objects.filter(categoria = '3. Capacidade de Iniciativa', avaliacao=avaliacao)
+
+
+    context = {'avaliacao': avaliacao, 'criterios': criterios}
+    print(criterios)
+    return render(request, 'resumo_avaliacao.html', context)
 
 
 @login_required
