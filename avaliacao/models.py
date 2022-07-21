@@ -67,6 +67,11 @@ class Criterio(models.Model):
         ('3. Capacidade de Iniciativa', '3. Capacidade de Iniciativa'),
         ('4. Produtividade', '4. Produtividade'),
         ('5. Responsabilidade', '5. Responsabilidade'),
+        ('6. Cooperação', '6. Cooperação'),
+        ('7. Dinamismo', '7. Dinamismo'),
+        ('8. Adaptabilidade', '8. Adaptabilidade'),
+        ('9. Urbanidade', '9. Urbanidade'),
+        ('10. Relações Interpessoais', '10. Relações Interpessoais'),
     ]
 
     descricao = models.CharField(max_length=255)

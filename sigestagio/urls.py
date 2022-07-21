@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from avaliacao.views import cad_avaliacao, entrar, list_avaliados
+from avaliacao.views import cad_avaliacao, entrar, list_avaliados, resumo_avaliacao
 
 urlpatterns = [
     path('', entrar, name='login'),
@@ -23,6 +23,6 @@ urlpatterns = [
     path('lista/avaliados', list_avaliados, name='list_avaliados'),
     path('cadastro/avaliacao/<int:id_funcionario>', cad_avaliacao, name='cad_avaliacao'),
     path('entrar', entrar, name='login'),
-
+    path('resumo/avaliacao/<int:id_avaliacao>', resumo_avaliacao, name='resumo_avaliacao'),
 
 ]
