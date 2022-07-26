@@ -9,16 +9,22 @@ Registrar Avaliação
 
 
 {% block content %}
-{{avaliacao.data}}<br />
 
 <style>
 body, h4, table, th, tr{
+        font-family:times;
+
  color:#000;
 }
-    h4, .tab-resumo-avaliacao{
+    h4{
+    font-weight:300;
+        margin-top:1.5em;
+
+    }
+    .tab-resumo-avaliacao{
 
         font-family:times;
-        margin-top:2em;
+        margin-top:1em;
 
     }
     .table-bordered th{
@@ -26,7 +32,7 @@ body, h4, table, th, tr{
         text-align:center;
     }
 
-
+.break { page-break-after: always; }
 
 
 .table-bordered>:not(caption)>*>* {
@@ -44,203 +50,293 @@ body, h4, table, th, tr{
     .table-bordered{
         border-color:#000;
     }
+
+    .table-ficha-avaliador{
+        width:80%;
+        margin:0 auto;
+    }
+
+    .table-ficha-avaliado{
+        border:1px solid #000;
+    }
+
 </style>
+<h3>CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO TRIMESTRAL DESEMPENHO</h3>
+<div class="table-ficha-avaliador mt-5 mb-5">
+<p>Avaliador: {{avaliacao.avaliador}}
+        Função: {% if avaliacao.avaliador.funcionario.funcao %}{{avaliacao.avaliador.funcionario.funcao}}{%endif%}
+    </p>
+    <p>
+        Período avaliado:{{avaliacao.periodo}}
+    </p>
+</div>
+    <table class="table table-ficha-avaliado">
+        <tr>
+            <th colspan="3" class="text-center">Identificação do Avaliado</th><th></th><th></th>
+        </tr>
 
 
+        <tr>
+            <td colspan="3">Departamento de Lotação: {{avaliacao.funcionario.depto}}</td><td></td><td></td>
+        </tr>
+        <tr>
+            <td colspan="3">Chefe Imediato: </td><td></td><td></td>
+        </tr>
+        <tr>
+            <td colspan="3">Nome Servidor Avaliado: {{avaliacao.funcionario.nome}}</td><td></td><td></td>
+        </tr>
+        <tr>
+            <td colspan="3">Matricula: {{avaliacao.funcionario.matricula}}</td><td></td><td></td>
+        </tr>
+        <tr><td>dsds</td><td>dsds</td><td>dsds</td></tr>
+
+    </table>
 <table class="table tab-resumo-avaliacao table-bordered">
     <h4>1. Assiduidade Pontualidade</h4>
-    <tr class="h-table">
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
 
-    {% if criterio.categoria == '1. Assiduidade Pontualidade' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
+       <tr class="h-table">
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '1. Assiduidade Pontualidade' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.0}}</td>
+        </tr>
+
+    </table>
+
 
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>2. Disciplina</h4>
-    <tr>
-        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
-
-    {% if criterio.categoria == '2. Disciplina' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
-
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>3. Capacidade de Iniciativa</h4>
-    <tr>
-        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
-
-    {% if criterio.categoria == '3. Capacidade de Iniciativa' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
-
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>4. Produtividade</h4>
-    <tr>
-        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
-
-    {% if criterio.categoria == '4. Produtividade' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
-
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>5. Responsabilidade</h4>
-    <tr>
-        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
-
-    {% if criterio.categoria == '5. Responsabilidade' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
-
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>6. Cooperação</h4>
-    <tr>
-        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
-
-    {% if criterio.categoria == '6. Cooperação' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
-
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>7. Dinamismo</h4>
-    <tr>
-        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
-
-    {% if criterio.categoria == '7. Dinamismo' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
-
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>8. Adaptabilidade</h4>
-    <tr>
-        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
-
-    {% if criterio.categoria == '8. Adaptabilidade' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
-
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>9. Urbanidade</h4>
-    <tr>
-        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
-
-    {% if criterio.categoria == '9. Urbanidade' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
-
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>10. Relações Interpessoais</h4>
-    <tr>
-        <th>QUESITOS</th><th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-{% for criterio in criterios %}
-    <tr>
-
-    {% if criterio.categoria == '10. Relações Interpessoais' %}
-                <td>{{criterio.descricao}}</td><td>{{criterio.nota}}</td>
-
-
-
-    {%endif%}
-    </tr>
-
-{% endfor %}
-</table>
-
-{% endblock %}
+    <table class="table tab-resumo-avaliacao table-bordered break">
+        <h4>2. Disciplina</h4>
+        <tr>
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '2. Disciplina' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.1}}</td>
+        </tr>
+
+    </table>
+
+    <table class="table tab-resumo-avaliacao table-bordered">
+        <h4>3. Capacidade de Iniciativa</h4>
+        <tr>
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '3. Capacidade de Iniciativa' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.2}}</td>
+        </tr>
+
+    </table>
+    <table class="table tab-resumo-avaliacao table-bordered break">
+        <h4>4. Produtividade</h4>
+        <tr>
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '4. Produtividade' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.3}}</td>
+        </tr>
+
+    </table>
+
+    <table class="table tab-resumo-avaliacao table-bordered">
+        <h4>5. Responsabilidade</h4>
+        <tr>
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '5. Responsabilidade' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.4}}</td>
+        </tr>
+
+    </table>
+
+    <table class="table tab-resumo-avaliacao table-bordered break">
+        <h4>6. Cooperação</h4>
+        <tr>
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '6. Cooperação' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.5}}</td>
+        </tr>
+    </table>
+
+    <table class="table tab-resumo-avaliacao table-bordered">
+        <h4>7. Dinamismo</h4>
+        <tr>
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '7. Dinamismo' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.6}}</td>
+        </tr>
+
+    </table>
+    <table class="table tab-resumo-avaliacao table-bordered break">
+        <h4>8. Adaptabilidade</h4>
+        <tr>
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '8. Adaptabilidade' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.7}}</td>
+        </tr>
+
+    </table>
+
+    <table class="table tab-resumo-avaliacao table-bordered">
+        <h4>9. Urbanidade</h4>
+        <tr>
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '9. Urbanidade' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.8}}</td>
+        </tr>
+
+    </table>
+    <table class="table tab-resumo-avaliacao table-bordered">
+        <h4>10. Relações Interpessoais</h4>
+        <tr>
+            <th>QUESITOS</th>
+            <th>Pontuação<br>( de 0 a 100 )</th>
+        </tr>
+        {% for criterio in criterios %}
+        <tr>
+
+            {% if criterio.categoria == '10. Relações Interpessoais' %}
+            <td>{{criterio.descricao}}</td>
+            <td class="text-center">{{criterio.nota}}</td>
+
+
+            {%endif%}
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+            <td class="text-center fw-bold">{{media_criterios.9}}</td>
+        </tr>
+
+    </table>
+    {% endblock %}
 

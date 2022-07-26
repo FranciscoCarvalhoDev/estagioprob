@@ -51,6 +51,7 @@ class Avaliacao(models.Model):
     tipo = models.CharField(max_length=100, choices=TIPO_AVALIACAO)
     tipo_avaliador = models.CharField(max_length=255, choices=NIVEL, help_text="Realizado por Chefe, Colega ou pelo proprio funcionario ")
     media = models.CharField(max_length=100, null=True)
+    media_criterios = models.CharField(max_length=255, null=True)
     periodo = models.CharField(max_length=255, help_text="Periodo avaliado")
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, related_name='avaliacao')
     avaliador = models.ForeignKey(Avaliador, on_delete=models.CASCADE, related_name='avaliador')
