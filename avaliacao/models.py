@@ -3,12 +3,16 @@ from django.db import models
 
 
 class Funcionario(models.Model):
-    dt_ingresso = models.DateField()
+    dt_admissao = models.DateField(default='2022-01-01')
+    dt_inicio_exercicio = models.DateField(default='2022-01-01')
+    dt_posse = models.DateField(default='2022-01-01')
     nome = models.CharField(max_length=100)
     matricula = models.CharField(max_length=255)
-    cargo = models.CharField(max_length=100)
+    cargo_efetivo = models.CharField(max_length=100)
+    cargo_comissionado = models.CharField(max_length=100)
     depto = models.CharField(max_length=255)
-    funcao = models.CharField(max_length=255)
+    funcao = models.CharField(max_length=255, default="Nenhuma")
+    periodos_avaliados = models.CharField(max_length=2, default=0)
     grupo_avaliacao = models.CharField(max_length=255, help_text="Grupo de funcionarios a ser avaliados por um Chefe Imediato")
     subgrupo_avaliacao = models.CharField(max_length=255, help_text="Grupo para avaliação do colega")
     avaliavel = models.BooleanField()

@@ -304,7 +304,6 @@ def entrar(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                print(user.profile.funcionario.cargo)
 
                 return redirect('/lista/avaliados')
             else:
