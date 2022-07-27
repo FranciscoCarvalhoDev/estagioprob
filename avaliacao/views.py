@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import HttpResponseNotFound
 from datetime import datetime
+import ast
 
 from avaliacao.models import Criterio, Avaliacao, Funcionario, Avaliador
 
@@ -41,6 +42,7 @@ def insert_avaliacao(request, id_funcionario):
     print(media_avaliacao)
 
     avaliacao.media = media_avaliacao
+    avaliacao.media_criterios = medias_criterios
     avaliacao.save(force_update=True)
 
     return avaliacao
@@ -253,18 +255,22 @@ def cad_avaliacao(request, id_funcionario):
         avaliacao = insert_avaliacao(request, id_funcionario)
         # insert_avaliacao(request, 3)
 
+
+
+        return resumo_avaliacao(request,avaliacao.pk)
+
         print(avaliacao)
         context = {'avaliacao':avaliacao}
+        # return render(request,'resumo_avaliacao.html',context)
 
-        return render(request,'resumo_avaliacao.html',context)
 
 def resumo_avaliacao(request, id_avaliacao):
     avaliacao = Avaliacao.objects.get(pk=id_avaliacao)
     criterios = Criterio.objects.filter(avaliacao=avaliacao)
     # criterios = Criterio.objects.filter(categoria = '3. Capacidade de Iniciativa', avaliacao=avaliacao)
 
-
-    context = {'avaliacao': avaliacao, 'criterios': criterios}
+    lista_medias_criterios = ast.literal_eval(avaliacao.media_criterios)
+    context = {'avaliacao': avaliacao, 'criterios': criterios, 'media_criterios': lista_medias_criterios}
     print(criterios)
     return render(request, 'resumo_avaliacao.html', context)
 
@@ -298,7 +304,6 @@ def entrar(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                print(user.profile.funcionario.cargo)
 
                 return redirect('/lista/avaliados')
             else:

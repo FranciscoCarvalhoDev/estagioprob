@@ -3,8 +3,10 @@
 {% block title %}
 Funcionário para Avaliação
 {% endblock %}
+{% block header %}
 
-
+Funcionário para Avaliação
+{% endblock %}
 
 {% block content %}
 
@@ -15,16 +17,24 @@ Funcionário para Avaliação
     }
 
 
+
 </style>
 
 <section class="vh-100">
-  <div class="container-fluid h-custom">
-    <div class="row d-flex justify-content align-items-center h-100">
-{% for funcionario in funcionarios %}
-    <a href="{% url 'cad_avaliacao' funcionario.id %}">{{funcionario}}<br />
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content align-items-center h-100">
 
-      {%endfor%}
-      </div>
+            <table class="table table-striped">
+                {% for funcionario in funcionarios %}
+                <tr>
+                    <td>
+                        {{funcionario}}</td>
+                    <td><a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Avaliar</a>
+                    </td>
+                </tr>
+                {%endfor%}
+            </table>
+        </div>
     </div>
 
 </section>
