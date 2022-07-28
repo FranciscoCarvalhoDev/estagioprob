@@ -66,10 +66,20 @@ body, h4, table, th, tr{
         text-align: justify;
     }
 
+    .img-logo{
+        width:30%;
+    }
 
 </style>
 <div style="padding:2em">
-<h3 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO TRIMESTRAL DESEMPENHO</h3>
+<div class="d-flex justify-content-center">
+        {% load static %}
+    <img class="img-logo" src="{% static 'logo-cmm.jpg' %}" />
+
+</div>
+
+
+<h4 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO TRIMESTRAL DESEMPENHO</h4>
 <div class="table-ficha-avaliador mt-5 mb-5">
     <p><span class="fw-bold">Avaliador: </span>{{avaliacao.avaliador.nome}}<br>
         <span class="fw-bold">Função:</span> {% if avaliacao.avaliador.funcionario.funcao %}{{avaliacao.avaliador.funcionario.funcao}}{%endif%}

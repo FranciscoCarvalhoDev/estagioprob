@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import HttpResponseNotFound
-from datetime import datetime
+import datetime
 import ast
 
 from avaliacao.models import Criterio, Avaliacao, Funcionario, Avaliador
@@ -26,12 +26,32 @@ def insert_avaliacao(request, id_funcionario):
 
     avaliacao = Avaliacao
 
+    #obter a ultima avaliação por tipo de avaliador
+    ultima_avaliacao = Avaliacao.objects.filter(
+        funcionario=funcionario_avaliado,
+        tipo_avaliador=request.user.profile.tipo).last()
+
+    # print(ultima_avaliacao.query)
+    print('ULTIMA AVALIACAO')
+    print(ultima_avaliacao)
+
+    if ultima_avaliacao: #dados da ultima avaliacao que diz quando a avaliacao atual começa
+        periodo = 'avaliacao.proxima_avaliacao Até avaliacao.proxima_avaliacao+91'
+        trimestre_avaliado = 'trimestre_avaliado + 1'
+        proxima_avaliacao = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(91)#'avaliacao.proxima_avaliacao + 180' #tres meses após a de hoje
+    else:
+        periodo = 'periodo ingresso Até perido +90'
+        trimestre_avaliado = 1
+        proxima_avaliacao = datetime.datetime.now() + datetime.timedelta(91) #data de hoje + 90
+
     avaliacao = avaliacao.objects.create(
-        data=datetime.now(),
+        data=datetime.datetime.now(),
         tipo='Trimestral',
-        tipo_avaliador='Chefia',
+        tipo_avaliador=request.user.profile.tipo,
         media='0',
-        periodo='2022/1',
+        periodo=periodo,
+        trimestre_avaliado=trimestre_avaliado,
+        proxima_avaliacao=proxima_avaliacao,
         avaliador=avaliador,
         funcionario=funcionario_avaliado,
     )

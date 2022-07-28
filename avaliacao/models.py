@@ -4,7 +4,7 @@ from django.db import models
 
 class Funcionario(models.Model):
     dt_admissao = models.DateField(default='2022-01-01')
-    dt_inicio_exercicio = models.DateField(default='2022-01-01')
+    dt_inicio_exercicio = models.DateField(default='2022-01-01', help_text="Data Inicio efetivo para contagem do periodo probatório")
     dt_posse = models.DateField(default='2022-01-01')
     nome = models.CharField(max_length=100)
     matricula = models.CharField(max_length=255)
@@ -45,9 +45,9 @@ class Avaliacao(models.Model):
     ]
 
     NIVEL = [
-        ('Chefia', 'Chefia'),
+        ('Chefe', 'Chefe'),
         ('Colega', 'Colega'),
-        ('Própria', 'Própria'),
+        ('Próprio', 'Próprio'),
 
     ]
 
@@ -57,6 +57,8 @@ class Avaliacao(models.Model):
     media = models.CharField(max_length=100, null=True)
     media_criterios = models.CharField(max_length=255, null=True)
     periodo = models.CharField(max_length=255, help_text="Periodo avaliado")
+    trimestre_avaliado = models.CharField(max_length=2, default=0, help_text="Trimestre a que se refere. Contador do estado atual da avaliação")
+    proxima_avaliacao = models.DateField()
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, related_name='avaliacao')
     avaliador = models.ForeignKey(Avaliador, on_delete=models.CASCADE, related_name='avaliador')
 
