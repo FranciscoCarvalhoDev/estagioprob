@@ -36,13 +36,17 @@ def insert_avaliacao(request, id_funcionario):
     print(ultima_avaliacao)
 
     if ultima_avaliacao: #dados da ultima avaliacao que diz quando a avaliacao atual começa
-        periodo = 'avaliacao.proxima_avaliacao Até avaliacao.proxima_avaliacao+91'
-        trimestre_avaliado = 'trimestre_avaliado + 1'
+        inicio_periodo = ultima_avaliacao.proxima_avaliacao
+        fim_periodo = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(90)
+        periodo = inicio_periodo.strftime('%d/%m/%Y')+' até '+ fim_periodo.strftime('%d/%m/%Y')#'avaliacao.proxima_avaliacao Até avaliacao.proxima_avaliacao+91'
+        trimestre_avaliado = int(ultima_avaliacao.trimestre_avaliado) + 1
         proxima_avaliacao = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(91)#'avaliacao.proxima_avaliacao + 180' #tres meses após a de hoje
     else:
-        periodo = 'periodo ingresso Até perido +90'
+        fim_periodo = funcionario_avaliado.dt_inicio_exercicio + datetime.timedelta(90)
+        periodo = funcionario_avaliado.dt_inicio_exercicio.strftime('%d/%m/%Y')+' a '\
+                  + fim_periodo.strftime('%d/%m/%Y') #'periodo ingresso Até perido +90'
         trimestre_avaliado = 1
-        proxima_avaliacao = datetime.datetime.now() + datetime.timedelta(91) #data de hoje + 90
+        proxima_avaliacao = fim_periodo + datetime.timedelta(1) #data de hoje + 90
 
     avaliacao = avaliacao.objects.create(
         data=datetime.datetime.now(),
