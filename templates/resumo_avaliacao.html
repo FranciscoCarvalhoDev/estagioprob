@@ -114,10 +114,10 @@ body, h4, table, th, tr{
             <td class="w-33"><span class="fw-bold">Função:</span><br><span>{{avaliacao.funcionario.funcao}}</span></td>
         </tr>
         <tr>
-            <td class="w-50" colspan="2"><span class="fw-bold">Data da Admissão: </span> {{avaliacao.funcionario.dt_admissao}}<br><span class="fw-bold">Início de Exercício:</span>
-                {{avaliacao.funcionario.dt_inicio_exercicio}}
+            <td class="w-50" colspan="2"><span class="fw-bold">Data da Admissão: </span> {{avaliacao.funcionario.dt_admissao | date:'d/m/Y'}}<br><span class="fw-bold">Início de Exercício:</span>
+                {{avaliacao.funcionario.dt_inicio_exercicio| date:"d/m/Y"}}
             </td>
-            <td class="w-50"><span class="fw-bold">Data da Posse: </span><span>{{avaliacao.funcionario.dt_posse}}</span></td>
+            <td class="w-50"><span class="fw-bold">Data da Posse: </span><span>{{avaliacao.funcionario.dt_posse| date:"d/m/Y"}}</span></td>
         </tr>
 
     </table>

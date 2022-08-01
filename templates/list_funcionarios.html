@@ -23,13 +23,21 @@ Funcionário para Avaliação
 <section class="vh-100">
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content align-items-center h-100">
-
+            {% if msg %}
+            <div class="alert alert-warning">
+                {{msg}}
+            </div>
+            {% endif %}
             <table class="table table-striped">
                 {% for funcionario in funcionarios %}
                 <tr>
                     <td>
                         {{funcionario}}</td>
-                    <td><a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Avaliar</a>
+
+                    <td>
+                        {%if funcionario.ativo %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Avaliar</a>{%endif%}
+                        {%if funcionario.ativo == False %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar avaliação</a>{%endif%}
+
                     </td>
                 </tr>
                 {%endfor%}

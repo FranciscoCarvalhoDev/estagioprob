@@ -16,6 +16,8 @@ class Funcionario(models.Model):
     grupo_avaliacao = models.CharField(max_length=255, help_text="Grupo de funcionarios a ser avaliados por um Chefe Imediato")
     subgrupo_avaliacao = models.CharField(max_length=255, help_text="Grupo para avaliação do colega")
     avaliavel = models.BooleanField()
+    ativo = models.BooleanField(default=0)
+
 
     def __str__(self):
         return self.nome
@@ -26,6 +28,8 @@ class Avaliador(models.Model):
         ('Chefe', 'Chefe'),
         ('Colega', 'Colega'),
         ('Próprio', 'Próprio'),
+        ('Comissão', 'Comissão'),
+
     ]
 
     nome = models.CharField(max_length=200)

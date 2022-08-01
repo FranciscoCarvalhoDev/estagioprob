@@ -279,13 +279,39 @@ def cad_avaliacao(request, id_funcionario):
         avaliacao = insert_avaliacao(request, id_funcionario)
         # insert_avaliacao(request, 3)
 
-
-
         return resumo_avaliacao(request,avaliacao.pk)
 
         print(avaliacao)
-        context = {'avaliacao':avaliacao}
+        context = {'avaliacao': avaliacao}
         # return render(request,'resumo_avaliacao.html',context)
+
+
+@login_required()
+def reativar_avaliacao(request, id_funcionario):
+    if request.user.profile.tipo == 'Comissão':
+        funcionario = Funcionario.objects.get(pk=id_funcionario)
+        funcionario.ativo = True
+
+        funcionario.save()
+
+        avaliacao = Avaliacao.objects.filter(funcionario=funcionario).last()
+
+        print(avaliacao)
+
+
+        if avaliacao:
+            proxima_avaliacao = datetime.datetime.now() + datetime.timedelta(91)
+            avaliacao.proxima_avaliacao = proxima_avaliacao
+            context = {'msg': 'Avaliação do Funcionário foi reativada e a data da proxima avaliação será '+proxima_avaliacao.strftime('%d/%m/%Y')}
+
+            return render(request, 'list_funcionarios.html', context=context)
+
+        else:
+            context = {'msg': 'Avaliação do Funcionário foi reativada.'}
+            return render(request, 'list_funcionarios.html', context=context)
+
+    return render(request, 'list_funcionarios.html')
+
 
 
 def resumo_avaliacao(request, id_avaliacao):
@@ -301,15 +327,19 @@ def resumo_avaliacao(request, id_avaliacao):
 
 @login_required
 def list_avaliados(request):
-    if request.user.profile.tipo == 'Chefe':
-        funcionarios = Funcionario.objects.filter(
-            Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True))
+    if request.user.profile.tipo == 'Comissão':
+
+        funcionarios = Funcionario.objects.filter(avaliavel=True).order_by('ativo', 'nome')
     else:
-        if request.user.profile.tipo == 'Colega':
-            # funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True)
+        if request.user.profile.tipo == 'Chefe':
             funcionarios = Funcionario.objects.filter(
-                Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True) | Q(
-                    id=request.user.profile.funcionario.id))
+                Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True, ativo=True))
+        else:
+            if request.user.profile.tipo == 'Colega':
+                # funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True)
+                funcionarios = Funcionario.objects.filter(
+                    Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True, ativo=True) | Q(
+                        id=request.user.profile.funcionario.id))
 
     context = {'funcionarios': funcionarios}
 
