@@ -1,0 +1,74 @@
+{% extends 'layout_base.html' %}
+
+{% block title %}
+Funcionário para Avaliação
+{% endblock %}
+{% block header %}
+
+Funcionário para Avaliação
+{% endblock %}
+
+{% block content %}
+
+<style xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+    body, .layout_txt, .form-control:disabled, .form-control[readonly]{
+       background:#fbfcff;
+    }
+
+
+
+
+</style>
+
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content align-items-center h-100">
+            {% if msg %}
+            <div class="alert alert-warning">
+                {{msg}}
+            </div>
+            {% endif %}
+            <div class="row">
+
+                    <div class="col-12 alert alert-info">
+                        <div><strong>Avaliado: </strong><span>{{funcionario.nome }} - {{funcionario.matricula }}</span>
+                        </div>
+                        <div><strong>Cargo: </strong><span>{{funcionario.cargo_efetivo }}</span></div>
+                        <div><strong>Depto: </strong><span>{{funcionario.depto }}</span> <strong>Função: </strong><span>{{funcionario.funcao }}</span>
+                        </div>
+
+                    </div>
+            </div>
+            <div class="container">
+                        {%if funcionario.ativo %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary btn-lg">Realizar avaliação</a>{%endif%}
+
+
+            </div>
+            <h5 class="mt-5 mb-3">Avaliações Realizadas</h5>
+            <table class="table table-striped">
+                {% for avaliacao in funcionario.avaliacao.all %}
+                <tr>
+                    <td>
+                        {{avaliacao.trimestre_avaliado}}º Trimestre - {{avaliacao.periodo}} (Avaliado por
+                        {{avaliacao.tipo_avaliador}} )
+                    </td>
+
+                    <!--                    <td>-->
+                    <!--                        {%if funcionario.ativo == False %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar avaliação</a>{%endif%}-->
+
+                    <!--                    </td>-->
+                </tr>
+                {%endfor%}
+            </table>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
+<script>
+
+
+</script>
+

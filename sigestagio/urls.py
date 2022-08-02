@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from avaliacao.views import cad_avaliacao, entrar, list_avaliados, resumo_avaliacao, reativar_avaliacao
+from avaliacao.views import cad_avaliacao, entrar, list_avaliados, resumo_avaliacao, reativar_avaliacao, \
+    detalhes_avaliado
 
 urlpatterns = [
     path('', entrar, name='login'),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('entrar', entrar, name='login'),
     path('resumo/avaliacao/<int:id_avaliacao>', resumo_avaliacao, name='resumo_avaliacao'),
     path('ativar/avaliacao/<int:id_funcionario>', reativar_avaliacao, name='ativar_avaliacao'),
+    path('detalhe/avaliado/<int:id_avaliado>', detalhes_avaliado, name='detalhes_avaliado'),
 
 ]
