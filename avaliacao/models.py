@@ -67,7 +67,8 @@ class Avaliacao(models.Model):
     avaliador = models.ForeignKey(Avaliador, on_delete=models.CASCADE, related_name='avaliador')
 
     def __str__(self):
-        return str(self.avaliador)+' - '+str(self.periodo)
+        return self.funcionario.nome+' - Avaliado no Período '+str(self.trimestre_avaliado)\
+               +' ('+str(self.periodo+') ')+' por '+self.tipo_avaliador
 
 
 class Criterio(models.Model):

@@ -28,6 +28,22 @@ Funcionário para Avaliação
                 {{msg}}
             </div>
             {% endif %}
+            {% if usuario.tipo == 'Colega' %}
+            <div class="alert alert-info">
+                <h5>{{usuario.nome}}</h5>você tem duas avaliações para realizar.<br> A primeira é sua auto-avaliação.
+                A segunda é refente ao desempenho de um colega.
+            </div>
+            {% endif %}
+            {% if usuario.tipo == 'Chefe'%}
+            <div class="alert alert-warning">
+                <h5>{{usuario.nome}}</h5>Você tem avaliações para realizar.<br> Ao final de cada uma delas, você deve imprimir o formulário e assinar.
+            </div>
+            {% endif %}
+            {% if usuario.tipo == 'Comissão'%}
+            <div class="alert alert-warning">
+                <h5>{{usuario.nome}}</h5>Você tem avaliações para realizar.<br> Ao final de cada uma delas, você deve imprimir o formulário e assinar.
+            </div>
+            {% endif %}
             <table class="table table-striped">
                 {% for funcionario in funcionarios %}
                 <tr>
@@ -35,8 +51,11 @@ Funcionário para Avaliação
                         {{funcionario}}</td>
 
                     <td>
-                        {%if funcionario.ativo %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Avaliar</a>{%endif%}
-                        {%if funcionario.ativo == False %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar avaliação</a>{%endif%}
+                    {%if funcionario.ativo %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Avaliar</a>{%endif%}
+                        {%if funcionario.ativo == False %}
+                            {% if usuario.tipo == 'Comissão' %}<a href="{% url 'ativar_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar avaliação</a>
+                        {% endif%}
+                    {%endif%}
 
                     </td>
                 </tr>

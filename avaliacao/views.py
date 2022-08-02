@@ -326,25 +326,30 @@ def resumo_avaliacao(request, id_avaliacao):
 
 
 @login_required
-def list_avaliados(request):
+def list_avaliados(request, ref_trimestre=0):
     if request.user.profile.tipo == 'Comissão':
 
-        funcionarios = Funcionario.objects.filter(avaliavel=True).order_by('ativo', 'nome')
+        funcionarios = Funcionario.objects.filter(avaliavel=True).exclude(avaliacao__trimestre_avaliado__gte=ref_trimestre).order_by('ativo', 'nome')
+        print(funcionarios)
     else:
         if request.user.profile.tipo == 'Chefe':
             funcionarios = Funcionario.objects.filter(
                 Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True, ativo=True))
         else:
             if request.user.profile.tipo == 'Colega':
-                # funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True)
                 funcionarios = Funcionario.objects.filter(
                     Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True, ativo=True) | Q(
                         id=request.user.profile.funcionario.id))
 
-    context = {'funcionarios': funcionarios}
+    context = {'funcionarios': funcionarios, 'usuario': request.user.profile}
 
     return render(request, 'list_funcionarios.html', context)
 
+# def listar_avaliacoes_pendentes(request, ref_periodo):
+#     avaliacao = Avaliacao.objects.filter(periodo__gte=ref_periodo)
+#     context = {'funcionarios': avaliacao, 'usuario': request.user.profile}
+#
+#     return render(request, 'list_funcionarios.html', context)
 
 def entrar(request):
     context = {'msg': ''}
