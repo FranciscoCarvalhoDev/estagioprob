@@ -48,17 +48,35 @@ Funcionário para Avaliação
             <h5 class="mt-5 mb-3">Avaliações Realizadas</h5>
             <table class="table table-striped">
                 {% for avaliacao in funcionario.avaliacao.all %}
-                <tr>
+
+                {%if usuario.profile.tipo == 'Comissão' %}
+
+                 <tr>
                     <td>
-                        {{avaliacao.trimestre_avaliado}}º Trimestre - {{avaliacao.periodo}} (Avaliado por
-                        {{avaliacao.tipo_avaliador}} )
+                        <strong>{{avaliacao.trimestre_avaliado}}º Trimestre </strong> - {{avaliacao.periodo}}
+                        (Avaliado pelo {{avaliacao.tipo_avaliador}} em {{avaliacao.data | date:'d/m/Y'}} )
                     </td>
 
-                    <!--                    <td>-->
-                    <!--                        {%if funcionario.ativo == False %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar avaliação</a>{%endif%}-->
-
-                    <!--                    </td>-->
                 </tr>
+                {% elif usuario.profile.tipo == 'Colega' %}
+                    {% if  avaliacao.tipo_avaliador == 'Próprio' %}
+                    <tr>
+                        <td>
+                            <strong>{{avaliacao.trimestre_avaliado}}º Trimestre </strong> - {{avaliacao.periodo}}
+                            Auto Avaliação realizada em: {{avaliacao.data | date:'d/m/Y'}}
+                        </td>
+
+                    </tr>
+                    {%endif%}
+                {%elif avaliacao.tipo_avaliador == 'Chefe'%}
+                 <tr>
+                    <td>
+                        <strong>{{avaliacao.trimestre_avaliado}}º Trimestre </strong> - {{avaliacao.periodo}}
+                        (Avaliado pelo {{avaliacao.tipo_avaliador}} em {{avaliacao.data | date:'d/m/Y'}} )
+                    </td>
+
+                </tr>
+                {%endif%}
                 {%endfor%}
             </table>
         </div>

@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['10.3.150.180','.cmm.local', '127.0.0.1', '[::1]','0.0.0.0']
 
-
+DATE_FORMAT = "Y-m-d"
 # Application definition
 
 INSTALLED_APPS = [

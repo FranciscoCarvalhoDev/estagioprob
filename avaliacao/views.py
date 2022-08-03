@@ -26,10 +26,24 @@ def insert_avaliacao(request, id_funcionario):
 
     avaliacao = Avaliacao
 
+    id_funcionario_usuario = request.user.profile.funcionario.id
+
+    if request.user.profile.tipo == 'Chefe':
+        print('AVALIAÇÃO do Chefe--------------')
+        tipo_avalicao = 'Chefe'
+    else:
+        if id_funcionario_usuario == id_funcionario:
+            print('AVALIAÇÃO PRÓPRIA--------------')
+            tipo_avalicao = 'Próprio'
+        else:
+            print('AVALIAÇÃO COLEGA --------------')
+            tipo_avalicao = 'Colega'
+
+
     #obter a ultima avaliação por tipo de avaliador
     ultima_avaliacao = Avaliacao.objects.filter(
         funcionario=funcionario_avaliado,
-        tipo_avaliador=request.user.profile.tipo).last()
+        tipo_avaliador=tipo_avalicao).last()
 
     # print(ultima_avaliacao.query)
     print('ULTIMA AVALIACAO')
@@ -47,16 +61,6 @@ def insert_avaliacao(request, id_funcionario):
                   + fim_periodo.strftime('%d/%m/%Y') #'periodo ingresso Até perido +90'
         trimestre_avaliado = 1
         proxima_avaliacao = fim_periodo + datetime.timedelta(1) #data de hoje + 90
-
-    id_funcionario_usuario = request.user.profile.funcionario.id
-
-    if id_funcionario_usuario == id_funcionario:
-        print('AVALIAÇÃO PRÓPRIA--------------')
-        tipo_avalicao = 'Próprio'
-    else:
-        print('AVALIAÇÃO COLEGA --------------')
-        tipo_avalicao = 'Colega'
-
 
 
     avaliacao = avaliacao.objects.create(
@@ -354,7 +358,7 @@ def list_avaliados(request):
                     Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True, ativo=True) | Q(
                         id=request.user.profile.funcionario.id))
 
-    context = {'funcionarios': funcionarios}
+    context = {'funcionarios': funcionarios, 'usuario': request.user}
 
     return render(request, 'list_funcionarios.html', context)
 
@@ -363,6 +367,7 @@ def list_avaliados(request):
 def detalhes_avaliado(request, id_avaliado):
     funcionario = Funcionario.objects.get(pk=id_avaliado)
 
+    usuario = request.user
     # if request.user.profile.tipo == 'Comissão':
     #
     #     funcionarios = Funcionario.objects.filter(avaliavel=True).order_by('ativo', 'nome')
@@ -378,7 +383,7 @@ def detalhes_avaliado(request, id_avaliado):
     #                     id=request.user.profile.funcionario.id))
 
     print(funcionario)
-    context = {'funcionario': funcionario}
+    context = {'funcionario': funcionario, 'usuario': usuario}
 
     return render(request, 'details_funcionario.html', context)
 

@@ -28,15 +28,30 @@ Funcionário para Avaliação
                 {{msg}}
             </div>
             {% endif %}
+
+            <div class="alert alert-info">
+                <strong>Departamento:</strong> {{usuario.profile.funcionario.depto}}<br />
+                <strong>Grupo avaliado:</strong> {{usuario.profile.funcionario.grupo_avaliacao}}<br>
+                <p>
+                {%if funcionarios %}<strong>Avaliações:</strong> {{funcionarios | length }}{%endif%}</p>
+            </div>
             <table class="table table-striped">
                 {% for funcionario in funcionarios %}
                 <tr>
                     <td>
-                        {{funcionario}}</td>
+                        {{funcionario}}
+                            {%if funcionario.id == usuario.profile.funcionario.id %}
+                                <span class="destaque-red">(Auto Avaliação)</span>
+                            {%endif%}
+                    </td>
 
                     <td>
-                        {%if funcionario.ativo %}<a href="{% url 'detalhes_avaliado' funcionario.id %}" class="btn btn-primary">Detalhes</a>{%endif%}
-                        {%if funcionario.ativo == False %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar avaliação</a>{%endif%}
+                        {%if funcionario.ativo %}
+
+                            <a href="{% url 'detalhes_avaliado' funcionario.id %}" class="btn btn-primary">Detalhes</a>{%endif%}
+
+                        {%if funcionario.ativo == False %}
+                        <a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar avaliação</a>{%endif%}
 
                     </td>
                 </tr>
