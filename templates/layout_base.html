@@ -14,6 +14,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
+
+    body{
+       background: #265c6c;
+
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+    color: #000;
+    }
+
+    .nav-link.active{
+        color:#000;
+    }
+
+    .row, .bg-light{
+       background: #fbfeff !important;
+    }
     .w-10{
         max-width: 10%
     }
@@ -100,7 +117,7 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="#">Início</a>
         <a class="nav-link" href="{% url 'list_avaliados' %}">Avaliações Pendentes</a>
-        <a class="nav-link" href="{% url 'resumo_avaliacao' 1 %}">Avaliações Realizadas</a>
+        <a class="nav-link" href="{% url 'resumo_avaliacao' 95 %}">Avaliações Realizadas</a>
       </div>
         <div>
             <a href="#" class="m-2 fw-right nav-link">Tipo de avaliação: {{usuario.profile.tipo}}{% if usuario.profile.tipo == 'Colega'%} / Própria{%endif%}</a>
