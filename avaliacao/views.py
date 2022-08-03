@@ -13,7 +13,7 @@ from avaliacao.models import Criterio, Avaliacao, Funcionario, Avaliador
 def insert_avaliacao(request, id_funcionario):
     # id do usuario do ativo
     id_avaliador = request.user.profile.id
-    print(request.user.profile.id)
+    # print(request.user.profile.id)
 
     # add funcionario avaliado
     funcionario_avaliado = Funcionario
@@ -48,10 +48,21 @@ def insert_avaliacao(request, id_funcionario):
         trimestre_avaliado = 1
         proxima_avaliacao = fim_periodo + datetime.timedelta(1) #data de hoje + 90
 
+    id_funcionario_usuario = request.user.profile.funcionario.id
+
+    if id_funcionario_usuario == id_funcionario:
+        print('AVALIAÇÃO PRÓPRIA--------------')
+        tipo_avalicao = 'Próprio'
+    else:
+        print('AVALIAÇÃO COLEGA --------------')
+        tipo_avalicao = 'Colega'
+
+
+
     avaliacao = avaliacao.objects.create(
         data=datetime.datetime.now(),
         tipo='Trimestral',
-        tipo_avaliador=request.user.profile.tipo,
+        tipo_avaliador=tipo_avalicao,
         media='0',
         periodo=periodo,
         trimestre_avaliado=trimestre_avaliado,
@@ -62,8 +73,8 @@ def insert_avaliacao(request, id_funcionario):
 
     medias_criterios, media_avaliacao = add_criterios(request, avaliacao)
 
-    print(medias_criterios)
-    print(media_avaliacao)
+    # print(medias_criterios)
+    # print(media_avaliacao)
 
     avaliacao.media = media_avaliacao
     avaliacao.media_criterios = medias_criterios
