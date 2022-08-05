@@ -124,11 +124,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav" >
+          {% if usuario %}
         <a class="nav-link active" aria-current="page" href="#">Início</a>
         <a class="nav-link" href="{% url 'list_avaliados' %}">Avaliações Pendentes</a>
       </div>        <div>
 
-        {% if usuario %}
+
             <a href="#" class="m-2 fw-right nav-link">Tipo de avaliação: {{usuario.profile.tipo}}{% if usuario.profile.tipo == 'Colega'%} / Própria{%endif%}</a>
         {%endif%}
     </div>

@@ -84,11 +84,8 @@ def insert_avaliacao(request, id_funcionario):
     avaliacao.media_criterios = medias_criterios
     avaliacao.save(force_update=True)
 
-    if request.user.profile.tipo == 'Colega':
-        # Atualizar quando concluir avaliação pra sumir da lista de avaliado do colega
-        novo_grupo_avaliado = funcionario_avaliado.subgrupo_avaliacao + 'X'
-        funcionario_avaliado.subgrupo_avaliacao = novo_grupo_avaliado
-        funcionario_avaliado.save(force_update=True)
+    funcionario_avaliado.avaliacao_pendente = False
+    funcionario_avaliado.save(force_update=True)
 
     return avaliacao
 
@@ -361,7 +358,7 @@ def list_avaliados(request):
     else:
         if request.user.profile.tipo == 'Chefe':
             funcionarios = Funcionario.objects.filter(
-                Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True, ativo=True))
+                Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True, ativo=True, avaliacao_pendente=True))
         else:
             if request.user.profile.tipo == 'Colega':
                 # funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True)
