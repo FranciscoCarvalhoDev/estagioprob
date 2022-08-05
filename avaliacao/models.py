@@ -1,23 +1,36 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+DEPARTAMENTOS = [
+    ('Infraestrutura', 'Infraestrutura'),
+    ('Recursos Humanos', 'Recursos Humanos'),
+    ('Comunicação', 'Comunicação'),
+    ('Administrativo', 'Administrativo'),
+    ('Cerimonial', 'Cerimonial'),
+    ('Escola do Legislativo', 'Escola do Legislativo'),
+    ('Legislativo', 'Legislativo'),
+    ('Tecnologia da Informação', 'Tecnologia da Informação'),
+    ('Jurídico', 'Jurídico'),
+    ('Controle Interno', 'Controle Interno'),
+
+]
 
 class Funcionario(models.Model):
     dt_admissao = models.DateField(default='2022-01-01')
     dt_inicio_exercicio = models.DateField(default='2022-01-01', help_text="Data Inicio efetivo para contagem do periodo probatório")
     dt_posse = models.DateField(default='2022-01-01')
-    nome = models.CharField(max_length=100)
-    matricula = models.CharField(max_length=255)
+    nome = models.CharField(max_length=200)
+    matricula = models.CharField(max_length=100)
     cargo_efetivo = models.CharField(max_length=100)
     cargo_comissionado = models.CharField(max_length=100)
-    depto = models.CharField(max_length=255)
+    depto = models.CharField(max_length=255, choices=DEPARTAMENTOS)
     funcao = models.CharField(max_length=255, default="Nenhuma")
-    periodos_avaliados = models.CharField(max_length=2, default=0)
+   # periodos_avaliados = models.CharField(max_length=2, default=0)
     grupo_avaliacao = models.CharField(max_length=255, help_text="Grupo de funcionarios a ser avaliados por um Chefe Imediato")
     subgrupo_avaliacao = models.CharField(max_length=255, help_text="Grupo para avaliação do colega")
     avaliavel = models.BooleanField()
     ativo = models.BooleanField(default=0)
-
+    avaliacao_pendente = models.BooleanField(default=1)
 
     def __str__(self):
         return self.nome
@@ -58,9 +71,9 @@ class Avaliacao(models.Model):
     data = models.DateField()
     tipo = models.CharField(max_length=100, choices=TIPO_AVALIACAO)
     tipo_avaliador = models.CharField(max_length=255, choices=NIVEL, help_text="Realizado por Chefe, Colega ou pelo proprio funcionario ")
-    media = models.CharField(max_length=100, null=True)
-    media_criterios = models.CharField(max_length=255, null=True)
-    periodo = models.CharField(max_length=255, help_text="Periodo avaliado")
+    media = models.CharField(max_length=3, null=True)
+    media_criterios = models.CharField(max_length=100, null=True)
+    periodo = models.CharField(max_length=30, help_text="Periodo avaliado")
     trimestre_avaliado = models.CharField(max_length=2, default=0, help_text="Trimestre a que se refere. Contador do estado atual da avaliação")
     proxima_avaliacao = models.DateField()
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, related_name='avaliacao')
@@ -86,8 +99,8 @@ class Criterio(models.Model):
         ('10. Relações Interpessoais', '10. Relações Interpessoais'),
     ]
 
-    descricao = models.CharField(max_length=255)
-    nota = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=30)
+    nota = models.CharField(max_length=3)
     categoria = models.CharField(max_length=100, choices=CATEGORIA)
     avaliacao = models.ForeignKey(Avaliacao, on_delete=models.CASCADE, related_name='criterio_avaliacao')
 

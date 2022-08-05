@@ -3,10 +3,7 @@
 {% block title %}
 Funcionário para Avaliação
 {% endblock %}
-{% block header %}
 
-Funcionário para Avaliação
-{% endblock %}
 
 {% block content %}
 
@@ -18,46 +15,69 @@ Funcionário para Avaliação
 
 
 
+
 </style>
 
 <section class="vh-100">
-    <div class="container-fluid h-custom">
-        <div class="row d-flex justify-content align-items-center h-100">
-            {% if msg %}
-            <div class="alert alert-warning">
-                {{msg}}
-            </div>
-            {% endif %}
+    <div class="container-fluid">
+        <div class="row d-flex justify-content h-100">
+            <div class="col-8">
+                {% if msg %}
+                <div class="alert alert-warning">
+                    {{msg}}
+                </div>
+                {% endif %}
 
-            <div class="alert alert-info">
-                <strong>Departamento:</strong> {{usuario.profile.funcionario.depto}}<br />
-                <strong>Grupo avaliado:</strong> {{usuario.profile.funcionario.grupo_avaliacao}}<br>
-                <p>
-                {%if funcionarios %}<strong>Avaliações:</strong> {{funcionarios | length }}{%endif%}</p>
-            </div>
-            <table class="table table-striped">
-                {% for funcionario in funcionarios %}
-                <tr>
-                    <td>
-                        {{funcionario}}
+                <div class="alert alert-secondary">
+                    <strong>Departamento:</strong> {{usuario.profile.funcionario.depto}}<br/>
+                    <strong>Grupo avaliado:</strong> {{usuario.profile.funcionario.grupo_avaliacao}}<br>
+                    <p>
+                        {%if funcionarios %}<strong>Avaliações:</strong> {{funcionarios | length }}{%endif%}</p>
+                </div>
+
+
+                <h4 class="mt-5 mb-4">Funcionário para Avaliação</h4>
+                <table class="table table">
+                    {% for funcionario in funcionarios %}
+                    <tr>
+                        <td>
+                            {{funcionario}}
                             {%if funcionario.id == usuario.profile.funcionario.id %}
-                                <span class="destaque-red">(Auto Avaliação)</span>
+                            <span class="destaque-red">(Auto Avaliação)</span>
                             {%endif%}
-                    </td>
+                        </td>
 
-                    <td>
-                        {%if funcionario.ativo %}
+                        <td>
+                            {%if funcionario.ativo %}
 
                             <a href="{% url 'detalhes_avaliado' funcionario.id %}" class="btn btn-primary">Detalhes</a>{%endif%}
 
-                        {%if funcionario.ativo == False %}
-                        <a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar avaliação</a>{%endif%}
+                            {%if funcionario.ativo == False %}
+                            <a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar
+                                avaliação</a>{%endif%}
 
-                    </td>
-                </tr>
-                {%endfor%}
-            </table>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </table>
+            </div>
+            <div class="col-4 alert-success p-3">
+                <h4 class="alert-heading">Instruções</h4>
+                <p>
+                <ol>
+
+                    <li>Clique em "detalhes" para selecionar um funcionário</li>
+                    <li>Verifique se o mesmo ainda não foi avaliado e clique em avaliar</li>
+                    <li>Preencher o formulário e imprimir</li>
+                    <li>Responder as duas questões no final e assinar</li>
+                    <li>Entregar pra a Comissão de Avalicação</li>
+                </ol>
+                <p>
+                    <strong>Impressão no firefox:</strong><br > Margens superior e inferior 15m; <br/>Margens direita e esquerda: 2.5mm </strong>
+                </p>
+            </div>
         </div>
+
     </div>
 
 </section>

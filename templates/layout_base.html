@@ -71,6 +71,11 @@
         padding-left:1em;
     }
 
+    .vh-100 {
+    min-height: 100vh!important;
+    height: auto !important;
+}
+
     .btn_remove_item{
         color:#842029;
     }
@@ -86,7 +91,7 @@
         }
     }
 
-    .img-logo{
+    .img-logo-nav{
         width:60%;
     }
 
@@ -98,6 +103,10 @@
         color: #448f65;
         font-weight: 500;
     }
+
+    #nav-bar-principal{
+        border-bottom: 1px solid #a5826d;
+    }
 </style>
 
 </head>
@@ -106,22 +115,23 @@
 <div class="row" id="navbar-principal">
     <div class="col-12">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
+  <div class="container-fluid" id="nav-bar-principal">
     <a class="navbar-brand" href="#">
         {% load static %}
-    <img class="img-logo" src="{% static 'logo-cmm.jpg' %}" /></a>
+    <img class="img-logo-nav" src="{% static 'logo-cmm.jpg' %}" /></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+      <div class="navbar-nav" >
         <a class="nav-link active" aria-current="page" href="#">Início</a>
         <a class="nav-link" href="{% url 'list_avaliados' %}">Avaliações Pendentes</a>
-        <a class="nav-link" href="{% url 'resumo_avaliacao' 95 %}">Avaliações Realizadas</a>
-      </div>
-        <div>
+      </div>        <div>
+
+        {% if usuario %}
             <a href="#" class="m-2 fw-right nav-link">Tipo de avaliação: {{usuario.profile.tipo}}{% if usuario.profile.tipo == 'Colega'%} / Própria{%endif%}</a>
-        </div>
+        {%endif%}
+    </div>
     </div>
   </div>
 </nav>

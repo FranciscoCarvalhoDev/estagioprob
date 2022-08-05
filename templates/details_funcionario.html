@@ -19,6 +19,7 @@ Funcionário para Avaliação
 
 
 
+
 </style>
 
 <section class="vh-100">
@@ -31,54 +32,106 @@ Funcionário para Avaliação
             {% endif %}
             <div class="row">
 
-                    <div class="col-12 alert alert-info">
-                        <div><strong>Avaliado: </strong><span>{{funcionario.nome }} - {{funcionario.matricula }}</span>
-                        </div>
-                        <div><strong>Cargo: </strong><span>{{funcionario.cargo_efetivo }}</span></div>
-                        <div><strong>Depto: </strong><span>{{funcionario.depto }}</span> <strong>Função: </strong><span>{{funcionario.funcao }}</span>
-                        </div>
-
+                <div class="col-12 alert alert-secondary">
+                    <div><strong>Avaliado: </strong><span>{{funcionario.nome }} - {{funcionario.matricula }}</span>
                     </div>
+                    <div><strong>Cargo: </strong><span>{{funcionario.cargo_efetivo }}</span></div>
+                    <div><strong>Depto: </strong><span>{{funcionario.depto }}</span> <strong>Função: </strong><span>{{funcionario.funcao }}</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="d-flex flex-row-reverse justify-content-center">
+                {%if funcionario.ativo %}<a href="{% url 'cad_avaliacao' funcionario.id %}"
+                                            class="btn btn-success btn-lg">Realizar avaliação</a>{%endif%}
+
+
             </div>
             <div class="container">
-                        {%if funcionario.ativo %}<a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary btn-lg">Realizar avaliação</a>{%endif%}
+                <h4 class="mt-5 mb-3">Avaliações</h4>
+                {% if funcionario.avaliacao.all %}
 
+                <table class="table table-striped w-75">
+                    <thead>
+                        <tr>
+                            <th class="w-10">Data da avaliação</th>
+                            <th class="w-10">Avaliador</th>
 
-            </div>
-            <h5 class="mt-5 mb-3">Avaliações Realizadas</h5>
-            <table class="table table-striped">
-                {% for avaliacao in funcionario.avaliacao.all %}
+                            <th>Período / Média</th>
+                        <th class="w-10">
+                            Referência
+                        </th>
 
-                {%if usuario.profile.tipo == 'Comissão' %}
+                        </tr>
 
-                 <tr>
-                    <td>
-                        <strong>{{avaliacao.trimestre_avaliado}}º Trimestre </strong> - {{avaliacao.periodo}}
-                        (Avaliado pelo {{avaliacao.tipo_avaliador}} em {{avaliacao.data | date:'d/m/Y'}} )
-                    </td>
+                    </thead>
+                    {% for avaliacao in funcionario.avaliacao.all|dictsort:"periodo" %}
 
-                </tr>
-                {% elif usuario.profile.tipo == 'Colega' %}
-                    {% if  avaliacao.tipo_avaliador == 'Próprio' %}
+                    {%if usuario.profile.tipo == 'Comissão' %}
+
                     <tr>
                         <td>
-                            <strong>{{avaliacao.trimestre_avaliado}}º Trimestre </strong> - {{avaliacao.periodo}}
-                            Auto Avaliação realizada em: {{avaliacao.data | date:'d/m/Y'}}
+                            {{avaliacao.data | date:'d M y'}}
                         </td>
+                        <td>
+                            {{avaliacao.tipo_avaliador}}
+                        </td>
+                        <td>
+                            <strong>{{avaliacao.trimestre_avaliado}}º</strong> <span class="badge bg-secondary">
+                            {{avaliacao.media}}</span>
+                        </td>
+                        <td>
+                            {{avaliacao.periodo}}
+                        </td>
+
+
+                    </tr>
+                    {% elif usuario.profile.tipo == 'Colega' %}
+                    {% if avaliacao.tipo_avaliador == 'Próprio' %}
+<tr>
+                        <td>
+                            {{avaliacao.data | date:'d M y'}}
+                        </td>
+                        <td>
+                            {{avaliacao.tipo_avaliador}}
+                        </td>
+                        <td>
+                            <strong>{{avaliacao.trimestre_avaliado}}º</strong> <span class="badge bg-secondary">
+                            {{avaliacao.media}}</span>
+                        </td>
+                        <td>
+                            <a class="nav-link" href="{% url 'resumo_avaliacao'  avaliacao.id%}">
+                                {{avaliacao.periodo}}</a>
+                        </td>
+
 
                     </tr>
                     {%endif%}
-                {%elif avaliacao.tipo_avaliador == 'Chefe'%}
-                 <tr>
-                    <td>
-                        <strong>{{avaliacao.trimestre_avaliado}}º Trimestre </strong> - {{avaliacao.periodo}}
-                        (Avaliado pelo {{avaliacao.tipo_avaliador}} em {{avaliacao.data | date:'d/m/Y'}} )
-                    </td>
+                    {%elif avaliacao.tipo_avaliador == 'Chefe'%}
+                    <tr>
+                        <td>
+                            {{avaliacao.data | date:'d M y'}}
+                        </td>
+                        <td>
+                            {{avaliacao.tipo_avaliador}}
+                        </td>
+                        <td>
+                            <strong>{{avaliacao.trimestre_avaliado}}º</strong> <span class="badge bg-secondary">
+                            {{avaliacao.media}}</span>
+                        </td>
+                        <td>
+                            <a class="nav-link" href="{% url 'resumo_avaliacao'  avaliacao.id%}">{{avaliacao.periodo}}</a>
+                        </td>
 
-                </tr>
+
+                    </tr>
+                    {%endif%}
+                    {%endfor%}
+                </table>
+                {%else%}
+                    <div class="alert alert-secondary">Nenhuma avaliação realizada</div>
                 {%endif%}
-                {%endfor%}
-            </table>
+            </div>
         </div>
     </div>
 

@@ -71,17 +71,19 @@ Registrar Avaliação
 
 
 
+
 </style>
 
 <div class="row">
     <div class="container" class="form_cad_avaliacao">
 
-    <div class="col-12 alert alert-info">
-        <div><strong>Avaliado: </strong><span>{{funcionario.nome }} - {{funcionario.matricula }}</span></div>
-        <div><strong>Cargo: </strong><span>{{funcionario.cargo }}</span></div>
-        <div><strong>Depto: </strong><span>{{funcionario.depto }}</span> <strong>Função: </strong><span>{{funcionario.funcao }}</span></div>
+        <div class="col-12 alert alert-info">
+            <div><strong>Avaliado: </strong><span>{{funcionario.nome }} - {{funcionario.matricula }}</span></div>
+            <div><strong>Cargo: </strong><span>{{funcionario.cargo }}</span></div>
+            <div><strong>Depto: </strong><span>{{funcionario.depto }}</span> <strong>Função: </strong><span>{{funcionario.funcao }}</span>
+            </div>
 
-    </div>
+        </div>
     </div>
 
 </div>
@@ -92,532 +94,531 @@ Registrar Avaliação
     {% if msg %}
     <div class="alert alert-warning">{{ msg}}</div>
     {% endif %}
-<!--    {{form.as_p}}-->
+    <!--    {{form.as_p}}-->
 
 
-
-<nav id="tab-categorias">
-<div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Assiduidade - Disciplina - Iniciativa >></button>
-    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Produtividade - Responsabilidade - Cooperação >></button>
-    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Dinamismo - Adaptabilidade - Urbanidade - Cooperação</button>
-  </div>
-</nav>
-<div class="tab-content p-5 pt-4" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-<h4>Assiduidade Pontualidade</h4>
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio1" class="form-control layout_txt" readonly>1 - Comparece regularmente ao trabalho</textarea>
+    <nav id="tab-categorias">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                    type="button" role="tab" aria-controls="nav-home" aria-selected="true">Assiduidade - Disciplina -
+                Iniciativa >>
+            </button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                    type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Produtividade -
+                Responsabilidade - Cooperação >>
+            </button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                    type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Dinamismo -
+                Adaptabilidade - Urbanidade - Cooperação
+            </button>
         </div>
-        <div class="col-2"><select name="pt_criterio1" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
+    </nav>
+    <div class="tab-content p-5 pt-4 mb-3" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <h4>Assiduidade Pontualidade</h4>
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio1" class="form-control layout_txt" readonly>1 - Comparece regularmente ao trabalho</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio1" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
 
 
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio2" class="form-control layout_txt" readonly>2 - É pontual no horário e permanece no local de trabalho durante o expediente</textarea>
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio2" class="form-control layout_txt" readonly>2 - É pontual no horário e permanece no local de trabalho durante o expediente</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio2" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio3" class="form-control layout_txt" readonly>3 - Cumpre o horário de trabalho</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio3" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio4" class="form-control layout_txt" readonly>4 - Informa, em tempo hábil, imprevistos que impeçam o seu comparecimento ou cumprimento do horário</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio4" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+
+            <h4>Disciplina</h4>
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio5" class="form-control layout_txt" readonly>1 - Exerce com zelo e dedicação as atribuições legais e regulamentares inerentes ao cargo/função.</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio5" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio6" class="form-control layout_txt" readonly>2 - Mantém postura e aparência pessoal condizente à cultura do órgão, ao cargo ou função e traja-se adequadamente</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio6" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio7" class="form-control layout_txt" readonly>3 - Observa as normas legais e regulamentares estabelecidas pela Instituição</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio7" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio8" class="form-control layout_txt" readonly>4 - Dedica-se à execução das tarefas na sua totalidade sem esquivar-se de suas atribuições legais</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio8" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio9" class="form-control layout_txt" readonly>5 - Cumpre as ordens superiores respeitando a hierarquia, exceto quando manifestadamente ilegais</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio9" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+            <h4>Capacidade de Iniciativa</h4>
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio10" class="form-control layout_txt" readonly>1 - Procura conhecer a Instituição, inteirando-se da sua estrutura e funcionamento, legislação, instruções, normas, manuais, etc.</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio10" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-9"><textarea rows="3" name="txt_criterio11" class="form-control layout_txt" readonly>2 - Procura se atualizar no que diz respeito às suas atribuições e função para os quais foi designado(a), participando de cursos/palestras ofertados pela instituição ou sugerindo outros que forneçam melhorias nas atividades da instituição.</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio11" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio12" class="form-control layout_txt" readonly>3 - É capaz de encontrar soluções que se adequem ao problema do modo que atenda/supere as necessidades/expectativas do setor</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio12" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio13" class="form-control layout_txt" readonly>4 - Encaminha correta e adequadamente os assuntos que fogem à sua alçada decisória/funcional</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio13" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="4" name="txt_criterio14" class="form-control layout_txt" readonly>5 - Põe-se à disposição espontaneamente da administração aprender outros serviços e auxiliar colegas, respeitando suas atribuições legais.</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio14" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+            <div class="d-flex flex-row-reverse justify-content-center">
+                <a href="#" class="btn btn-primary btn-lg" onclick="javascript:$('#nav-profile-tab').click()">Próximo
+                    Grupo</a></div>
+
         </div>
-        <div class="col-2"><select name="pt_criterio2" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
+        <!--TAB1
 
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio3" class="form-control layout_txt" readonly>3 - Cumpre o horário de trabalho</textarea>
+    -->
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <h4>Produtividade</h4>
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio15" class="form-control layout_txt" readonly>1 - Planeja e organiza as tarefas, observando as prioridades</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio15" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio16" class="form-control layout_txt" readonly>2 - Em situações excepcionais ou de pico busca agilizar/priorizar os trabalhos de forma a alcançar os objetivos do departamento</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio16" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio17" class="form-control layout_txt" readonly>3 - Faz atividades corretamente, com qualidade técnica e estética, evitando o retrabalho</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio17" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio18" class="form-control layout_txt" readonly>4 - Domina as tecnologias/equipamentos/máquinas necessárias ao desempenho de suas atribuições, contribuindo para o aumento da capacidade produtiva</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio18" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio19" class="form-control layout_txt" readonly>5 - Utiliza de forma racional o tempo e o material disponível, cumprindo os prazos que lhe são dados para a execução dos trabalhos</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio19" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <h4>Responsabilidade</h4>
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio20" class="form-control layout_txt" readonly>1 - Realiza atividades/tarefas evitando a ocorrência de erros/falhas e os corrige ao detectá-los, respeitando suas atribuições legais</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio20" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio21" class="form-control layout_txt" readonly>2 - Inspira confiança, demonstrando honestidade, integridade e imparcialidade na realização de suas atribuições e no relacionamento com as pessoas no ambiente de trabalho</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio21" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio22" class="form-control layout_txt" readonly>3 - Mostra-se comprometido e empenhado com o trabalho que lhe é designado. Cumpre com acordos, compromissos e obrigações que lhes são pertinentes</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio22" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="3" name="txt_criterio23" class="form-control layout_txt" readonly>4 - Zela pelo patrimônio da Instituição. Usa racional e adequadamente os materiais (consumo) e equipamentos de trabalho, evitando desperdícios e gastos desnecessários, além de zelar em suas atividades pela segurança sua e de outros</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio23" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <h4>Cooperação - Trabalho em Grupo</h4>
+
+
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio24" class="form-control layout_txt" readonly>1 - coopera na busca de soluções para as situações imprevistas no departamento/órgão onde trabalha</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio24" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio25" class="form-control layout_txt" readonly>2 - coloca-se à disposição quando surgem situações imprevistas</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio25" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio26" class="form-control layout_txt" readonly>3 - presta auxílio aos colegas em atividades que domina ou que possa contribuir</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio26" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+            <div class="row">
+                <div class="col-9"><textarea rows="2" name="txt_criterio27" class="form-control layout_txt" readonly>4 - coloca-se à disposição no cumprimento das atividades do departamento em outros setores do órgão, respeitando às atribuições legais</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio27" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+            <div class="row">
+                <div class="col-9"><textarea rows="1" name="txt_criterio28" class="form-control layout_txt" readonly>5 - Demonstra comprometimento ao trabalhar em equipe</textarea>
+                </div>
+                <div class="col-2"><select name="pt_criterio28" class="form-select layout_pt" required>
+                    <option value="">Selecione...</option>
+                    <option value="49">Insuficiente / Ruim</option>
+                    <option value="64">Regular</option>
+                    <option value="85">Bom</option>
+                    <option value="100">Excelente</option>
+                </select></div>
+            </div>
+
+            <div class="d-flex flex-row-reverse justify-content-center">
+                <a href="#" class="btn btn-primary btn-lg" onclick="javascript:$('#nav-contact-tab').click()">Próximo
+                    Grupo</a></div>
         </div>
-        <div class="col-2"><select name="pt_criterio3" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
+        <!--- 2 TAB-->
 
-    <div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio4" class="form-control layout_txt" readonly>4 - Informa, em tempo hábil, imprevistos que impeçam o seu comparecimento ou cumprimento do horário</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio4" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
+        <!--TAB2
 
+    -->
 
+<!--    </div>-->
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-    <h4>Disciplina</h4>
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio5" class="form-control layout_txt" readonly>1 - Exerce com zelo e dedicação as atribuições legais e regulamentares inerentes ao cargo/função.</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio5" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
+        <h4>Dinamismo</h4>
 
-
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio6" class="form-control layout_txt" readonly>2 - Mantém postura e aparência pessoal condizente à cultura do órgão, ao cargo ou função e traja-se adequadamente</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio6" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio7" class="form-control layout_txt" readonly>3 - Observa as normas legais e regulamentares estabelecidas pela Instituição</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio7" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio8" class="form-control layout_txt" readonly>4 - Dedica-se à execução das tarefas na sua totalidade sem esquivar-se de suas atribuições legais</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio8" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio9" class="form-control layout_txt" readonly>5 - Cumpre as ordens superiores respeitando a hierarquia, exceto quando manifestadamente ilegais</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio9" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <h4>Capacidade de Iniciativa</h4>
-    <div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio10" class="form-control layout_txt" readonly>1 - Procura conhecer a Instituição, inteirando-se da sua estrutura e funcionamento, legislação, instruções, normas, manuais, etc.</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio10" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-9"><textarea rows="3" name="txt_criterio11" class="form-control layout_txt" readonly>2 - Procura se atualizar no que diz respeito às suas atribuições e função para os quais foi designado(a), participando de cursos/palestras ofertados pela instituição ou sugerindo outros que forneçam melhorias nas atividades da instituição.</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio11" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio12" class="form-control layout_txt" readonly>3 - É capaz de encontrar soluções que se adequem ao problema do modo que atenda/supere as necessidades/expectativas do setor</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio12" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio13" class="form-control layout_txt" readonly>4 - Encaminha correta e adequadamente os assuntos que fogem à sua alçada decisória/funcional</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio13" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
 
         <div class="row">
-            <div class="col-9"><textarea rows="4" name="txt_criterio14" class="form-control layout_txt" readonly>5 - Põe-se à disposição espontaneamente da administração aprender outros serviços e auxiliar colegas, respeitando suas atribuições legais.</textarea>
+            <div class="col-9"><textarea rows="1" name="txt_criterio29" class="form-control layout_txt" readonly>1 - Desenvolve habilidades buscando novas formas de executar mais e melhor suas tarefas</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio29" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio14" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-
-      <!--TAB1
-
-  --></div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-<h4>Produtividade</h4>
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio15" class="form-control layout_txt" readonly>1 - Planeja e organiza as tarefas, observando as prioridades</textarea>
+        <div class="row">
+            <div class="col-9"><textarea rows="1" name="txt_criterio30" class="form-control layout_txt" readonly>2 - Executa suas tarefas com prontidão e esforço demonstrando interesse em melhorar</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio30" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio15" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
 
+        <h4>Adaptabilidade</h4>
 
-    <div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio16" class="form-control layout_txt" readonly>2 - Em situações excepcionais ou de pico busca agilizar/priorizar os trabalhos de forma a alcançar os objetivos do departamento</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio16" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio17" class="form-control layout_txt" readonly>3 - Faz atividades corretamente, com qualidade técnica e estética, evitando o retrabalho</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio17" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio18" class="form-control layout_txt" readonly>4 - Domina as tecnologias/equipamentos/máquinas necessárias ao desempenho de suas atribuições, contribuindo para o aumento da capacidade produtiva</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio18" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
 
         <div class="row">
-            <div class="col-9"><textarea rows="2" name="txt_criterio19" class="form-control layout_txt" readonly>5 - Utiliza de forma racional o tempo e o material disponível, cumprindo os prazos que lhe são dados para a execução dos trabalhos</textarea>
+            <div class="col-9"><textarea rows="2" name="txt_criterio31" class="form-control layout_txt" readonly>1 - Demonstra flexibilidade e capacidade de compreender e dar respostas às novas situações de trabalho</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio31" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio19" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <h4>Responsabilidade</h4>
-    <div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio20" class="form-control layout_txt"  readonly>1 - Realiza atividades/tarefas evitando a ocorrência de erros/falhas e os corrige ao detectá-los, respeitando suas atribuições legais</textarea>
+        <div class="row">
+            <div class="col-9"><textarea rows="1" name="txt_criterio32" class="form-control layout_txt" readonly>2 - Adapta-se com agilidade às mudanças de metodologia, processos, tecnologia etc</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio32" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio20" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio21" class="form-control layout_txt" readonly>2 - Inspira confiança, demonstrando honestidade, integridade e imparcialidade na realização de suas atribuições e no relacionamento com as pessoas no ambiente de trabalho</textarea>
+        <div class="row">
+            <div class="col-9"><textarea rows="1" name="txt_criterio33" class="form-control layout_txt" readonly>3 - Empenha-se para solucionar algumas situações imprevista do trabalho quando solicitado</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio33" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio21" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio22" class="form-control layout_txt" readonly>3 - Mostra-se comprometido e empenhado com o trabalho que lhe é designado. Cumpre com acordos, compromissos e obrigações que lhes são pertinentes</textarea>
+        <h4>Urbanidade</h4>
+        <div class="row">
+            <div class="col-9"><textarea rows="1" name="txt_criterio34" class="form-control layout_txt" readonly>1 - Desenvolve suas atividades com a cortesia e civilidade</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio34" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio22" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <div class="row">
-        <div class="col-9"><textarea rows="3" name="txt_criterio23" class="form-control layout_txt" readonly>4 - Zela pelo patrimônio da Instituição. Usa racional e adequadamente os materiais (consumo) e equipamentos de trabalho, evitando desperdícios e gastos desnecessários, além de zelar em suas atividades pela segurança sua e de outros</textarea>
+        <div class="row">
+            <div class="col-9"><textarea rows="1" name="txt_criterio35" class="form-control layout_txt" readonly>2 - Apresenta polidez no trato com servidores e o público em geral</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio35" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio23" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
 
-    <h4>Cooperação - Trabalho em Grupo</h4>
-
-
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio24" class="form-control layout_txt" readonly>1 - coopera na busca de soluções para as situações imprevistas no departamento/órgão onde trabalha</textarea>
+        <h4>Relações Interpessoais</h4>
+        <div class="row">
+            <div class="col-9"><textarea rows="1" name="txt_criterio36" class="form-control layout_txt" readonly>1 - Demonstra eficiência na comunicação e liderança profissional</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio36" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio24" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio25" class="form-control layout_txt" readonly>2 - coloca-se à disposição quando surgem situações imprevistas</textarea>
+        <div class="row">
+            <div class="col-9"><textarea rows="1" name="txt_criterio37" class="form-control layout_txt" readonly>2 - Apresenta cordialidade no ambiente de trabalho</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio37" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio25" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-<div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio26" class="form-control layout_txt" readonly>3 - presta auxílio aos colegas em atividades que domina ou que possa contribuir</textarea>
+        <div class="row">
+            <div class="col-9"><textarea rows="1" name="txt_criterio38" class="form-control layout_txt" readonly>3 - Contribui na promoção de um ambiente de trabalho harmônico e agradável</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio38" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio26" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-<div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio27" class="form-control layout_txt" readonly>4 - coloca-se à disposição no cumprimento das atividades do departamento em outros setores do órgão, respeitando às atribuições legais</textarea>
+        <div class="row">
+            <div class="col-9"><textarea rows="2" name="txt_criterio39" class="form-control layout_txt" readonly>4 - Apresenta capacidade de se relacionar com outras pessoas dos diversos níveis hierárquicos evitando conflitos desnecessários</textarea>
+            </div>
+            <div class="col-2"><select name="pt_criterio39" class="form-select layout_pt" required>
+                <option value="">Selecione...</option>
+                <option value="49">Insuficiente / Ruim</option>
+                <option value="64">Regular</option>
+                <option value="85">Bom</option>
+                <option value="100">Excelente</option>
+            </select></div>
         </div>
-        <div class="col-2"><select name="pt_criterio27" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-<div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio28" class="form-control layout_txt" readonly>5 - Demonstra comprometimento ao trabalhar em equipe</textarea>
+        <div class="d-flex flex-row-reverse justify-content-center">
+                <input type="submit" class="btn btn-lg btn-success" value="Cadastrar"/>
         </div>
-        <div class="col-2"><select name="pt_criterio28" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
+    </div>
     </div>
 
-
-      <!--- 2 TAB-->
-
-      <!--TAB2
-
-  -->
-
-  </div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-
-<h4>Dinamismo</h4>
-
-
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio29" class="form-control layout_txt" readonly>1 - Desenvolve habilidades buscando novas formas de executar mais e melhor suas tarefas</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio29" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio30" class="form-control layout_txt" readonly>2 - Executa suas tarefas com prontidão e esforço demonstrando interesse em melhorar</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio30" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <h4>Adaptabilidade</h4>
-
-
-    <div class="row">
-        <div class="col-9"><textarea rows="2" name="txt_criterio31" class="form-control layout_txt" readonly>1 - Demonstra flexibilidade e capacidade de compreender e dar respostas às novas situações de trabalho</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio31" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio32" class="form-control layout_txt" readonly>2 - Adapta-se com agilidade às mudanças de metodologia, processos, tecnologia etc</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio32" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio33" class="form-control layout_txt" readonly>3 - Empenha-se para solucionar algumas situações imprevista do trabalho quando solicitado</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio33" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <h4>Urbanidade</h4>
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio34" class="form-control layout_txt" readonly>1 - Desenvolve suas atividades com a cortesia e civilidade</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio34" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <div class="row">
-<div class="col-9"><textarea rows="1" name="txt_criterio35" class="form-control layout_txt" readonly>2 - Apresenta polidez no trato com servidores e o público em geral</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio35" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-
-    <h4>Relações Interpessoais</h4>
-    <div class="row">
-        <div class="col-9"><textarea rows="1" name="txt_criterio36" class="form-control layout_txt" readonly>1 - Demonstra eficiência na comunicação e liderança profissional</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio36" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <div class="row">
-<div class="col-9"><textarea rows="1" name="txt_criterio37" class="form-control layout_txt" readonly>2 - Apresenta cordialidade no ambiente de trabalho</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio37" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <div class="row">
-<div class="col-9"><textarea rows="1" name="txt_criterio38" class="form-control layout_txt" readonly>3 - Contribui na promoção de um ambiente de trabalho harmônico e agradável</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio38" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-    <div class="row">
-<div class="col-9"><textarea rows="2" name="txt_criterio39" class="form-control layout_txt" readonly>4 - Apresenta capacidade de se relacionar com outras pessoas dos diversos níveis hierárquicos evitando conflitos desnecessários</textarea>
-        </div>
-        <div class="col-2"><select name="pt_criterio39" class="form-select layout_pt" required>
-            <option value="">Selecione...</option>
-            <option value="49">Insuficiente / Ruim</option>
-            <option value="64">Regular</option>
-            <option value="85">Bom</option>
-            <option value="100">Excelente</option>
-        </select></div>
-    </div>
-      <div class="row">
-    <div class="col-12">
-        <input type="submit" class="btn btn-lg btn-success" value="Cadastrar"/>
-    </div>
-</div>
-  </div>
-</div>
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
+   </div>
 
 
 </form>

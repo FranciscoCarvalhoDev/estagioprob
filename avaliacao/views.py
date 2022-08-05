@@ -84,6 +84,12 @@ def insert_avaliacao(request, id_funcionario):
     avaliacao.media_criterios = medias_criterios
     avaliacao.save(force_update=True)
 
+    if request.user.profile.tipo == 'Colega':
+        # Atualizar quando concluir avaliação pra sumir da lista de avaliado do colega
+        novo_grupo_avaliado = funcionario_avaliado.subgrupo_avaliacao + 'X'
+        funcionario_avaliado.subgrupo_avaliacao = novo_grupo_avaliado
+        funcionario_avaliado.save(force_update=True)
+
     return avaliacao
 
 
@@ -293,7 +299,8 @@ def cad_avaliacao(request, id_funcionario):
         avaliacao = insert_avaliacao(request, id_funcionario)
         # insert_avaliacao(request, 3)
 
-        return resumo_avaliacao(request,avaliacao.pk)
+        return redirect('/resumo/avaliacao/'+str(avaliacao.pk))
+        # resumo_avaliacao(request,avaliacao.pk)
 
         print(avaliacao)
         context = {'avaliacao': avaliacao}
@@ -327,15 +334,19 @@ def reativar_avaliacao(request, id_funcionario):
     return render(request, 'list_funcionarios.html')
 
 
-
+@login_required()
 def resumo_avaliacao(request, id_avaliacao):
-    avaliacao = Avaliacao.objects.get(pk=id_avaliacao)
-    criterios = Criterio.objects.filter(avaliacao=avaliacao)
-    # criterios = Criterio.objects.filter(categoria = '3. Capacidade de Iniciativa', avaliacao=avaliacao)
 
-    lista_medias_criterios = ast.literal_eval(avaliacao.media_criterios)
-    context = {'avaliacao': avaliacao, 'criterios': criterios, 'media_criterios': lista_medias_criterios}
-    print(criterios)
+    context = {'msg': 'Avaliação não pode ser exibida'}
+    avaliacao = Avaliacao.objects.get(pk=id_avaliacao)
+
+    if request.user.profile.id == avaliacao.avaliador.id or request.user.profile.tipo == 'Comissão':
+        criterios = Criterio.objects.filter(avaliacao=avaliacao)
+
+        lista_medias_criterios = ast.literal_eval(avaliacao.media_criterios)
+        context = {'avaliacao': avaliacao, 'criterios': criterios, 'media_criterios': lista_medias_criterios}
+        print(criterios)
+
     return render(request, 'resumo_avaliacao.html', context)
 
 
