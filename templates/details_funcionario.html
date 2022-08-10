@@ -81,10 +81,10 @@ Servidor em Período Probatório
                         </td>
                         <td>
                             <strong>{{avaliacao.trimestre_avaliado}}º</strong> <span class="badge bg-secondary">
-                            {{avaliacao.media}}</span>
+                            {{avaliacao.media|floatformat:1}}</span>
                         </td>
                         <td>
-                            {{avaliacao.periodo}}
+                            <a class="nav-link" href="{% url 'resumo_avaliacao'  avaliacao.id%}">{{avaliacao.periodo}}</a>
                         </td>
 
 
@@ -100,7 +100,7 @@ Servidor em Período Probatório
                         </td>
                         <td>
                             <strong>{{avaliacao.trimestre_avaliado}}º</strong> <span class="badge bg-secondary">
-                            {{avaliacao.media}}</span>
+                            {{avaliacao.media|floatformat:1}}</span>
                         </td>
                         <td>
                             <a class="nav-link" href="{% url 'resumo_avaliacao'  avaliacao.id%}">
@@ -120,7 +120,7 @@ Servidor em Período Probatório
                         </td>
                         <td>
                             <strong>{{avaliacao.trimestre_avaliado}}º</strong> <span class="badge bg-secondary">
-                            {{avaliacao.media}}</span>
+                            {{avaliacao.media|floatformat:1}}</span>
                         </td>
                         <td>
                             <a class="nav-link" href="{% url 'resumo_avaliacao'  avaliacao.id%}">{{avaliacao.periodo}}</a>

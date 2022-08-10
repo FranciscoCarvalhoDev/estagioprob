@@ -2,35 +2,35 @@ from django.contrib.auth.models import User
 from django.db import models
 
 DEPARTAMENTOS = [
-    ('Infraestrutura', 'Infraestrutura'),
-    ('Recursos Humanos', 'Recursos Humanos'),
-    ('Comunicação', 'Comunicação'),
-    ('Administrativo', 'Administrativo'),
-    ('Cerimonial', 'Cerimonial'),
-    ('Escola do Legislativo', 'Escola do Legislativo'),
-    ('Legislativo', 'Legislativo'),
-    ('Tecnologia da Informação', 'Tecnologia da Informação'),
-    ('Jurídico', 'Jurídico'),
-    ('Controle Interno', 'Controle Interno'),
+    ('DEPARTAMENTO DE INFRAESTRUTURA', 'DEPARTAMENTO DE INFRAESTRUTURA'),
+    ('DEPARTAMENTO DE RECURSOS HUMANOS', 'DEPARTAMENTO DE RECURSOS HUMANOS'),
+    ('DEPARTAMENTO DE COMUNICACAO', 'DEPARTAMENTO DE COMUNICACAO'),
+    ('DEPARTAMENTO ADMINISTRATIVO', 'DEPARTAMENTO ADMINISTRATIVO'),
+    ('DEPARTAMENTO DE CERIMONIAL', 'DEPARTAMENTO DE CERIMONIAL'),
+    ('ESCOLA DO LEGISLATIVO', 'ESCOLA DO LEGISLATIVO'),
+    ('DEPARTAMENTO LEGISLATIVO', 'DEPARTAMENTO LEGISLATIVO'),
+    ('DEPARTAMENTO DE TEC. DA INFORMACAO', 'DEPARTAMENTO DE TEC. DA INFORMACAO'),
+    ('DEPARTAMENTO JURIDICO', 'DEPARTAMENTO JURIDICO'),
+    ('DEPARTAMENTO DE CONTROLE INTERNO', 'DEPARTAMENTO DE CONTROLE INTERNO'),
 
 ]
 
 class Funcionario(models.Model):
-    dt_admissao = models.DateField(default='2022-01-01')
+    dt_admissao = models.DateField(default='2022-03-10')
     dt_inicio_exercicio = models.DateField(default='2022-01-01', help_text="Data Inicio efetivo para contagem do periodo probatório")
-    dt_posse = models.DateField(default='2022-01-01')
+    dt_posse = models.DateField(default='2022-03-10')
     nome = models.CharField(max_length=200)
     matricula = models.CharField(max_length=100)
     cargo_efetivo = models.CharField(max_length=100)
-    cargo_comissionado = models.CharField(max_length=100)
+    cargo_comissionado = models.CharField(max_length=100, default='Nenhum')
     depto = models.CharField(max_length=255, choices=DEPARTAMENTOS)
     funcao = models.CharField(max_length=255, default="Nenhuma")
    # periodos_avaliados = models.CharField(max_length=2, default=0)
     grupo_avaliacao = models.CharField(max_length=255, help_text="Grupo de funcionarios a ser avaliados por um Chefe Imediato")
     subgrupo_avaliacao = models.CharField(max_length=255, help_text="Grupo para avaliação do colega")
-    avaliavel = models.BooleanField()
-    ativo = models.BooleanField(default=0)
-    avaliacao_pendente = models.BooleanField(default=1)
+    avaliavel = models.BooleanField(default=True)
+    ativo = models.BooleanField(default=True)
+    avaliacao_pendente = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nome
