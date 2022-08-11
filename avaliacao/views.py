@@ -121,7 +121,7 @@ def add_criterios(request, avaliacao):
 
         pontos_assiduidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_assiduidade = pontos_assiduidade / itens_assiduidade
+    media_assiduidade = round(pontos_assiduidade / itens_assiduidade, 2)
 
     # DISCIPLINA
     pontos_disciplina = 0
@@ -138,7 +138,7 @@ def add_criterios(request, avaliacao):
 
         pontos_disciplina += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_disciplina = pontos_disciplina / itens_disciplina
+    media_disciplina = round(pontos_disciplina / itens_disciplina, 2)
 
     # INICIATIVA
     pontos_iniciativa = 0
@@ -155,7 +155,7 @@ def add_criterios(request, avaliacao):
         pontos_iniciativa += float(request.POST.get('pt_criterio' + str(item)))
 
 
-    media_iniciativa = pontos_iniciativa / itens_iniciativa
+    media_iniciativa = round(pontos_iniciativa / itens_iniciativa, 2)
 
     # PRODUTIVIDADE
     pontos_produtividade = 0
@@ -171,7 +171,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_produtividade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_produtividade = pontos_produtividade / itens_produtividade
+    media_produtividade = round(pontos_produtividade / itens_produtividade, 2)
 
     # RESPONSABILIDADE
     pontos_responsabilidade = 0
@@ -188,7 +188,7 @@ def add_criterios(request, avaliacao):
         pontos_responsabilidade += float(request.POST.get('pt_criterio' + str(item)))
 
 
-    media_responsabilidade = pontos_responsabilidade / itens_responsabilidade
+    media_responsabilidade = round(pontos_responsabilidade / itens_responsabilidade, 2)
 
     # COOPERACAO
     pontos_cooperacao = 0
@@ -204,8 +204,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_cooperacao += float(request.POST.get('pt_criterio' + str(item)))
 
-
-    media_cooperacao = pontos_cooperacao / itens_cooperacao
+    media_cooperacao = round(pontos_cooperacao / itens_cooperacao, 2)
 
     # DINAMISMO
     pontos_dinamismo = 0
@@ -221,8 +220,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_dinamismo += float(request.POST.get('pt_criterio' + str(item)))
 
-
-    media_dinamismo = pontos_dinamismo / itens_dinamismo
+    media_dinamismo = round(pontos_dinamismo / itens_dinamismo, 2)
 
     # ADAPTABILIDADE
     pontos_adaptabilidade = 0
@@ -238,8 +236,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_adaptabilidade += float(request.POST.get('pt_criterio' + str(item)))
 
-
-    media_adaptabilidade = pontos_adaptabilidade / itens_adaptabilidade
+    media_adaptabilidade = round(pontos_adaptabilidade / itens_adaptabilidade, 2)
 
     # URBANIDADE
     pontos_urbanidade = 0
@@ -255,8 +252,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_urbanidade += float(request.POST.get('pt_criterio' + str(item)))
 
-
-    media_urbanidade = pontos_urbanidade / itens_urbanidade
+    media_urbanidade = round(pontos_urbanidade / itens_urbanidade, 2)
 
     # RELACOES
     pontos_relacoes = 0
@@ -273,12 +269,12 @@ def add_criterios(request, avaliacao):
         pontos_relacoes += float(request.POST.get('pt_criterio' + str(item)))
 
 
-    media_relacoes = pontos_relacoes / itens_relacoes
+    media_relacoes = round(pontos_relacoes / itens_relacoes, 2)
 
     medias_criterios = [media_assiduidade, media_disciplina, media_iniciativa, media_produtividade, media_responsabilidade, \
            media_cooperacao, media_dinamismo, media_adaptabilidade, media_urbanidade, media_relacoes]
 
-    media_avaliacao = sum(medias_criterios) / len(medias_criterios)
+    media_avaliacao = round(sum(medias_criterios) / len(medias_criterios), 2)
     return medias_criterios, media_avaliacao
 
 @login_required
@@ -289,7 +285,7 @@ def cad_avaliacao(request, id_funcionario):
         funcionario = Funcionario
         funcionario = funcionario.objects.get(pk=id_funcionario)
 
-        context = {'funcionario': funcionario}
+        context = {'funcionario': funcionario, 'usuario':request.user}
         return render(request, 'form_cad_avaliacao.html', context)
 
     if request.method == 'POST':
@@ -300,7 +296,7 @@ def cad_avaliacao(request, id_funcionario):
         # resumo_avaliacao(request,avaliacao.pk)
 
         print(avaliacao)
-        context = {'avaliacao': avaliacao}
+        context = {'avaliacao': avaliacao, 'usuario':request.user}
         # return render(request,'resumo_avaliacao.html',context)
 
 
@@ -340,9 +336,12 @@ def resumo_avaliacao(request, id_avaliacao):
     if request.user.profile.id == avaliacao.avaliador.id or request.user.profile.tipo == 'Comissão':
         criterios = Criterio.objects.filter(avaliacao=avaliacao)
 
+        chefe = Funcionario.objects.get(depto=avaliacao.funcionario.depto, cargo_comissionado="DIR. DEPARTAMENTO")
+
+        print(chefe)
+
         lista_medias_criterios = ast.literal_eval(avaliacao.media_criterios)
-        context = {'avaliacao': avaliacao, 'criterios': criterios, 'media_criterios': lista_medias_criterios}
-        print(criterios)
+        context = {'usuario': request.user, 'avaliacao': avaliacao, 'criterios': criterios, 'media_criterios': lista_medias_criterios, 'chefe':chefe}
 
     return render(request, 'resumo_avaliacao.html', context)
 

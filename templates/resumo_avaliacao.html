@@ -32,9 +32,9 @@ Resumo Avaliação
         text-align:center;
     }
 
-.break { page-break-after: always;
-
-break-after: always;
+.break{
+    page-break-after: always;
+    break-after: always;
 }
 
 
@@ -72,8 +72,19 @@ break-after: always;
         width:30%;
     }
 
+   @media print{
+       #resumo_avaliacao{
+
+
+        }
+        #container{
+            width:100% !important;
+        }
+    }
+
 
 </style>
+<div id="resumo_avaliacao">
 <div style="padding:2em">
 <div class="d-flex justify-content-center">
         {% load static %}
@@ -81,7 +92,7 @@ break-after: always;
 
 </div>
 
-
+<div class="break">
 <h4 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO TRIMESTRAL DESEMPENHO</h4>
 <div class="table-ficha-avaliador mt-5 mb-5">
     <p><span class="fw-bold">Avaliador: </span>{{avaliacao.avaliador.nome}}<br>
@@ -100,7 +111,7 @@ break-after: always;
 
         </tr>
         <tr>
-            <td colspan="3"><span class="fw-bold">Chefe Imediato:</span><span></span></td>
+            <td colspan="3"><span class="fw-bold">Chefe Imediato: </span>{{chefe}}<span></span></td>
 
         </tr>
         <tr>
@@ -125,6 +136,8 @@ break-after: always;
 
     </table>
 </div>
+</div>
+
 <div class="break text-justify tab-normas-legais">
     <h4>DISPOSIÇÕES GERAIS:</h4>
 <p>Objetivo: Avaliar a aptidão e capacidade do (a) servidor (a) para o desempenho do cargo que
@@ -188,7 +201,7 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.0}}</td>
     </tr>
 
@@ -214,7 +227,7 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.1|floatformat:1}}</td>
     </tr>
 
@@ -239,7 +252,7 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.2|floatformat:1}}</td>
     </tr>
 
@@ -263,7 +276,7 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.3|floatformat:1}}</td>
     </tr>
 
@@ -288,7 +301,7 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.4|floatformat:1}}</td>
     </tr>
 
@@ -313,7 +326,7 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.5|floatformat:1}}</td>
     </tr>
 </table>
@@ -337,7 +350,7 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.6|floatformat:1}}</td>
     </tr>
 
@@ -361,7 +374,7 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.7|floatformat:1}}</td>
     </tr>
 
@@ -386,7 +399,7 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.8|floatformat:1}}</td>
     </tr>
 
@@ -410,11 +423,12 @@ probatório.<br>
 
     {% endfor %}
     <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM (Pontuação de 0 a 125)</td>
+        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
         <td class="text-center fw-bold">{{media_criterios.9|floatformat:1}}</td>
     </tr>
 
 </table>
     </div>
+</div>
 {% endblock %}
 
