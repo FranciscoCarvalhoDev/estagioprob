@@ -21,6 +21,12 @@
 
     }
 
+    .alert-secondary {
+    color: #41464b;
+    background-color: #f7f7f7 !important;
+    border: 2px solid #e5e2ba;
+    border-radius: 2px;
+    }
     .navbar-light .navbar-nav .nav-link {
     color: #000;
     }
@@ -138,11 +144,14 @@ $(document).ready(function(){
           {% if usuario %}
         <a class="nav-link active" aria-current="page" href="#">Início</a>
         <a class="nav-link" href="{% url 'list_avaliados' %}">Avaliações Pendentes</a>
-      </div>        <div>
+      </div>
+        <div class="fw-right nav-link">
 
 
-            <a href="#" class="m-2 fw-right nav-link">Tipo de avaliação: {{usuario.profile.tipo}}{% if usuario.profile.tipo == 'Colega'%} / Própria{%endif%}</a>
+            <a href="{% url 'sair' %}" class="m-2  "><i style="color:#873434" class="fas fa-sign-out-alt fa-lg">&nbsp;Sair</i></a>
+
         {%endif%}
+
     </div>
     </div>
   </div>

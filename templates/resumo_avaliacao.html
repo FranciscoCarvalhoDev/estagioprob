@@ -12,7 +12,7 @@ Resumo Avaliação
 <style>
 
 
-    h4, table, th, tr, .tab-normas-legais, .table-ficha-avaliador{
+    h4, table, th, tr, .tab-normas-legais, .table-ficha-avaliador, div{
     font-family:pt-serif;
 
  color:#000;
@@ -83,351 +83,428 @@ Resumo Avaliação
     }
 
 
+
 </style>
 <div id="resumo_avaliacao">
-<div style="padding:2em">
-<div class="d-flex justify-content-center">
-        {% load static %}
-    <img class="img-logo" src="{% static 'logo-cmm.jpg' %}" />
-
-</div>
-
-<div class="break">
-<h4 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO TRIMESTRAL DESEMPENHO</h4>
-<div class="table-ficha-avaliador mt-5 mb-5">
-    <p><span class="fw-bold">Avaliador: </span>{{avaliacao.avaliador.nome}}<br>
-        <span class="fw-bold">Função:</span> {% if avaliacao.avaliador.funcionario.funcao %}{{avaliacao.avaliador.funcionario.funcao}}{%endif%}
-    </p>
-    <p>
-        <span class="fw-bold">Período avaliado:</span>{{avaliacao.periodo}}
-    </p>
-</div>
-<div class="table-ficha-avaliado break">
-    <h4 class="text-center fw-bold">Identificação do Avaliado</h4>
-
-    <table class="table table-borderless">
-        <tr>
-            <td colspan="3"><span class="fw-bold">Departamento de Lotação: </span><span>{{avaliacao.funcionario.depto}}</span></td>
-
-        </tr>
-        <tr>
-            <td colspan="3"><span class="fw-bold">Chefe Imediato: </span>{{chefe}}<span></span></td>
-
-        </tr>
-        <tr>
-            <td colspan="3"><span class="fw-bold">Nome Servidor Avaliado: </span><span>{{avaliacao.funcionario.nome}}</span></td>
-
-        </tr>
-        <tr>
-            <td colspan="3"><span class="fw-bold">Matricula:</span><span>{{avaliacao.funcionario.matricula}}</span></td>
-
-        </tr>
-        <tr>
-            <td class="w-33"><span class="fw-bold">Cargo Efetivo:</span><br><span>{{avaliacao.funcionario.cargo_efetivo}}</span></td>
-            <td class="w-33"><span class="fw-bold">Cargo Comissionado: </span><br><span>{{avaliacao.funcionario.cargo_comissionado}}</span></td>
-            <td class="w-33"><span class="fw-bold">Função:</span><br><span>{{avaliacao.funcionario.funcao}}</span></td>
-        </tr>
-        <tr>
-            <td class="w-50" colspan="2"><span class="fw-bold">Data da Admissão: </span> {{avaliacao.funcionario.dt_admissao | date:'d/m/Y'}}<br><span class="fw-bold">Início de Exercício:</span>
-                {{avaliacao.funcionario.dt_inicio_exercicio| date:"d/m/Y"}}
-            </td>
-            <td class="w-50"><span class="fw-bold">Data da Posse: </span><span>{{avaliacao.funcionario.dt_posse| date:"d/m/Y"}}</span></td>
-        </tr>
-
-    </table>
-</div>
-</div>
-
-<div class="break text-justify tab-normas-legais">
-    <h4>DISPOSIÇÕES GERAIS:</h4>
-<p>Objetivo: Avaliar a aptidão e capacidade do (a) servidor (a) para o desempenho do cargo que
-ocupa de acordo com os seguintes itens (Assiduidade e pontualidade, disciplina, responsabilidade,
-adaptabilidade, urbanidade, relações interpessoais, capacidade de iniciativa, produtividade,
-    dinamismo, cooperação)</p>
-<p><span class="fw-bold">Fundamento legal:</span><br>
-Art. 41,§4º da CF/1988.<br>
-Art. 19 e 20 da Lei municipal 17.331/2008 (RJU).<br>
-Resolução 468/2012 e alterações posteriores (REGULAMENTO DE ESTÁGIO PROBATÓRIO)<br>
-</p>
-    <p>
-    <h5>INSTRUÇÕES</h5><br>
-1. Leia atentamente cada quesito e as especificações dos critérios antes de fazer a avaliação;<br>
-2. Registre nas colunas os pontos que, na sua opinião, mais fielmente traduzam o desempenho
-do servidor, após análise criterioso e imparcial;<br>
-3. Após avaliação encaminhe à Comissão Especial de Avaliação o resultado no formulário
-“Resultado da Avaliação de desempenho” até 5 dias úteis a contar do prazo da avaliação;<br>
-4. Este formulário constitui um elemento importante no processo de avaliação do (a)
-servidor (a) em estágio probatório na Câmara municipal de Marabá, sob sua liderança;<br>
-5. Leia com atenção cada um dos itens antes de respondê-los;<br>
-6. Cada um dos itens propostos tem elevada importância, influindo diretamente no
-resultado final e subsidiando a tomada de decisões. Não deixe nenhuma questão sem
-avaliar;<br>
-7. O processo avaliativo deve levar em conta comportamentos e resultados observáveis em
-situação de trabalho, excluindo aspectos pessoais;<br>
-8. Na avaliação do (a) servidor (a) deverão ser levados em consideração os fatores e
-indicadores de Desempenho abaixo apresentados;<br>
-9. Importante rubricar todas as páginas do formulário;<br>
-10. Em caso de dúvida contate a Comissão de avaliação e acompanhamento de estágio
-probatório.<br>
-11. Para atribuição da pontuação de cada quesito utilizar o critério de pontuação abaixo:
-        <p />
-<table class="table table-bordered w-50">
-    <tr><th class="w-50">Indicadores de desempenho</th><th class="w-33">Valor da Pontuação</th></tr>
-    <tr><td>Excelente</td><td>De 86 a 100</td></tr>
-    <tr><td>Bom</td><td>De 65 a 85</td></tr>
-    <tr><td>Regular</td><td>De 50 a 64</td></tr>
-    <tr><td>Insuficiente/Ruim</td><td>De 00 a 49</td></tr>
-</table>
-
-    </p>
-</div>
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>1. Assiduidade Pontualidade</h4>
-
-    <tr class="h-table">
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '1. Assiduidade Pontualidade' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.0}}</td>
-    </tr>
-
-</table>
-
-
-<table class="table tab-resumo-avaliacao table-bordered break">
-    <h4>2. Disciplina</h4>
-    <tr>
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '2. Disciplina' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.1|floatformat:1}}</td>
-    </tr>
-
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>3. Capacidade de Iniciativa</h4>
-    <tr>
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '3. Capacidade de Iniciativa' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.2|floatformat:1}}</td>
-    </tr>
-
-</table>
-<table class="table tab-resumo-avaliacao table-bordered break">
-    <h4>4. Produtividade</h4>
-    <tr>
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '4. Produtividade' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.3|floatformat:1}}</td>
-    </tr>
-
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>5. Responsabilidade</h4>
-    <tr>
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '5. Responsabilidade' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.4|floatformat:1}}</td>
-    </tr>
-
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered break">
-    <h4>6. Cooperação</h4>
-    <tr>
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '6. Cooperação' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.5|floatformat:1}}</td>
-    </tr>
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>7. Dinamismo</h4>
-    <tr>
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '7. Dinamismo' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.6|floatformat:1}}</td>
-    </tr>
-
-</table>
-<table class="table tab-resumo-avaliacao table-bordered break">
-    <h4>8. Adaptabilidade</h4>
-    <tr>
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '8. Adaptabilidade' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.7|floatformat:1}}</td>
-    </tr>
-
-</table>
-
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>9. Urbanidade</h4>
-    <tr>
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '9. Urbanidade' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.8|floatformat:1}}</td>
-    </tr>
-
-</table>
-<table class="table tab-resumo-avaliacao table-bordered">
-    <h4>10. Relações Interpessoais</h4>
-    <tr>
-        <th>QUESITOS</th>
-        <th>Pontuação<br>( de 0 a 100 )</th>
-    </tr>
-    {% for criterio in criterios %}
-    <tr>
-
-        {% if criterio.categoria == '10. Relações Interpessoais' %}
-        <td>{{criterio.descricao}}</td>
-        <td class="text-center">{{criterio.nota}}</td>
-
-
-        {%endif%}
-    </tr>
-
-    {% endfor %}
-    <tr>
-        <td class="text-center fw-bold">TOTAL/MÉDIA DO ITEM</td>
-        <td class="text-center fw-bold">{{media_criterios.9|floatformat:1}}</td>
-    </tr>
-
-</table>
+    <div style="padding:2em">
+        <div class="d-flex justify-content-center">
+            {% load static %}
+            <img class="img-logo" src="{% static 'logo-cmm.jpg' %}"/>
+
+        </div>
+
+        <div class="break">
+            <h4 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO TRIMESTRAL DESEMPENHO</h4>
+            <div class="table-ficha-avaliador mt-5 mb-5">
+                <p><span class="fw-bold">Avaliador: </span>{{avaliacao.avaliador.nome}}<br>
+                    <span class="fw-bold">Função:</span> {% if avaliacao %}
+                    {% if avaliacao.avaliador.tipo == "Comissão" %}
+                    COLEGA
+                    {%else%}
+                    {{avaliacao.avaliador.tipo|upper}}
+
+                    {%endif%}
+                    {%endif%}
+                </p>
+                <p>
+                    <span class="fw-bold">Período avaliado:</span>{{avaliacao.periodo}}
+                </p>
+            </div>
+            <div class="table-ficha-avaliado break">
+                <h4 class="text-center fw-bold">Identificação do Avaliado</h4>
+
+                <table class="table table-borderless">
+                    <tr>
+                        <td colspan="3"><span class="fw-bold">Departamento de Lotação: </span><span>{{avaliacao.funcionario.depto}}</span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3"><span class="fw-bold">Chefe Imediato: </span>{{chefe}}<span></span></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3"><span class="fw-bold">Nome Servidor Avaliado: </span><span>{{avaliacao.funcionario.nome}}</span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3"><span
+                                class="fw-bold">Matricula:</span><span>{{avaliacao.funcionario.matricula}}</span></td>
+
+                    </tr>
+                    <tr>
+                        <td class="w-33"><span class="fw-bold">Cargo Efetivo:</span><br><span>{{avaliacao.funcionario.cargo_efetivo}}</span>
+                        </td>
+                        <td class="w-33"><span class="fw-bold">Cargo Comissionado: </span><br><span>{{avaliacao.funcionario.cargo_comissionado}}</span>
+                        </td>
+                        <td class="w-33"><span
+                                class="fw-bold">Função:</span><br><span>{{avaliacao.funcionario.funcao}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="w-50" colspan="2"><span class="fw-bold">Data da Admissão: </span>
+                            {{avaliacao.funcionario.dt_admissao | date:'d/m/Y'}}<br><span class="fw-bold">Início de Exercício:</span>
+                            {{avaliacao.funcionario.dt_inicio_exercicio| date:"d/m/Y"}}
+                        </td>
+                        <td class="w-50"><span class="fw-bold">Data da Posse: </span><span>{{avaliacao.funcionario.dt_posse| date:"d/m/Y"}}</span>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="break text-justify tab-normas-legais">
+            <h4>DISPOSIÇÕES GERAIS:</h4>
+            <p>Objetivo: Avaliar a aptidão e capacidade do (a) servidor (a) para o desempenho do cargo que
+                ocupa de acordo com os seguintes itens (Assiduidade e pontualidade, disciplina, responsabilidade,
+                adaptabilidade, urbanidade, relações interpessoais, capacidade de iniciativa, produtividade,
+                dinamismo, cooperação)</p>
+            <p><span class="fw-bold">Fundamento legal:</span><br>
+                Art. 41,§4º da CF/1988.<br>
+                Art. 19 e 20 da Lei municipal 17.331/2008 (RJU).<br>
+                Resolução 468/2012 e alterações posteriores (REGULAMENTO DE ESTÁGIO PROBATÓRIO)<br>
+            </p>
+            <p>
+            <h5>INSTRUÇÕES</h5><br>
+            1. Leia atentamente cada quesito e as especificações dos critérios antes de fazer a avaliação;<br>
+            2. Registre nas colunas os pontos que, na sua opinião, mais fielmente traduzam o desempenho
+            do servidor, após análise criterioso e imparcial;<br>
+            3. Após avaliação encaminhe à Comissão Especial de Avaliação o resultado no formulário
+            “Resultado da Avaliação de desempenho” até 5 dias úteis a contar do prazo da avaliação;<br>
+            4. Este formulário constitui um elemento importante no processo de avaliação do (a)
+            servidor (a) em estágio probatório na Câmara municipal de Marabá, sob sua liderança;<br>
+            5. Leia com atenção cada um dos itens antes de respondê-los;<br>
+            6. Cada um dos itens propostos tem elevada importância, influindo diretamente no
+            resultado final e subsidiando a tomada de decisões. Não deixe nenhuma questão sem
+            avaliar;<br>
+            7. O processo avaliativo deve levar em conta comportamentos e resultados observáveis em
+            situação de trabalho, excluindo aspectos pessoais;<br>
+            8. Na avaliação do (a) servidor (a) deverão ser levados em consideração os fatores e
+            indicadores de Desempenho abaixo apresentados;<br>
+            9. Importante rubricar todas as páginas do formulário;<br>
+            10. Em caso de dúvida contate a Comissão de avaliação e acompanhamento de estágio
+            probatório.<br>
+            11. Para atribuição da pontuação de cada quesito utilizar o critério de pontuação abaixo:
+            <p/>
+            <table class="table table-bordered w-50">
+                <tr>
+                    <th class="w-50">Indicadores de desempenho</th>
+                    <th class="w-33">Valor da Pontuação</th>
+                </tr>
+                <tr>
+                    <td>Excelente</td>
+                    <td>De 86 a 100</td>
+                </tr>
+                <tr>
+                    <td>Bom</td>
+                    <td>De 65 a 85</td>
+                </tr>
+                <tr>
+                    <td>Regular</td>
+                    <td>De 50 a 64</td>
+                </tr>
+                <tr>
+                    <td>Insuficiente/Ruim</td>
+                    <td>De 00 a 49</td>
+                </tr>
+            </table>
+
+            </p>
+        </div>
+        <table class="table tab-resumo-avaliacao table-bordered">
+            <h4>1. Assiduidade Pontualidade</h4>
+
+            <tr class="h-table">
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '1. Assiduidade Pontualidade' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.0}}</td>
+            </tr>
+
+        </table>
+
+
+        <table class="table tab-resumo-avaliacao table-bordered break">
+            <h4>2. Disciplina</h4>
+            <tr>
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '2. Disciplina' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.1|floatformat:1}}</td>
+            </tr>
+
+        </table>
+
+        <table class="table tab-resumo-avaliacao table-bordered">
+            <h4>3. Capacidade de Iniciativa</h4>
+            <tr>
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '3. Capacidade de Iniciativa' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.2|floatformat:1}}</td>
+            </tr>
+
+        </table>
+        <table class="table tab-resumo-avaliacao table-bordered break">
+            <h4>4. Produtividade</h4>
+            <tr>
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '4. Produtividade' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.3|floatformat:1}}</td>
+            </tr>
+
+        </table>
+
+        <table class="table tab-resumo-avaliacao table-bordered">
+            <h4>5. Responsabilidade</h4>
+            <tr>
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '5. Responsabilidade' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.4|floatformat:1}}</td>
+            </tr>
+
+        </table>
+
+        <table class="table tab-resumo-avaliacao table-bordered break">
+            <h4>6. Cooperação</h4>
+            <tr>
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '6. Cooperação' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.5|floatformat:1}}</td>
+            </tr>
+        </table>
+
+        <table class="table tab-resumo-avaliacao table-bordered">
+            <h4>7. Dinamismo</h4>
+            <tr>
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '7. Dinamismo' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.6|floatformat:1}}</td>
+            </tr>
+
+        </table>
+        <table class="table tab-resumo-avaliacao table-bordered break">
+            <h4>8. Adaptabilidade</h4>
+            <tr>
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '8. Adaptabilidade' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.7|floatformat:1}}</td>
+            </tr>
+
+        </table>
+
+        <table class="table tab-resumo-avaliacao table-bordered">
+            <h4>9. Urbanidade</h4>
+            <tr>
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '9. Urbanidade' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.8|floatformat:1}}</td>
+            </tr>
+
+        </table>
+        <table class="table tab-resumo-avaliacao table-bordered break">
+            <h4>10. Relações Interpessoais</h4>
+            <tr>
+                <th>QUESITOS</th>
+                <th>Pontuação<br>( de 0 a 100 )</th>
+            </tr>
+            {% for criterio in criterios %}
+            <tr>
+
+                {% if criterio.categoria == '10. Relações Interpessoais' %}
+                <td>{{criterio.descricao}}</td>
+                <td class="text-center">{{criterio.nota}}</td>
+
+
+                {%endif%}
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
+                <td class="text-center fw-bold">{{media_criterios.9|floatformat:1}}</td>
+            </tr>
+
+        </table>
+
+
+        <div class="col-12 text-center fw-bold" style="">
+            <h4><strong>Informações Gerais da Chefia Imediata</strong></h4>
+
+
+        </div>
+
+        <div class="col-12 table-ficha-avaliado p-2">
+
+            <strong>Observações:</strong>
+            <ul class="fw-bold">
+                <li> Especificar por item</li>
+                <li>Se necessário descrever situações ocorridas</li>
+                <li>Preenchimento importante para validar as respostas objetivas</li>
+            </ul>
+
+        </div>
+
+        <div class="col-12 fw-bold break mt-5">
+
+            1) Registre outras observações que julgar relevantes sobre o desempenho e\ou
+            comportamento do (a) servidor (a):
+
+        </div>
+        <div class="col-12 fw-bold mt-5">
+
+            2) Na sua visão, existe algum aspecto individual do (a) servidor (a) que pode ser
+            aprimorado para que ele (a) apresente melhor desempenho (capacitação; conduta
+            profissional, dentre outros)
+
+        </div>
+
+
+        <div class="offset-4 col-4" style="border-top:2px solid #000; text-align:center; margin-top:35em;">
+
+            <span class="fw-center"><strong>Assinatura do Avaliador</strong></span><br />
+            <span class="fw-right"><strong>Data da Avaliação:</strong> {{avaliacao.data|date:'d/m/Y'}}</span>
+        </div>
+
+        <div class="offset-6 col-4" style="text-align:right; margin-top:3em;">
+
+
+        </div>
+
+
     </div>
 </div>
 {% endblock %}

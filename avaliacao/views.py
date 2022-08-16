@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 import datetime
 import ast
 
@@ -300,6 +300,10 @@ def cad_avaliacao(request, id_funcionario):
         # return render(request,'resumo_avaliacao.html',context)
 
 
+def logout(request):
+    logout(request)
+    return HttpResponseRedirect('')
+
 @login_required()
 def reativar_avaliacao(request, id_funcionario):
     if request.user.profile.tipo == 'Comissão':
@@ -336,14 +340,15 @@ def resumo_avaliacao(request, id_avaliacao):
     if request.user.profile.id == avaliacao.avaliador.id or request.user.profile.tipo == 'Comissão':
         criterios = Criterio.objects.filter(avaliacao=avaliacao)
 
-        chefe = Funcionario.objects.get(depto=avaliacao.funcionario.depto, cargo_comissionado="DIR. DEPARTAMENTO")
+        try:
+            chefe = Funcionario.objects.get(Q(depto=avaliacao.funcionario.depto, cargo_comissionado="DIR. DEPARTAMENTO") | Q(depto=avaliacao.funcionario.depto, cargo_comissionado="COORD. EXEC. DA ESCOLA DO LEGISLATIVO"))
+            lista_medias_criterios = ast.literal_eval(avaliacao.media_criterios)
+            context = {'usuario': request.user, 'avaliacao': avaliacao, 'criterios': criterios, 'media_criterios': lista_medias_criterios, 'chefe':chefe}
+            return render(request, 'resumo_avaliacao.html', context)
 
-        print(chefe)
+        except Funcionario.DoesNotExist:
+            return redirect('list_avaliados')
 
-        lista_medias_criterios = ast.literal_eval(avaliacao.media_criterios)
-        context = {'usuario': request.user, 'avaliacao': avaliacao, 'criterios': criterios, 'media_criterios': lista_medias_criterios, 'chefe':chefe}
-
-    return render(request, 'resumo_avaliacao.html', context)
 
 
 @login_required
@@ -360,10 +365,9 @@ def list_avaliados(request):
                 Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True, ativo=True, avaliacao_pendente=True))
         else:
             if request.user.profile.tipo == 'Colega':
-                # funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True)
                 funcionarios = Funcionario.objects.filter(
                     Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True, ativo=True) | Q(
-                        id=request.user.profile.funcionario.id))
+                        id=request.user.profile.funcionario.id, avaliavel=True))
 
     context = {'funcionarios': funcionarios, 'usuario': request.user}
 
