@@ -4,20 +4,20 @@ from django.db import models
 DEPARTAMENTOS = [
     ('DEPARTAMENTO DE INFRAESTRUTURA', 'DEPARTAMENTO DE INFRAESTRUTURA'),
     ('DEPARTAMENTO DE RECURSOS HUMANOS', 'DEPARTAMENTO DE RECURSOS HUMANOS'),
-    ('DEPARTAMENTO DE COMUNICACAO', 'DEPARTAMENTO DE COMUNICACAO'),
+    ('DEPARTAMENTO DE COMUNICAÇÃO', 'DEPARTAMENTO DE COMUNICAÇÃO'),
     ('DEPARTAMENTO ADMINISTRATIVO', 'DEPARTAMENTO ADMINISTRATIVO'),
     ('DEPARTAMENTO DE CERIMONIAL', 'DEPARTAMENTO DE CERIMONIAL'),
     ('ESCOLA DO LEGISLATIVO', 'ESCOLA DO LEGISLATIVO'),
     ('DEPARTAMENTO LEGISLATIVO', 'DEPARTAMENTO LEGISLATIVO'),
-    ('DEPARTAMENTO DE TEC. DA INFORMACAO', 'DEPARTAMENTO DE TEC. DA INFORMACAO'),
-    ('DEPARTAMENTO JURIDICO', 'DEPARTAMENTO JURIDICO'),
+    ('DEPARTAMENTO DE TEC. DA INFORMAÇÃO', 'DEPARTAMENTO DE TEC. DA INFORMAÇÃO'),
+    ('DEPARTAMENTO JURIDÍCO', 'DEPARTAMENTO JURIDÍCO'),
     ('DEPARTAMENTO DE CONTROLE INTERNO', 'DEPARTAMENTO DE CONTROLE INTERNO'),
 
 ]
 
 class Funcionario(models.Model):
     dt_admissao = models.DateField(default='2022-03-10')
-    dt_inicio_exercicio = models.DateField(default='2022-01-01', help_text="Data Inicio efetivo para contagem do periodo probatório")
+    dt_inicio_exercicio = models.DateField(default='2022-03-10', help_text="Data Inicio efetivo para contagem do periodo probatório")
     dt_posse = models.DateField(default='2022-03-10')
     nome = models.CharField(max_length=200)
     matricula = models.CharField(max_length=100)
@@ -50,6 +50,7 @@ class Avaliador(models.Model):
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, related_name='tipo_avaliadores')
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     grupo_avaliado = models.CharField(max_length=255)
+    token = models.CharField(max_length=40, default='44sedf')
 
     def __str__(self):
         return str(self.nome)+' - '+str(self.tipo)

@@ -29,12 +29,11 @@ Funcionário para Avaliação
                 {% endif %}
 
                 <div class="alert alert-secondary">
+                    <strong>Avaliador:</strong> {{usuario.profile.funcionario.nome}}<br/>
                     <strong>Departamento:</strong> {{usuario.profile.funcionario.depto}}<br/>
                     <strong>Grupo avaliado:</strong> {{usuario.profile.funcionario.grupo_avaliacao}}<br>
                     <strong>Tipo de avaliação: </strong>{{usuario.profile.tipo}}{% if usuario.profile.tipo == 'Colega'%} / Própria{%endif%}
-                    <p>
-                        {%if funcionarios %}<strong>Avaliações:</strong> {{funcionarios | length }}{%endif%}</p>
-                </div>
+ </div>
 
 
                 <h4 class="mt-5 mb-4">Servidores para Avaliação: {{funcionarios|length }}</h4>

@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import HttpResponseNotFound, HttpResponseRedirect
@@ -415,6 +416,32 @@ def entrar(request):
                 return redirect('/lista/avaliados')
             else:
                 context = {'msg': 'Usuario não está ativo'}
+        else:
+            context = {'msg': 'Não foi possível logar'}
+
+    return render(request, 'form_auth.html', context)
+
+
+def entrar_token(request, token_id):
+    context = {'msg': ''}
+
+    if request.method == 'GET':
+
+        context = {'msg': 'Não foi possível logar'}
+
+        try:
+            user = User.objects.get(profile__token=token_id)
+
+        except Exception:
+            return render(request, 'form_auth.html', context)
+
+        print(user)
+
+        if user is not None:
+            login(request, user)
+
+            return redirect('/lista/avaliados')
+
         else:
             context = {'msg': 'Não foi possível logar'}
 

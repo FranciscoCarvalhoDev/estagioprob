@@ -72,6 +72,10 @@ Resumo Avaliação
         width:30%;
     }
 
+    .only-print{
+        display:none
+    }
+
    @media print{
        #resumo_avaliacao{
 
@@ -79,6 +83,10 @@ Resumo Avaliação
         }
         #container{
             width:100% !important;
+        }
+
+        .only-print{
+            display:block;
         }
     }
 
@@ -435,7 +443,7 @@ Resumo Avaliação
             </tr>
 
         </table>
-        <table class="table tab-resumo-avaliacao table-bordered break">
+        <table class="table tab-resumo-avaliacao table-bordered">
             <h4>10. Relações Interpessoais</h4>
             <tr>
                 <th>QUESITOS</th>
@@ -460,7 +468,11 @@ Resumo Avaliação
 
         </table>
 
+        <div class="offset-4 col-4 break only-print" style="border-top:2px solid #000; text-align:center; margin-top:8em;">
 
+            <span class="fw-center"><strong>Assinatura do Avaliador</strong></span><br />
+            <span class="fw-right"><strong>Data da Avaliação:</strong> {{avaliacao.data|date:'d/m/Y'}}</span>
+        </div>
         <div class="col-12 text-center fw-bold" style="">
             <h4><strong>Informações Gerais da Chefia Imediata</strong></h4>
 
@@ -493,11 +505,7 @@ Resumo Avaliação
         </div>
 
 
-        <div class="offset-4 col-4" style="border-top:2px solid #000; text-align:center; margin-top:35em;">
 
-            <span class="fw-center"><strong>Assinatura do Avaliador</strong></span><br />
-            <span class="fw-right"><strong>Data da Avaliação:</strong> {{avaliacao.data|date:'d/m/Y'}}</span>
-        </div>
 
         <div class="offset-6 col-4" style="text-align:right; margin-top:3em;">
 
