@@ -409,7 +409,7 @@ def entrar(request):
 
         user = authenticate(username=usuario, password=senha)
 
-        if user is not None:
+        if (user is not None) and (user.profile.tipo == 'Colega'):
             if user.is_active:
                 login(request, user)
 
