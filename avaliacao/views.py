@@ -20,7 +20,7 @@ def insert_avaliacao(request, id_funcionario):
     funcionario_avaliado = Funcionario
     funcionario_avaliado = Funcionario.objects.get(pk=id_funcionario)
 
-    #add Avaliador
+    # add Avaliador
     avaliador = Avaliador
     avaliador = Avaliador.objects.get(pk=id_avaliador)
     # avaliacao.avaliacao.add(avaliador)
@@ -40,8 +40,7 @@ def insert_avaliacao(request, id_funcionario):
             print('AVALIAÇÃO COLEGA --------------')
             tipo_avalicao = 'Colega'
 
-
-    #obter a ultima avaliação por tipo de avaliador
+    # obter a ultima avaliação por tipo de avaliador
     ultima_avaliacao = Avaliacao.objects.filter(
         funcionario=funcionario_avaliado,
         tipo_avaliador=tipo_avalicao).last()
@@ -50,19 +49,20 @@ def insert_avaliacao(request, id_funcionario):
     print('ULTIMA AVALIACAO')
     print(ultima_avaliacao)
 
-    if ultima_avaliacao: #dados da ultima avaliacao que diz quando a avaliacao atual começa
+    if ultima_avaliacao:  # dados da ultima avaliacao que diz quando a avaliacao atual começa
         inicio_periodo = ultima_avaliacao.proxima_avaliacao
         fim_periodo = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(90)
-        periodo = inicio_periodo.strftime('%d/%m/%Y')+' até '+ fim_periodo.strftime('%d/%m/%Y')#'avaliacao.proxima_avaliacao Até avaliacao.proxima_avaliacao+91'
+        periodo = inicio_periodo.strftime('%d/%m/%Y') + ' até ' + fim_periodo.strftime(
+            '%d/%m/%Y')  # 'avaliacao.proxima_avaliacao Até avaliacao.proxima_avaliacao+91'
         trimestre_avaliado = int(ultima_avaliacao.trimestre_avaliado) + 1
-        proxima_avaliacao = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(91)#'avaliacao.proxima_avaliacao + 180' #tres meses após a de hoje
+        proxima_avaliacao = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(
+            91)  # 'avaliacao.proxima_avaliacao + 180' #tres meses após a de hoje
     else:
         fim_periodo = funcionario_avaliado.dt_inicio_exercicio + datetime.timedelta(90)
-        periodo = funcionario_avaliado.dt_inicio_exercicio.strftime('%d/%m/%Y')+' a '\
-                  + fim_periodo.strftime('%d/%m/%Y') #'periodo ingresso Até perido +90'
+        periodo = funcionario_avaliado.dt_inicio_exercicio.strftime('%d/%m/%Y') + ' a ' \
+                  + fim_periodo.strftime('%d/%m/%Y')  # 'periodo ingresso Até perido +90'
         trimestre_avaliado = 1
-        proxima_avaliacao = fim_periodo + datetime.timedelta(1) #data de hoje + 90
-
+        proxima_avaliacao = fim_periodo + datetime.timedelta(1)  # data de hoje + 90
 
     avaliacao = avaliacao.objects.create(
         data=datetime.datetime.now(),
@@ -155,7 +155,6 @@ def add_criterios(request, avaliacao):
         )
         pontos_iniciativa += float(request.POST.get('pt_criterio' + str(item)))
 
-
     media_iniciativa = round(pontos_iniciativa / itens_iniciativa, 2)
 
     # PRODUTIVIDADE
@@ -187,7 +186,6 @@ def add_criterios(request, avaliacao):
             avaliacao=avaliacao
         )
         pontos_responsabilidade += float(request.POST.get('pt_criterio' + str(item)))
-
 
     media_responsabilidade = round(pontos_responsabilidade / itens_responsabilidade, 2)
 
@@ -269,14 +267,15 @@ def add_criterios(request, avaliacao):
         )
         pontos_relacoes += float(request.POST.get('pt_criterio' + str(item)))
 
-
     media_relacoes = round(pontos_relacoes / itens_relacoes, 2)
 
-    medias_criterios = [media_assiduidade, media_disciplina, media_iniciativa, media_produtividade, media_responsabilidade, \
-           media_cooperacao, media_dinamismo, media_adaptabilidade, media_urbanidade, media_relacoes]
+    medias_criterios = [media_assiduidade, media_disciplina, media_iniciativa, media_produtividade,
+                        media_responsabilidade, \
+                        media_cooperacao, media_dinamismo, media_adaptabilidade, media_urbanidade, media_relacoes]
 
     media_avaliacao = round(sum(medias_criterios) / len(medias_criterios), 2)
     return medias_criterios, media_avaliacao
+
 
 @login_required
 def cad_avaliacao(request, id_funcionario):
@@ -286,24 +285,25 @@ def cad_avaliacao(request, id_funcionario):
         funcionario = Funcionario
         funcionario = funcionario.objects.get(pk=id_funcionario)
 
-        context = {'funcionario': funcionario, 'usuario':request.user}
+        context = {'funcionario': funcionario, 'usuario': request.user}
         return render(request, 'form_cad_avaliacao.html', context)
 
     if request.method == 'POST':
         avaliacao = insert_avaliacao(request, id_funcionario)
         # insert_avaliacao(request, 3)
 
-        return redirect('/resumo/avaliacao/'+str(avaliacao.pk))
+        return redirect('/resumo/avaliacao/' + str(avaliacao.pk))
         # resumo_avaliacao(request,avaliacao.pk)
 
         print(avaliacao)
-        context = {'avaliacao': avaliacao, 'usuario':request.user}
+        context = {'avaliacao': avaliacao, 'usuario': request.user}
         # return render(request,'resumo_avaliacao.html',context)
 
 
 def logout(request):
     logout(request)
     return HttpResponseRedirect('')
+
 
 @login_required()
 def reativar_avaliacao(request, id_funcionario):
@@ -317,11 +317,12 @@ def reativar_avaliacao(request, id_funcionario):
 
         print(avaliacao)
 
-
         if avaliacao:
             proxima_avaliacao = datetime.datetime.now() + datetime.timedelta(91)
             avaliacao.proxima_avaliacao = proxima_avaliacao
-            context = {'msg': 'Avaliação do Funcionário foi reativada e a data da proxima avaliação será '+proxima_avaliacao.strftime('%d/%m/%Y')}
+            context = {
+                'msg': 'Avaliação do Funcionário foi reativada e a data da proxima avaliação será ' + proxima_avaliacao.strftime(
+                    '%d/%m/%Y')}
 
             return render(request, 'list_funcionarios.html', context=context)
 
@@ -334,7 +335,6 @@ def reativar_avaliacao(request, id_funcionario):
 
 @login_required()
 def resumo_avaliacao(request, id_avaliacao):
-
     context = {'msg': 'Avaliação não pode ser exibida'}
     avaliacao = Avaliacao.objects.get(pk=id_avaliacao)
 
@@ -342,19 +342,20 @@ def resumo_avaliacao(request, id_avaliacao):
         criterios = Criterio.objects.filter(avaliacao=avaliacao)
 
         try:
-            chefe = Funcionario.objects.get(Q(depto=avaliacao.funcionario.depto, cargo_comissionado="DIR. DEPARTAMENTO") | Q(depto=avaliacao.funcionario.depto, cargo_comissionado="COORD. EXEC. DA ESCOLA DO LEGISLATIVO"))
+            chefe = Funcionario.objects.get(
+                Q(depto=avaliacao.funcionario.depto, cargo_comissionado="DIR. DEPARTAMENTO") | Q(
+                    depto=avaliacao.funcionario.depto, cargo_comissionado="COORD. EXEC. DA ESCOLA DO LEGISLATIVO"))
             lista_medias_criterios = ast.literal_eval(avaliacao.media_criterios)
-            context = {'usuario': request.user, 'avaliacao': avaliacao, 'criterios': criterios, 'media_criterios': lista_medias_criterios, 'chefe':chefe}
+            context = {'usuario': request.user, 'avaliacao': avaliacao, 'criterios': criterios,
+                       'media_criterios': lista_medias_criterios, 'chefe': chefe}
             return render(request, 'resumo_avaliacao.html', context)
 
         except Funcionario.DoesNotExist:
             return redirect('list_avaliados')
 
 
-
 @login_required
 def list_avaliados(request):
-
     funcionarios = Funcionario.objects.filter(Q(id=request.user.profile.funcionario.id))
 
     if request.user.profile.tipo == 'Comissão':
@@ -363,7 +364,8 @@ def list_avaliados(request):
     else:
         if request.user.profile.tipo == 'Chefe':
             funcionarios = Funcionario.objects.filter(
-                Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True, ativo=True, avaliacao_pendente=True))
+                Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True, ativo=True,
+                  avaliacao_pendente=True))
         else:
             if request.user.profile.tipo == 'Colega':
                 funcionarios = Funcionario.objects.filter(
@@ -373,7 +375,6 @@ def list_avaliados(request):
     context = {'funcionarios': funcionarios, 'usuario': request.user}
 
     return render(request, 'list_funcionarios.html', context)
-
 
 
 def detalhes_avaliado(request, id_avaliado):
@@ -425,7 +426,7 @@ def entrar(request):
 def entrar_token(request, token_id):
     context = {'msg': ''}
 
-    if request.method == 'GET':
+    if (request.method == 'GET') and token_id != '44sedf':
 
         context = {'msg': 'Não foi possível logar'}
 

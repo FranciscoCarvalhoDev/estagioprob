@@ -6,11 +6,11 @@ from avaliacao.models import Criterio, Avaliacao, Funcionario, Avaliador
 
 
 class AvaliadorAdmin(admin.ModelAdmin):
-    list_display = ('nome','tipo','grupo_avaliado',)
+    list_display = ('nome','tipo','grupo_avaliado', 'token')
     list_filter = ('tipo','grupo_avaliado',)
 
 class FuncionarioAdmin(admin.ModelAdmin):
-    list_display = ('matricula', 'nome', 'cargo_efetivo', 'grupo_avaliacao', 'subgrupo_avaliacao', 'cargo_comissionado')
+    list_display = ('matricula', 'nome', 'cargo_efetivo', 'grupo_avaliacao', 'subgrupo_avaliacao', 'cargo_comissionado',)
     list_filter = ( 'avaliavel', 'cargo_comissionado', 'grupo_avaliacao', 'subgrupo_avaliacao', 'ativo', 'avaliacao_pendente')
 
 
