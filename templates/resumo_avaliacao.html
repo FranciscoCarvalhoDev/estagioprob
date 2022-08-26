@@ -76,6 +76,10 @@ Resumo Avaliação
         display:none
     }
 
+    .noprint{
+        display:block
+    }
+
    @media print{
        #resumo_avaliacao{
 
@@ -88,6 +92,10 @@ Resumo Avaliação
         .only-print{
             display:block;
         }
+
+    .noprint{
+        display:none
+    }
     }
 
 
@@ -100,7 +108,29 @@ Resumo Avaliação
             <img class="img-logo" src="{% static 'logo-cmm.jpg' %}"/>
 
         </div>
+        <div class="container noprint">
+            <div class="row">
+            <div class="col-12 alert-success p-3 m-2">
+                <h4 class="alert-heading"><strong>Instruções para Impressão</strong></h4>
+                <p>
+                <ol>
+                    <li>Após assinar o resumo e preencher as perguntas das ultimas páginas, entregar pra a Comissão de Avalicação</li>
+               <li  >
+                    <strong>Ao imprimir, desmarque a opção de exibir cabeçalhos e rodapés, e caso</strong>
+                </li>
 
+                <li>
+                    <strong>Caso utilize o firefox, ajustar as margens para:</strong><br > Margens superior e inferior 15mm; <br/>Margens direita e esquerda: 2.5mm </strong>
+                </li>
+                </ol>
+
+                <div class="col-3 offset-5">
+                    <button class="btn btn-success btn-lg txt-center" onclick="print()">Imprimir Relatório</button>
+                </div>
+            </div>
+
+            </div>
+        </div>
         <div class="break">
             <h4 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO TRIMESTRAL DESEMPENHO</h4>
             <div class="table-ficha-avaliador mt-5 mb-5">
