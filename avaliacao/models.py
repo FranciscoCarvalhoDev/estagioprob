@@ -31,6 +31,9 @@ class Funcionario(models.Model):
     avaliavel = models.BooleanField(default=True)
     ativo = models.BooleanField(default=True)
     avaliacao_pendente = models.BooleanField(default=True)
+    avaliacao_pendente_colega = models.BooleanField(default=True)
+    avaliacao_pendente_auto = models.BooleanField(default=True)
+
 
     def __str__(self):
         return self.nome

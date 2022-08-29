@@ -17,7 +17,7 @@ def insert_avaliacao(request, id_funcionario):
     # print(request.user.profile.id)
 
     # add funcionario avaliado
-    funcionario_avaliado = Funcionario
+    # funcionario_avaliado = Funcionario
     funcionario_avaliado = Funcionario.objects.get(pk=id_funcionario)
 
     # add Avaliador
@@ -32,13 +32,19 @@ def insert_avaliacao(request, id_funcionario):
     if request.user.profile.tipo == 'Chefe':
         print('AVALIAÇÃO do Chefe--------------')
         tipo_avalicao = 'Chefe'
+        funcionario_avaliado.avaliacao_pendente = False
+
     else:
         if id_funcionario_usuario == id_funcionario:
             print('AVALIAÇÃO PRÓPRIA--------------')
             tipo_avalicao = 'Próprio'
+            funcionario_avaliado.avaliacao_pendente_auto = False
+
         else:
             print('AVALIAÇÃO COLEGA --------------')
             tipo_avalicao = 'Colega'
+            funcionario_avaliado.avaliacao_pendente_colega = False
+
 
     # obter a ultima avaliação por tipo de avaliador
     ultima_avaliacao = Avaliacao.objects.filter(
@@ -85,8 +91,9 @@ def insert_avaliacao(request, id_funcionario):
     avaliacao.media_criterios = medias_criterios
     avaliacao.save(force_update=True)
 
-    funcionario_avaliado.avaliacao_pendente = False
     funcionario_avaliado.save(force_update=True)
+
+    print(funcionario_avaliado)
 
     return avaliacao
 
@@ -369,8 +376,8 @@ def list_avaliados(request):
         else:
             if request.user.profile.tipo == 'Colega':
                 funcionarios = Funcionario.objects.filter(
-                    Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True, ativo=True) | Q(
-                        id=request.user.profile.funcionario.id, avaliavel=True))
+                    Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True, ativo=True, avaliacao_pendente_colega=True) | Q(
+                        id=request.user.profile.funcionario.id, avaliavel=True, avaliacao_pendente_auto=True))
 
     context = {'funcionarios': funcionarios, 'usuario': request.user}
 

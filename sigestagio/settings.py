@@ -80,9 +80,9 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'estagioprobapp',
+        'NAME': 'estagioteste',
         'USER': 'postgres',
-        'PASSWORD': '',
+        'PASSWORD': '914682',
         'HOST': '127.0.0.1',
         'PORT': '',  # 8000 is default
     }
