@@ -80,7 +80,7 @@ Servidor em Período Probatório
                             {{avaliacao.tipo_avaliador}}
                         </td>
                         <td>
-                            <strong>{{avaliacao.trimestre_avaliado}}º</strong> <span class="badge bg-secondary">
+                            <strong>{{avaliacao.periodo_avaliado}}º</strong> <span class="badge bg-secondary">
                             {{avaliacao.media|floatformat:1}}</span>
                         </td>
                         <td>
@@ -99,7 +99,7 @@ Servidor em Período Probatório
                             {{avaliacao.tipo_avaliador}}
                         </td>
                         <td>
-                            <strong>{{avaliacao.trimestre_avaliado}}º</strong> <span class="badge bg-secondary">
+                            <strong>{{avaliacao.periodo_avaliado}}º</strong> <span class="badge bg-secondary">
                             {{avaliacao.media|floatformat:1}}</span>
                         </td>
                         <td>
@@ -110,7 +110,7 @@ Servidor em Período Probatório
 
                     </tr>
                     {%endif%}
-                    {%elif avaliacao.tipo_avaliador == 'Chefe'%}
+                    {%elif avaliacao.tipo_avaliador == 'Chefe Imediato'%}
                     <tr>
                         <td>
                             {{avaliacao.data | date:'d M y'}}
@@ -119,7 +119,7 @@ Servidor em Período Probatório
                             {{avaliacao.tipo_avaliador}}
                         </td>
                         <td>
-                            <strong>{{avaliacao.trimestre_avaliado}}º</strong> <span class="badge bg-secondary">
+                            <strong>{{avaliacao.periodo_avaliado}}º</strong> <span class="badge bg-secondary">
                             {{avaliacao.media|floatformat:1}}</span>
                         </td>
                         <td>

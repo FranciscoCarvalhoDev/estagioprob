@@ -132,15 +132,18 @@ Resumo Avaliação
             </div>
         </div>
         <div class="break">
-            <h4 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO TRIMESTRAL DESEMPENHO</h4>
+            <h4 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO QUADRIMESTRAL DESEMPENHO</h4>
             <div class="table-ficha-avaliador mt-5 mb-5">
                 <p><span class="fw-bold">Avaliador: </span>{{avaliacao.avaliador.nome}}<br>
-                    <span class="fw-bold">Função:</span> {% if avaliacao %}
+                    <span class="fw-bold">Tipo de avaliação:</span> {% if avaliacao %}
                     {% if avaliacao.avaliador.tipo == "Comissão" %}
                     COLEGA
                     {%else%}
-                    {{avaliacao.avaliador.tipo|upper}}
-
+                        {%if avaliacao.avaliador.funcionario.id == avaliacao.funcionario.id %}
+                            AUTOAVALIAÇÃO
+                        {%else%}
+                            {{avaliacao.avaliador.tipo|upper}}
+                        {%endif%}
                     {%endif%}
                     {%endif%}
                 </p>

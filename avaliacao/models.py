@@ -41,7 +41,7 @@ class Funcionario(models.Model):
 
 class Avaliador(models.Model):
     TIPO_AVALIADOR = [
-        ('Chefe', 'Chefe'),
+        ('Chefe Imediato', 'Chefe Imediato'),
         ('Colega', 'Colega'),
         ('Próprio', 'Próprio'),
         ('Comissão', 'Comissão'),
@@ -61,12 +61,13 @@ class Avaliador(models.Model):
 
 class Avaliacao(models.Model):
     TIPO_AVALIACAO = [
+        ('Quadrimestral', 'Quadrimestral'),
         ('Trimestral', 'Trimestral'),
         ('Anual', 'Anual'),
     ]
 
     NIVEL = [
-        ('Chefe', 'Chefe'),
+        ('Chefe Imediato', 'Chefe Imediato'),
         ('Colega', 'Colega'),
         ('Próprio', 'Próprio'),
 
@@ -78,14 +79,14 @@ class Avaliacao(models.Model):
     media = models.CharField(max_length=5, null=True)
     media_criterios = models.CharField(max_length=255, null=True)
     periodo = models.CharField(max_length=50, help_text="Periodo avaliado")
-    trimestre_avaliado = models.CharField(max_length=2, default=0, help_text="Trimestre a que se refere. Contador do estado atual da avaliação")
+    periodo_avaliado = models.CharField(max_length=2, default=0, help_text="Trimestre a que se refere. Contador do estado atual da avaliação")
     proxima_avaliacao = models.DateField()
     funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE, related_name='avaliacao')
     avaliador = models.ForeignKey(Avaliador, on_delete=models.CASCADE, related_name='avaliador')
 
     def __str__(self):
         return str(self.funcionario.nome)+' - Avaliador: '+str(self.avaliador.nome)\
-               +' - Trimestre '+str(self.trimestre_avaliado)+'('+str(self.periodo)+')'
+               +' - Trimestre '+str(self.periodo_avaliado)+'('+str(self.periodo)+')'
 
 
 class Criterio(models.Model):

@@ -29,9 +29,9 @@ def insert_avaliacao(request, id_funcionario):
 
     id_funcionario_usuario = request.user.profile.funcionario.id
 
-    if request.user.profile.tipo == 'Chefe':
+    if request.user.profile.tipo == 'Chefe Imediato':
         print('AVALIAÇÃO do Chefe--------------')
-        tipo_avalicao = 'Chefe'
+        tipo_avalicao = 'Chefe Imediato'
         funcionario_avaliado.avaliacao_pendente = False
 
     else:
@@ -57,26 +57,26 @@ def insert_avaliacao(request, id_funcionario):
 
     if ultima_avaliacao:  # dados da ultima avaliacao que diz quando a avaliacao atual começa
         inicio_periodo = ultima_avaliacao.proxima_avaliacao
-        fim_periodo = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(90)
+        fim_periodo = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(120)
         periodo = inicio_periodo.strftime('%d/%m/%Y') + ' até ' + fim_periodo.strftime(
-            '%d/%m/%Y')  # 'avaliacao.proxima_avaliacao Até avaliacao.proxima_avaliacao+91'
-        trimestre_avaliado = int(ultima_avaliacao.trimestre_avaliado) + 1
+            '%d/%m/%Y')  # 'avaliacao.proxima_avaliacao Até avaliacao.proxima_avaliacao+121'
+        periodo_avaliado = int(ultima_avaliacao.periodo_avaliado) + 1
         proxima_avaliacao = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(
-            91)  # 'avaliacao.proxima_avaliacao + 180' #tres meses após a de hoje
+            121)  # 'avaliacao.proxima_avaliacao + 180' #tres meses após a de hoje
     else:
-        fim_periodo = funcionario_avaliado.dt_inicio_exercicio + datetime.timedelta(90)
+        fim_periodo = funcionario_avaliado.dt_inicio_exercicio + datetime.timedelta(120)
         periodo = funcionario_avaliado.dt_inicio_exercicio.strftime('%d/%m/%Y') + ' a ' \
-                  + fim_periodo.strftime('%d/%m/%Y')  # 'periodo ingresso Até perido +90'
-        trimestre_avaliado = 1
-        proxima_avaliacao = fim_periodo + datetime.timedelta(1)  # data de hoje + 90
+                  + fim_periodo.strftime('%d/%m/%Y')  # 'periodo ingresso Até perido +120'
+        periodo_avaliado = 1
+        proxima_avaliacao = fim_periodo + datetime.timedelta(1)  # data de hoje +120
 
     avaliacao = avaliacao.objects.create(
         data=datetime.datetime.now(),
-        tipo='Trimestral',
+        tipo='Quadrimestral',
         tipo_avaliador=tipo_avalicao,
         media='0',
         periodo=periodo,
-        trimestre_avaliado=trimestre_avaliado,
+        periodo_avaliado=periodo_avaliado,
         proxima_avaliacao=proxima_avaliacao,
         avaliador=avaliador,
         funcionario=funcionario_avaliado,
@@ -369,7 +369,7 @@ def list_avaliados(request):
 
         funcionarios = Funcionario.objects.filter(avaliavel=True).order_by('ativo', 'nome')
     else:
-        if request.user.profile.tipo == 'Chefe':
+        if request.user.profile.tipo == 'Chefe Imediato':
             funcionarios = Funcionario.objects.filter(
                 Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True, ativo=True,
                   avaliacao_pendente=True))
@@ -388,19 +388,6 @@ def detalhes_avaliado(request, id_avaliado):
     funcionario = Funcionario.objects.get(pk=id_avaliado)
 
     usuario = request.user
-    # if request.user.profile.tipo == 'Comissão':
-    #
-    #     funcionarios = Funcionario.objects.filter(avaliavel=True).order_by('ativo', 'nome')
-    # else:
-    #     if request.user.profile.tipo == 'Chefe':
-    #         funcionarios = Funcionario.objects.filter(
-    #             Q(grupo_avaliacao=request.user.profile.funcionario.grupo_avaliacao, avaliavel=True, ativo=True))
-    #     else:
-    #         if request.user.profile.tipo == 'Colega':
-    #             # funcionarios = Funcionario.objects.filter(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True)
-    #             funcionarios = Funcionario.objects.filter(
-    #                 Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True, ativo=True) | Q(
-    #                     id=request.user.profile.funcionario.id))
 
     print(funcionario)
     context = {'funcionario': funcionario, 'usuario': usuario}
