@@ -47,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'requestlogs.middleware.RequestLogsMiddleware',
 ]
 
 ROOT_URLCONF = 'sigestagio.urls'
@@ -138,3 +139,22 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTH_PROFILE_MODULE = 'sigestagio.Funcionario'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'requestlogs_to_file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'requestlogs.log',
+        },
+    },
+    'loggers': {
+        'requestlogs': {
+            'handlers': ['requestlogs_to_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}

@@ -6,6 +6,10 @@ from django.db.models import Q
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 import datetime
 import ast
+import logging
+
+logger = logging.getLogger('requestlogs')
+
 
 from avaliacao.models import Criterio, Avaliacao, Funcionario, Avaliador
 
@@ -28,6 +32,9 @@ def insert_avaliacao(request, id_funcionario):
     avaliacao = Avaliacao
 
     id_funcionario_usuario = request.user.profile.funcionario.id
+
+    logger.info('')
+
 
     if request.user.profile.tipo == 'Chefe Imediato':
         print('AVALIAÇÃO do Chefe--------------')
@@ -288,6 +295,8 @@ def add_criterios(request, avaliacao):
 def cad_avaliacao(request, id_funcionario):
     context = None
 
+    logger.info('')
+
     if request.method == 'GET':
         funcionario = Funcionario
         funcionario = funcionario.objects.get(pk=id_funcionario)
@@ -324,6 +333,8 @@ def reativar_avaliacao(request, id_funcionario):
 
         print(avaliacao)
 
+        logger.info('')
+
         if avaliacao:
             proxima_avaliacao = datetime.datetime.now() + datetime.timedelta(91)
             avaliacao.proxima_avaliacao = proxima_avaliacao
@@ -348,6 +359,8 @@ def resumo_avaliacao(request, id_avaliacao):
     if request.user.profile.id == avaliacao.avaliador.id or request.user.profile.tipo == 'Comissão':
         criterios = Criterio.objects.filter(avaliacao=avaliacao)
 
+        logger.info('')
+
         try:
             chefe = Funcionario.objects.get(
                 Q(depto=avaliacao.funcionario.depto, cargo_comissionado="DIR. DEPARTAMENTO") | Q(
@@ -359,7 +372,6 @@ def resumo_avaliacao(request, id_avaliacao):
 
         except Funcionario.DoesNotExist:
             return redirect('list_avaliados')
-
 
 @login_required
 def list_avaliados(request):
@@ -381,6 +393,8 @@ def list_avaliados(request):
 
     context = {'funcionarios': funcionarios, 'usuario': request.user}
 
+    logger.info('')
+
     return render(request, 'list_funcionarios.html', context)
 
 
@@ -391,6 +405,9 @@ def detalhes_avaliado(request, id_avaliado):
 
     print(funcionario)
     context = {'funcionario': funcionario, 'usuario': usuario}
+
+    logger.info('')
+
 
     return render(request, 'details_funcionario.html', context)
 
@@ -414,11 +431,17 @@ def entrar(request):
         else:
             context = {'msg': 'Não foi possível logar'}
 
+    logger.info('')
+
+
     return render(request, 'form_auth.html', context)
 
 
 def entrar_token(request, token_id):
     context = {'msg': ''}
+
+    logger.info('')
+
 
     if (request.method == 'GET') and token_id != '44sedf':
 
