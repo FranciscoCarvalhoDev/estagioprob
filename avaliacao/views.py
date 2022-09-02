@@ -35,7 +35,6 @@ def insert_avaliacao(request, id_funcionario):
 
     logger.info('')
 
-
     if request.user.profile.tipo == 'Chefe Imediato':
         print('AVALIAÇÃO do Chefe--------------')
         tipo_avalicao = 'Chefe Imediato'
@@ -64,14 +63,14 @@ def insert_avaliacao(request, id_funcionario):
 
     if ultima_avaliacao:  # dados da ultima avaliacao que diz quando a avaliacao atual começa
         inicio_periodo = ultima_avaliacao.proxima_avaliacao
-        fim_periodo = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(120)
+        fim_periodo = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(180)
         periodo = inicio_periodo.strftime('%d/%m/%Y') + ' até ' + fim_periodo.strftime(
             '%d/%m/%Y')  # 'avaliacao.proxima_avaliacao Até avaliacao.proxima_avaliacao+121'
         periodo_avaliado = int(ultima_avaliacao.periodo_avaliado) + 1
         proxima_avaliacao = ultima_avaliacao.proxima_avaliacao + datetime.timedelta(
-            121)  # 'avaliacao.proxima_avaliacao + 180' #tres meses após a de hoje
+            181)  # 'avaliacao.proxima_avaliacao + 180' #tres meses após a de hoje
     else:
-        fim_periodo = funcionario_avaliado.dt_inicio_exercicio + datetime.timedelta(120)
+        fim_periodo = funcionario_avaliado.dt_inicio_exercicio + datetime.timedelta(180)
         periodo = funcionario_avaliado.dt_inicio_exercicio.strftime('%d/%m/%Y') + ' a ' \
                   + fim_periodo.strftime('%d/%m/%Y')  # 'periodo ingresso Até perido +120'
         periodo_avaliado = 1
