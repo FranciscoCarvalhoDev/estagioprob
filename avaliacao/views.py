@@ -130,7 +130,7 @@ def add_criterios(request, avaliacao):
         criterio1.objects.create(
             descricao=request.POST.get('txt_criterio' + str(item)),
             nota=request.POST.get('pt_criterio' + str(item)),
-            categoria='1. Assiduidade Pontualidade',
+            categoria='1. Assiduidade e Pontualidade',
             avaliacao=avaliacao
         )
 

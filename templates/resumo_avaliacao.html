@@ -263,7 +263,7 @@ Resumo Avaliação
             {% for criterio in criterios %}
             <tr>
 
-                {% if criterio.categoria == '1. Assiduidade Pontualidade' %}
+                {% if criterio.categoria == '1. Assiduidade e Pontualidade' %}
                 <td>{{criterio.descricao}}</td>
                 <td class="text-center">{{criterio.nota}}</td>
 
@@ -476,7 +476,7 @@ Resumo Avaliação
             </tr>
 
         </table>
-        <table class="table tab-resumo-avaliacao table-bordered">
+        <table class="break table tab-resumo-avaliacao table-bordered">
             <h4>10. Relações Interpessoais</h4>
             <tr>
                 <th>QUESITOS</th>
@@ -499,13 +499,76 @@ Resumo Avaliação
                 <td class="text-center fw-bold">{{media_criterios.9|floatformat:1}}</td>
             </tr>
 
+{% load filter_extras %}
         </table>
+        <div id="resumo-avaliacao">
+            <br>
+            <h5>RESUMO DA AVALIAÇÃO</h5>
+            <br>
+            <table class="table table-bordered w-75">
+            <thead>
+                <tr>
+            <th>CATEGORIA</th>
+            <th>CONCEITO</th>
+            </tr>
+                </thead>
+            <tr>
+                <td class=" fw-bold px-4">Assiduidade e Pontualidade</td>
+                <td class="fw-bold px-4">{{media_criterios.0|define_conceitos}}</td>
+            </tr>
+            <tr>
+                <td class=" fw-bold px-4">Disciplina</td>
+                <td class=" fw-bold px-4">{{media_criterios.1|define_conceitos}}</td>
+            </tr>
+            <tr>
+                <td class=" fw-bold px-4">Capacidade de Iniciativa</td>
+                <td class=" fw-bold px-4">{{media_criterios.2|define_conceitos}}</td>
+            </tr>            <tr>
+                <td class=" fw-bold px-4">Produtividade</td>
+                <td class=" fw-bold px-4">{{media_criterios.3|define_conceitos}}</td>
+            </tr>            <tr>
+                <td class=" fw-bold px-4">Responsabilidade</td>
+                <td class=" fw-bold px-4">{{media_criterios.4|define_conceitos}}</td>
+            </tr>
+            <tr>
+                <td class=" fw-bold px-4">Cooperação</td>
+                <td class=" fw-bold px-4">{{media_criterios.5|define_conceitos}}</td>
+            </tr>
+            <tr>
+                <td class=" fw-bold px-4">Dinamismo</td>
+                <td class=" fw-bold px-4">{{media_criterios.6|define_conceitos}}</td>
+            </tr>
+            <tr>
+                <td class=" fw-bold px-4">Adaptabilidade</td>
+                <td class=" fw-bold px-4">{{media_criterios.7|define_conceitos}}</td>
+            </tr>
+            <tr>
+                <td class=" fw-bold px-4">Urbanidade</td>
+                <td class=" fw-bold px-4">{{media_criterios.8|define_conceitos}}</td>
+            </tr>
+                        <tr>
+                <td class=" fw-bold px-4">Relações Interpessoais</td>
+                <td class=" fw-bold px-4">{{media_criterios.9|define_conceitos}}</td>
+            </tr>
+                        <tr>
+                <td class=" fw-bold px-4 text-center">MÉDIA DA AVALIAÇÃO</td>
+                <td class=" fw-bold px-4 text-uppercase ">{{avaliacao.media|define_conceitos}}</td>
+            </tr>
+            </table>
 
-        <div class="offset-4 col-4 break only-print" style="border-top:2px solid #000; text-align:center; margin-top:8em;">
+        </div>
+
+        <div class="offset-4 col-4
+        {% if avaliacao.avaliador.tipo == 'Chefe Imediato' %}
+            break
+        {%endif%}
+        only-print" style="border-top:2px solid #000; text-align:center; margin-top:8em;">
 
             <span class="fw-center"><strong>Assinatura do Avaliador</strong></span><br />
             <span class="fw-right"><strong>Data da Avaliação:</strong> {{avaliacao.data|date:'d/m/Y'}}</span>
         </div>
+
+{% if avaliacao.avaliador.tipo == "Chefe Imediato" %}
         <div class="col-12 text-center fw-bold" style="">
             <h4><strong>Informações Gerais da Chefia Imediata</strong></h4>
 
@@ -544,7 +607,7 @@ Resumo Avaliação
 
 
         </div>
-
+{%endif%}
 
     </div>
 </div>
