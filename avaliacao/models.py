@@ -92,7 +92,7 @@ class Avaliacao(models.Model):
 class Criterio(models.Model):
 
     CATEGORIA = [
-        ('1. Assiduidade Pontualidade', '1. Assiduidade Pontualidade'),
+        ('1. Assiduidade e Pontualidade', '1. Assiduidade e Pontualidade'),
         ('2. Disciplina', '2. Disciplina'),
         ('3. Capacidade de Iniciativa', '3. Capacidade de Iniciativa'),
         ('4. Produtividade', '4. Produtividade'),
