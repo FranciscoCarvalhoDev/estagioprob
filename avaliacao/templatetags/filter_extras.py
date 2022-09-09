@@ -3,7 +3,7 @@ register = template.Library()
 
 @register.filter(name='define_conceitos')
 def define_conceitos(value):
-    value = float(value)
+    value = round(float(value))
 
     if(value < 50):
         conceito = 'Insuficiente'

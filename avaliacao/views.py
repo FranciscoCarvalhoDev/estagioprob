@@ -135,7 +135,7 @@ def add_criterios(request, avaliacao):
 
         pontos_assiduidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_assiduidade = round(pontos_assiduidade / itens_assiduidade, 2)
+    media_assiduidade = round(pontos_assiduidade / itens_assiduidade, 1)
 
     # DISCIPLINA
     pontos_disciplina = 0
@@ -152,7 +152,7 @@ def add_criterios(request, avaliacao):
 
         pontos_disciplina += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_disciplina = round(pontos_disciplina / itens_disciplina, 2)
+    media_disciplina = round(pontos_disciplina / itens_disciplina, 1)
 
     # INICIATIVA
     pontos_iniciativa = 0
@@ -168,7 +168,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_iniciativa += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_iniciativa = round(pontos_iniciativa / itens_iniciativa, 2)
+    media_iniciativa = round(pontos_iniciativa / itens_iniciativa, 1)
 
     # PRODUTIVIDADE
     pontos_produtividade = 0
@@ -184,7 +184,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_produtividade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_produtividade = round(pontos_produtividade / itens_produtividade, 2)
+    media_produtividade = round(pontos_produtividade / itens_produtividade, 1)
 
     # RESPONSABILIDADE
     pontos_responsabilidade = 0
@@ -200,7 +200,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_responsabilidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_responsabilidade = round(pontos_responsabilidade / itens_responsabilidade, 2)
+    media_responsabilidade = round(pontos_responsabilidade / itens_responsabilidade, 1)
 
     # COOPERACAO
     pontos_cooperacao = 0
@@ -216,7 +216,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_cooperacao += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_cooperacao = round(pontos_cooperacao / itens_cooperacao, 2)
+    media_cooperacao = round(pontos_cooperacao / itens_cooperacao, 1)
 
     # DINAMISMO
     pontos_dinamismo = 0
@@ -232,7 +232,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_dinamismo += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_dinamismo = round(pontos_dinamismo / itens_dinamismo, 2)
+    media_dinamismo = round(pontos_dinamismo / itens_dinamismo, 1)
 
     # ADAPTABILIDADE
     pontos_adaptabilidade = 0
@@ -248,7 +248,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_adaptabilidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_adaptabilidade = round(pontos_adaptabilidade / itens_adaptabilidade, 2)
+    media_adaptabilidade = round(pontos_adaptabilidade / itens_adaptabilidade, 1)
 
     # URBANIDADE
     pontos_urbanidade = 0
@@ -264,7 +264,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_urbanidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_urbanidade = round(pontos_urbanidade / itens_urbanidade, 2)
+    media_urbanidade = round(pontos_urbanidade / itens_urbanidade, 1)
 
     # RELACOES
     pontos_relacoes = 0
@@ -280,13 +280,13 @@ def add_criterios(request, avaliacao):
         )
         pontos_relacoes += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_relacoes = round(pontos_relacoes / itens_relacoes, 2)
+    media_relacoes = round(pontos_relacoes / itens_relacoes, 1)
 
     medias_criterios = [media_assiduidade, media_disciplina, media_iniciativa, media_produtividade,
                         media_responsabilidade, \
                         media_cooperacao, media_dinamismo, media_adaptabilidade, media_urbanidade, media_relacoes]
 
-    media_avaliacao = round(sum(medias_criterios) / len(medias_criterios), 2)
+    media_avaliacao = round(sum(medias_criterios) / len(medias_criterios), 0)
     return medias_criterios, media_avaliacao
 
 
