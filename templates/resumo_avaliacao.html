@@ -95,12 +95,19 @@ Resumo Avaliação
 
     .noprint{
         display:none
+
     }
     }
 
+    .test{
+        color:red;
+    }
 
 
 </style>
+
+
+
 <div id="resumo_avaliacao">
     <div style="padding:2em">
         <div class="d-flex justify-content-center">
@@ -111,7 +118,7 @@ Resumo Avaliação
         <div class="container noprint">
             <div class="row">
             <div class="col-12 alert-success p-3 m-2">
-                <h4 class="alert-heading"><strong>Instruções para Impressão</strong></h4>
+                <h4 id="teste" class="alert-heading test"><strong>Instruções para Impressão</strong></h4>
                 <p>
                 <ol>
                     <li>Após assinar o resumo e preencher as perguntas das ultimas páginas, entregar pra a Comissão de Avalicação</li>
@@ -126,6 +133,15 @@ Resumo Avaliação
 
                 <div class="col-3 offset-5">
                     <button class="btn btn-success btn-lg txt-center" onclick="print()">Imprimir Relatório</button>
+                    <div class="form-check fs-5" style="color:#912222;">
+                      <input class="form-check-input" type="checkbox" value="" id="printrecibo" checked="checked">
+                      <label class="form-check-label" for="printrecibo">
+                        Imprimir somente o recibo
+                      </label>
+                    </div>
+
+
+
                 </div>
             </div>
 
@@ -194,7 +210,7 @@ Resumo Avaliação
                 </table>
             </div>
         </div>
-
+<div id="resumo-p1" class="noprint">
         <div class="break text-justify tab-normas-legais">
             <h4>DISPOSIÇÕES GERAIS:</h4>
             <p>Objetivo: Avaliar a aptidão e capacidade do (a) servidor (a) para o desempenho do cargo que
@@ -476,6 +492,10 @@ Resumo Avaliação
             </tr>
 
         </table>
+
+      <div class="print-active">
+
+
         <table class="break table tab-resumo-avaliacao table-bordered">
             <h4>10. Relações Interpessoais</h4>
             <tr>
@@ -498,12 +518,21 @@ Resumo Avaliação
                 <td class="text-center fw-bold">MÉDIA DA PONTUAÇÃO</td>
                 <td class="text-center fw-bold">{{media_criterios.9|floatformat:1}}</td>
             </tr>
-
-{% load filter_extras %}
         </table>
+      </div>
+
+    </div>
+<div id="resumo-p2" class="">
+{% load filter_extras %}
         <div id="resumo-avaliacao">
             <br>
             <h5>RESUMO DA AVALIAÇÃO</h5>
+            <h6>
+                            <p>
+                Eu, {{avaliacao.avaliador.nome}}, declaro por meio deste recibo que o valores a seguir correspondem às média da avaliação realizada por mim.
+            </p>
+
+            </h6>
             <br>
             <table class="table table-bordered w-75">
             <thead>
@@ -608,8 +637,21 @@ Resumo Avaliação
 
         </div>
 {%endif%}
+      </div>
 
-    </div>
+
+</div>
+
+
 </div>
 {% endblock %}
 
+                    <script>
+$("#printrecibo").change(function() {
+    if($(this).is(":checked")){
+       alert('klkl')
+
+    }
+});
+
+                    </script>

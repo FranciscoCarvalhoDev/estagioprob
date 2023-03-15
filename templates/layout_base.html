@@ -183,6 +183,14 @@ $(document).ready(function(){
         })
 
 
+$("#printrecibo").change(function() {
+if( $('#printrecibo').is(':checked') ){
+    $('#resumo-p1').addClass('noprint')}
+else{
+    $('#resumo-p1').removeClass('noprint')
+}
+});
+
     </script>
 
 </body>
