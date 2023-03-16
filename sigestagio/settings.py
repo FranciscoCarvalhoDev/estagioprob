@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'estagio_oficial',
         'USER': 'postgres',
-        'PASSWORD': '914682',
+        'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
         'PORT': '',  # 8000 is default
     }
@@ -147,7 +147,7 @@ LOGGING = {
         'requestlogs_to_file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'requestlogs.log',
+            'filename': 'requestlogs2ava.log',
         },
     },
     'loggers': {
