@@ -111,6 +111,10 @@
         border-bottom: 1px solid #a5826d;
     }
 
+    #tabquestionario select{
+        margin:1px;
+    }
+
     @media print{
         *{
             margin:0;
@@ -182,6 +186,17 @@ $(document).ready(function(){
             $(this).parent().parent('layout_pt').css('background','#eee')
         })
 
+$('#tabquestionario select').change(function(e){
+    if($(this).val()!=''){
+        $(this).addClass('alert-success')
+        $(this).removeClass('btn-outline-danger')
+
+    }else{
+        $(this).removeClass('alert-success')
+        $(this).addClass('btn-outline-danger')
+
+    }
+})
 
 $("#printrecibo").change(function() {
 if( $('#printrecibo').is(':checked') ){
