@@ -139,6 +139,12 @@ Resumo Avaliação
                         Imprimir somente o recibo
                       </label>
                     </div>
+                    <div class="form-check fs-5" style="color:#912222;">
+                      <input class="form-check-input" type="checkbox" value="" id="printperguntas">
+                      <label class="form-check-label" for="printperguntas">
+                        Imprimir página de observações
+                      </label>
+                    </div>
 
 
 
@@ -147,7 +153,7 @@ Resumo Avaliação
 
             </div>
         </div>
-        <div class="break">
+        <div id="folha-rosto" class="break noprint">
             <h4 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO SEMESTRAL DESEMPENHO</h4>
             <div class="table-ficha-avaliador mt-5 mb-5">
                 <p><span class="fw-bold">Avaliador: </span>{{avaliacao.avaliador.nome}}<br>
@@ -529,7 +535,7 @@ Resumo Avaliação
             <h5>RESUMO DA AVALIAÇÃO</h5>
             <h6>
                             <p>
-                Eu, {{avaliacao.avaliador.nome}}, declaro por meio deste recibo que o valores a seguir correspondem às média da avaliação realizada por mim.
+                Eu, {{avaliacao.avaliador.nome}}, declaro por que avaliei {{avaliacao.funcionario.nome}} e os valores a seguir correspondem às média da avaliação realizada por mim.
             </p>
 
             </h6>
@@ -596,7 +602,7 @@ Resumo Avaliação
             <span class="fw-center"><strong>Assinatura do Avaliador</strong></span><br />
             <span class="fw-right"><strong>Data da Avaliação:</strong> {{avaliacao.data|date:'d/m/Y'}}</span>
         </div>
-
+<div id="avaliacao-detalhes" class="noprint">
 {% if avaliacao.avaliador.tipo == "Chefe Imediato" %}
         <div class="col-12 text-center fw-bold" style="">
             <h4><strong>Informações Gerais da Chefia Imediata</strong></h4>
@@ -637,6 +643,7 @@ Resumo Avaliação
 
         </div>
 {%endif%}
+</div>
       </div>
 
 
@@ -645,13 +652,3 @@ Resumo Avaliação
 
 </div>
 {% endblock %}
-
-                    <script>
-$("#printrecibo").change(function() {
-    if($(this).is(":checked")){
-       alert('klkl')
-
-    }
-});
-
-                    </script>

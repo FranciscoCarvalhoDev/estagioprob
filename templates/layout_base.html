@@ -200,9 +200,22 @@ $('#tabquestionario select').change(function(e){
 
 $("#printrecibo").change(function() {
 if( $('#printrecibo').is(':checked') ){
-    $('#resumo-p1').addClass('noprint')}
+    $('#resumo-p1').addClass('noprint')
+    $('#folha-rosto').addClass('noprint')}
+
 else{
     $('#resumo-p1').removeClass('noprint')
+    $('#folha-rosto').removeClass('noprint')
+
+}
+});
+
+
+$("#printperguntas").change(function() {
+if( $('#printperguntas').is(':checked') ){
+    $('#avaliacao-detalhes').removeClass('noprint')}
+else{
+    $('#avaliacao-detalhes').addClass('noprint')
 }
 });
 
