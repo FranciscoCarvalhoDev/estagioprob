@@ -90,26 +90,26 @@ Servidor em Período Probatório
 
                     </tr>
                     {% elif usuario.profile.tipo == 'Colega' %}
-                    {% if avaliacao.tipo_avaliador == 'Próprio' %}
-<tr>
-                        <td>
-                            {{avaliacao.data | date:'d M y'}}
-                        </td>
-                        <td>
-                            {{avaliacao.tipo_avaliador}}
-                        </td>
-                        <td>
-                            <strong>{{avaliacao.periodo_avaliado}}º</strong> <span class="badge bg-secondary">
-                            {{avaliacao.media|floatformat:1}}</span>
-                        </td>
-                        <td>
-                            <a class="nav-link" href="{% url 'resumo_avaliacao'  avaliacao.id%}">
-                                {{avaliacao.periodo}}</a>
-                        </td>
+                        {% if avaliacao.tipo_avaliador == 'Próprio' and usuario.profile.nome == funcionario.nome %}
+    <tr>
+                            <td>
+                                {{avaliacao.data | date:'d M y'}}
+                            </td>
+                            <td>
+                                {{avaliacao.tipo_avaliador}}
+                            </td>
+                            <td>
+                                <strong>{{avaliacao.periodo_avaliado}}º</strong> <span class="badge bg-secondary">
+                                {{avaliacao.media|floatformat:1}}</span>
+                            </td>
+                            <td>
+                                <a class="nav-link" href="{% url 'resumo_avaliacao'  avaliacao.id%}">
+                                    {{avaliacao.periodo}}</a>
+                            </td>
 
 
-                    </tr>
-                    {%endif%}
+                        </tr>
+                        {%endif%}
                     {%elif avaliacao.tipo_avaliador == 'Chefe Imediato'%}
                     <tr>
                         <td>

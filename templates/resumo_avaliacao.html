@@ -535,7 +535,7 @@ Resumo Avaliação
             <h5>RESUMO DA AVALIAÇÃO</h5>
             <h6>
                             <p>
-                Eu, {{avaliacao.avaliador.nome}}, declaro por que avaliei {{avaliacao.funcionario.nome}} e os valores a seguir correspondem às média da avaliação realizada por mim.
+                Eu, {{avaliacao.avaliador.nome}}, declaro que {%if avaliacao.avaliador.nome != avaliacao.funcionario.nome%} avaliei {{avaliacao.funcionario.nome}} e {%endif%}  os valores a seguir correspondem às média da avaliação realizada por mim.
             </p>
 
             </h6>
