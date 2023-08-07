@@ -77,7 +77,11 @@ Servidor em Período Probatório
                             {{avaliacao.data | date:'d M y'}}
                         </td>
                         <td>
+                        {%if avaliacao.tipo_avaliador == "Próprio" %}
+                            Autoavaliação
+                        {%else%}
                             {{avaliacao.tipo_avaliador}}
+                        {%endif%}
                         </td>
                         <td>
                             <strong>{{avaliacao.periodo_avaliado}}º</strong> <span class="badge bg-secondary">

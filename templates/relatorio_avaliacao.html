@@ -106,6 +106,7 @@ Resumo Avaliação
 
 
 
+
 </style>
 
 
@@ -143,7 +144,7 @@ Resumo Avaliação
                     <th>Dinamismo</th>
                     <th>Adaptabilidade</th>
                     <th>Urbanidade</th>
-                    <th>Relações Interpessoais	</th>
+                    <th>Relações Interpessoais</th>
                 </tr>
                 {% for avaliacao in avaliacoes %}
                 <tr>
@@ -153,14 +154,14 @@ Resumo Avaliação
 
                     <td class="text-center">
                         {%if avaliacao.tipo_avaliador == "Próprio" %}
-                            Auto-Avaliação
+                        AutoAvaliação
                         {%else%}
-                            {{avaliacao.tipo_avaliador}}
+                        {{avaliacao.tipo_avaliador}}
 
                         {%endif%}
                     </td>
                     {% for criterio in avaliacao.media_criterios %}
-                        <td>{{criterio}}</td>
+                    <td>{{criterio}}</td>
                     {%endfor%}
 
                 </tr>
