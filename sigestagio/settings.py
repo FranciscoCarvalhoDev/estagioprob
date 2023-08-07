@@ -147,7 +147,7 @@ LOGGING = {
         'requestlogs_to_file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'requestlogs2ava.log',
+            'filename': 'requestlogs2ava-efetivos.log',
         },
     },
     'loggers': {

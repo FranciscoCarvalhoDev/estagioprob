@@ -10,7 +10,6 @@ import logging
 
 logger = logging.getLogger('requestlogs')
 
-
 from avaliacao.models import Criterio, Avaliacao, Funcionario, Avaliador
 
 
@@ -50,7 +49,6 @@ def insert_avaliacao(request, id_funcionario):
             print('AVALIAÇÃO COLEGA --------------')
             tipo_avalicao = 'Colega'
             funcionario_avaliado.avaliacao_pendente_colega = False
-
 
     # obter a ultima avaliação por tipo de avaliador
     ultima_avaliacao = Avaliacao.objects.filter(
@@ -351,6 +349,22 @@ def reativar_avaliacao(request, id_funcionario):
 
 
 @login_required()
+def relatorio_avaliacao(request, id_funcionario):
+    context = {'msg': 'Avaliação não pode ser exibida'}
+    dados = []
+
+    avaliacoes = Avaliacao.objects.filter(funcionario=id_funcionario).all()
+
+    for avaliacao in avaliacoes:
+        avaliacao.media_criterios = ast.literal_eval(avaliacao.media_criterios)
+        dados.append(avaliacao)
+
+    context = {'avaliacoes': dados}
+
+    return render(request, 'relatorio_avaliacao.html', context)
+
+
+@login_required()
 def resumo_avaliacao(request, id_avaliacao):
     context = {'msg': 'Avaliação não pode ser exibida'}
     avaliacao = Avaliacao.objects.get(pk=id_avaliacao)
@@ -407,7 +421,6 @@ def detalhes_avaliado(request, id_avaliado):
 
     logger.info('')
 
-
     return render(request, 'details_funcionario.html', context)
 
 
@@ -432,7 +445,6 @@ def entrar(request):
 
     logger.info('')
 
-
     return render(request, 'form_auth.html', context)
 
 
@@ -440,7 +452,6 @@ def entrar_token(request, token_id):
     context = {'msg': ''}
 
     logger.info('')
-
 
     if (request.method == 'GET') and token_id != '44sedf':
 

@@ -1,0 +1,180 @@
+{% extends 'layout_base.html' %}
+
+{% block title %}
+Resumo Avaliação
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+
+    h4, table, th, tr, .tab-normas-legais, .table-ficha-avaliador, div{
+    font-family:pt-serif;
+
+ color:#000;
+}
+    h4, h5{
+    font-weight:300;
+        margin-top:1.5em;
+
+    }
+    .tab-resumo-avaliacao{
+
+        margin-top:1em;
+
+    }
+    .table-bordered th{
+        font-size:0.8em;
+        text-align:center;
+    }
+
+.break{
+    page-break-after: always;
+    break-after: always;
+}
+
+
+.table-bordered>:not(caption)>*>* {
+    padding-bottom: 0.2em;
+    }
+
+    .h-table :nth-child(1){
+        max-width:85% !important;
+    }
+
+    .tab-resumo-avaliacao tr :nth-child(2){
+        width:15% !important;
+    }
+
+    .table-bordered{
+        border-color:#000;
+    }
+
+    .table-ficha-avaliador{
+        width:80%;
+        margin:0 auto;
+    }
+
+    .table-ficha-avaliado{
+        border:1px solid #000;
+    }
+
+
+    .text-justify{
+        text-align: justify;
+    }
+
+    .img-logo{
+        width:30%;
+    }
+
+    .only-print{
+        display:none
+    }
+
+    .noprint{
+        display:block
+    }
+
+   @media print{
+       #resumo_avaliacao{
+
+
+        }
+        #container{
+            width:100% !important;
+        }
+
+        .only-print{
+            display:block;
+        }
+
+    .noprint{
+        display:none
+
+    }
+    }
+
+    .test{
+        color:red;
+    }
+
+
+
+
+</style>
+
+
+<div id="resumo_avaliacao">
+    <div style="padding:2em">
+        <div class="d-flex justify-content-center">
+            {% load static %}
+            <img class="img-logo" src="{% static 'logo-cmm.jpg' %}"/>
+
+        </div>
+        <div class="container noprint">
+
+        </div>
+        <div id="folha-rosto" class="break noprint">
+            <h4 class="text-center">CONCURSO PÚBLICO CMM 001/2020 <br/>AVALIACÃO SEMESTRAL DESEMPENHO</h4>
+
+
+        </div>
+        {% load filter_extras %}
+
+        <div id="resumo-p1" class="noprint">
+            <table class="table tab-resumo-avaliacao table-bordered">
+                <tr class="h-table">
+                    <th>matricula</th>
+                    <th>Nome</th>
+                    <th>Avaliação</th>
+                    <th>Tipo</th>
+
+                    <th>Assiduidade e Pontualidade<br></th>
+                    <th>Disciplina</th>
+                    <th>Capacidade de Iniciativa</th>
+                    <th>Produtividade</th>
+                    <th>Responsabilidade</th>
+                    <th>Cooperação</th>
+                    <th>Dinamismo</th>
+                    <th>Adaptabilidade</th>
+                    <th>Urbanidade</th>
+                    <th>Relações Interpessoais	</th>
+                </tr>
+                {% for avaliacao in avaliacoes %}
+                <tr>
+                    <td class="text-center">{{avaliacao.funcionario.matricula}}</td>
+                    <td class="text-center">{{avaliacao.funcionario.nome}}</td>
+                    <td class="text-center">{{avaliacao.periodo_avaliado}}</td>
+
+                    <td class="text-center">
+                        {%if avaliacao.tipo_avaliador == "Próprio" %}
+                            Auto-Avaliação
+                        {%else%}
+                            {{avaliacao.tipo_avaliador}}
+
+                        {%endif%}
+                    </td>
+                    {% for criterio in avaliacao.media_criterios %}
+                        <td>{{criterio}}</td>
+                    {%endfor%}
+
+                </tr>
+
+
+                {% endfor %}
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+
+{% endblock %}
