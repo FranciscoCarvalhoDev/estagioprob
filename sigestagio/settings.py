@@ -79,7 +79,7 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'oficial.sqlite3',
     # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'estagio_1ano',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
