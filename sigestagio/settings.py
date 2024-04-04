@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-so7kuuu)gjk^&(xarmo%6syl^+a^p6e%s3l*ibnzs1-kj$hxz6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.3.150.180', '.cmm.local', '127.0.0.1', '[::1]','0.0.0.0']
+ALLOWED_HOSTS = ['*']
 
 DATE_FORMAT = "Y-m-d"
 # Application definition
@@ -70,7 +70,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sigestagio.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -80,7 +79,7 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'oficial.sqlite3',
     # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'estagio_1ano',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
@@ -91,7 +90,7 @@ DATABASES = {
 
 FIXTURE_DIRS = (
     os.path.join(BASE_DIR, 'fixtures'),
-    )
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -111,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -123,15 +121,13 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
