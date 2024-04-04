@@ -1,9 +1,12 @@
 asgiref==3.6.0
-sqlparse==0.4.4
-tzdata==2023.3
 Django==3.2
 django-requestlogs==0.7.1
 djangorestframework==3.14.0
-psycopg
+gunicorn==21.2.0
+packaging==24.0
+psycopg==3.1.18
 pytz==2023.3.post1
+setuptools==69.2.0
+sqlparse==0.4.4
 typing_extensions==4.8.0
+tzdata==2023.3
