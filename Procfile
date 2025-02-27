@@ -1,1 +1,1 @@
-web: gunicorn 'sigestagio.wsgi'
+web: gunicorn sigestagio.wsgi --log-file -
