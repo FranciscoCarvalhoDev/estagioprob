@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from avaliacao.views import cad_avaliacao, entrar,entrar_token, list_avaliados, resumo_avaliacao, reativar_avaliacao, \
-    detalhes_avaliado, relatorio_avaliacao
+from django.urls import path, include
+from avaliacao.views import cad_avaliacao, entrar, entrar_token, list_avaliados, resumo_avaliacao, reativar_avaliacao, \
+    detalhes_avaliado, relatorio_avaliacao_media_geral, relatorio_avaliacao_criterios_por_avaliacao
 
 urlpatterns = [
     path('', entrar, name='login'),
@@ -29,6 +29,9 @@ urlpatterns = [
     path('resumo/avaliacao/<int:id_avaliacao>', resumo_avaliacao, name='resumo_avaliacao'),
     path('ativar/avaliacao/<int:id_funcionario>', reativar_avaliacao, name='ativar_avaliacao'),
     path('detalhe/avaliado/<int:id_avaliado>', detalhes_avaliado, name='detalhes_avaliado'),
-    path('relatorio/avaliacao/<int:id_funcionario>', relatorio_avaliacao, name='relatorio_avaliacao'),
+    path('relatorio/avaliacao/<int:id_funcionario>/mediacategoria/<int:p_avaliacao>/<int:avaliador>', relatorio_avaliacao_media_geral, name='relatorio_avaliacao'),
+    path('relatorio/avaliacao/<int:id_funcionario>/criterios/avaliacao/<int:n_avaliacao>', relatorio_avaliacao_criterios_por_avaliacao, name='relatorio_avaliacao_criterios_por_avaliacao'),
+
+    path("apigrafico/", include('api_grafico.urls')),
 
 ]

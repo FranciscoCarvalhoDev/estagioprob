@@ -14,8 +14,6 @@ Funcionário para Avaliação
     }
 
 
-
-
 </style>
 
 <section class="vh-100">
@@ -29,11 +27,20 @@ Funcionário para Avaliação
                 {% endif %}
 
                 <div class="alert alert-secondary">
-                    <strong>Avaliador:</strong> {{usuario.profile.funcionario.nome}}<br/>
-                    <strong>Departamento:</strong> {{usuario.profile.funcionario.depto}}<br/>
-                    <strong>Grupo avaliado:</strong> {{usuario.profile.funcionario.grupo_avaliacao}}<br>
-                    <strong>Tipo de avaliação: </strong>{{usuario.profile.tipo}}{% if usuario.profile.tipo == 'Colega'%} / Própria{%endif%}
- </div>
+                    <div class="container"><strong>Avaliador:</strong> {{usuario.profile.funcionario.nome}}<br/>
+                        <strong>Departamento:</strong> {{usuario.profile.funcionario.depto}}<br/>
+                        <strong>Grupo avaliado:</strong> {{usuario.profile.funcionario.grupo_avaliacao}}<br>
+                        <strong>Tipo de avaliação: </strong>{{usuario.profile.tipo}}
+                        {% if usuario.profile.tipo == 'Colega'%}/ Própria
+                    </div>
+                    <div class="float-end pl-5 pt-5"><a class="btn btn-primary btn-lg"
+                                                        href="{% url 'painel_desempenho' usuario.profile.funcionario.id 1 %} ">
+                        Relatórios de Desempenho</a>
+                        {% endif %}
+
+                    </div>
+
+                </div>
 
 
                 <h4 class="mt-5 mb-4">Servidores para Avaliação: {{funcionarios|length }}</h4>
@@ -43,14 +50,19 @@ Funcionário para Avaliação
                         <td>
                             {{funcionario}}
                             {%if funcionario.id == usuario.profile.funcionario.id %}
-                            <span class="destaque-red">(Auto Avaliação)</span>
+                            <span class="destaque-red">(Auto Avaliação) </span>
                             {%endif%}
                         </td>
 
                         <td>
                             {%if funcionario.ativo %}
 
-                            <a href="{% url 'detalhes_avaliado' funcionario.id %}" class="btn btn-primary"><i class="fas fa-search"></i>&nbsp; Detalhes</a>{%endif%}
+                            <a href="{% url 'detalhes_avaliado' funcionario.id %}" class="btn btn-primary"><i
+                                    class="fas fa -search"></i>&nbsp; Detalhes</a>
+                            {% if usuario.profile.tipo == 'Comissão'%}
+                            <a href="{% url 'painel_desempenho' funcionario.id 1%}" class="btn btn-success"><i
+                                    class="fas fa -search"></i>&nbsp; Desempenho</a>{%endif%}
+                            {%endif%}
 
                             {%if funcionario.ativo == False %}
                             <a href="{% url 'cad_avaliacao' funcionario.id %}" class="btn btn-primary">Retomar

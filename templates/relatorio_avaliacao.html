@@ -104,9 +104,6 @@ Resumo Avaliação
     }
 
 
-
-
-
 </style>
 
 
@@ -130,11 +127,12 @@ Resumo Avaliação
         <div id="resumo-p1" class="noprint">
             <table class="table tab-resumo-avaliacao table-bordered">
                 <tr class="h-table">
-                    <th>matricula</th>
+                    <th>Matricula</th>
+                    <th>Departamento</th>
                     <th>Nome</th>
                     <th>Avaliação</th>
                     <th>Tipo</th>
-
+                    <th>Nota</th>
                     <th>Assiduidade e Pontualidade<br></th>
                     <th>Disciplina</th>
                     <th>Capacidade de Iniciativa</th>
@@ -149,6 +147,7 @@ Resumo Avaliação
                 {% for avaliacao in avaliacoes %}
                 <tr>
                     <td class="text-center">{{avaliacao.funcionario.matricula}}</td>
+                    <td class="text-center">{{avaliacao.funcionario.depto}}</td>
                     <td class="text-center">{{avaliacao.funcionario.nome}}</td>
                     <td class="text-center">{{avaliacao.periodo_avaliado}}</td>
 
@@ -160,6 +159,7 @@ Resumo Avaliação
 
                         {%endif%}
                     </td>
+                    <td>{{avaliacao.media}}</td>
                     {% for criterio in avaliacao.media_criterios %}
                     <td>{{criterio}}</td>
                     {%endfor%}
@@ -171,6 +171,39 @@ Resumo Avaliação
 
             </table>
         </div>
+
+
+        <h3>Critérios da Avaliação</h3>
+        <div id="resumo-p2" class="noprint">
+            <table class="table tab-resumo-avaliacao table-bordered">
+                <tr class="h-table">
+                    <th>Categoria</th>
+                    <th>Critério</th>
+                    <th>Nota</th>
+<!--                    <th>Avaliação</th>-->
+<!--                    <th>Avaliador</th>-->
+
+
+                {% for criterios in criterios %}
+                <tr>
+                                    <td class="text-center">{{criterios.categoria | slice:"3:50" }}</td>
+
+                    <td class="text-center">{{criterios.descricao | truncatewords:10 | slice:"4:250" }}</td>
+<!--                    <td class="text-center">{{criterios.categoria}}</td>-->
+                    <td class="text-center">{{criterios.nota}}</td>
+<!--                    <td class="text-center">{{criterios.avaliacao.periodo_avaliado}}</td>-->
+<!--                    <td class="text-center">{{criterios.avaliacao.avaliador}}</td>-->
+
+                {%endfor%}
+
+                </tr>
+
+
+
+            </table>
+        </div>
+
+
 
     </div>
 

@@ -1,0 +1,421 @@
+{% extends 'layout_base.html' %}
+
+{% block title %}
+Funcionário para Avaliação
+{% endblock %}
+
+
+{% block content %}
+
+<style xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    .layout_txt,
+    .form-control:disabled,
+    .form-control[readonly] {
+        background: #fbfcff;
+    }
+</style>
+
+<script>
+
+
+    // Função para gerar o HTML dos canvases
+
+    function ajustarResolucoes(canvas) {
+        const ctx = canvas.getContext('2d');
+
+        canvas.style.border = 'none';
+    }
+
+
+   function renderiza_grafico_avaliacao_por_ano(canvasId) {
+url = "/apigrafico/desempenho/{{ avaliacao.funcionario.pk }}/anual/{{ano_de_interesse}}";
+
+gerarCanvases(canvasId);
+
+$.get(url, function (data) {
+console.log(data.labels);
+
+const ctx = document.getElementById(canvasId).getContext('2d');
+
+grafico1 = new Chart(ctx, {
+type: 'bar', // Tipo continua 'bar' para gráfico de colunas
+data: {
+labels: data.labels,
+datasets: [{
+label: 'Chefe',
+data: data.medias_anual_chefe,
+backgroundColor: 'rgba(75, 192, 192, 0.2)',
+borderColor: 'rgba(75, 192, 192, 1)',
+borderWidth: 2
+},
+{
+label: 'Colega',
+data: data.medias_anual_colega,
+backgroundColor: '#ffa500',
+borderColor: '#ffa500',
+borderWidth: 2
+},
+{
+label: 'Próprio',
+data: data.medias_anual_proprio,
+backgroundColor: '#ff0000',
+borderColor: '#ff0000',
+borderWidth: 2
+}]
+},
+options: {
+// Removido indexAxis: 'y' para gráfico de colunas
+layout: {
+padding: {
+    top: 50,
+    bottom: 20
+}
+},
+plugins: {
+legend: {
+    position: 'top',
+    display: true
+},
+datalabels: {
+    anchor: 'end',
+    align: 'end',
+    clip: false,
+    formatter: function (value) {
+        return value;
+    },
+    font: {
+        size: 10
+    },
+    color: 'black'
+},
+title: {
+    display: true,
+    text: 'Média do {{ano_de_interesse}}º ano por Avaliador',
+    font: {
+        size: 18,
+        weight: 'bold'
+    },
+    padding: {
+        top: 10,
+        bottom: 50
+    }
+},
+},
+scales: {
+x: {
+    ticks: {
+        maxRotation: 70,
+        minRotation: 70,
+    },
+    barPercentage: 0.5, // Ajuste para aumentar o espaço entre colunas
+    categoryPercentage: 0.5 // Ajuste para aumentar o espaço entre colunas
+},
+y: {
+    beginAtZero: false,
+    grace: '10%',
+    min:50,
+}
+},
+},
+plugins: [ChartDataLabels] // Inclui o plugin Data Labels no gráfico
+});
+});
+}
+
+
+function renderiza_grafico_avaliacao_por_ano_media_geral(canvasId) {
+url = "/apigrafico/desempenho/{{ avaliacao.funcionario.pk }}/anual/{{ano_de_interesse}}";
+
+gerarCanvases(canvasId);
+
+$.get(url, function (data) {
+console.log(data.labels);
+
+const ctx = document.getElementById(canvasId).getContext('2d');
+
+grafico1 = new Chart(ctx, {
+type: 'bar', // Tipo continua 'bar' para gráfico de colunas
+data: {
+labels: data.labels,
+datasets: [{
+label: 'Média dos avaliadores',
+data: data.media_geral_ano,
+backgroundColor: 'rgba(75, 192, 192, 0.2)',
+borderColor: 'rgba(75, 192, 192, 1)',
+borderWidth: 2
+},
+]
+},
+options: {
+// Removido indexAxis: 'y' para gráfico de colunas
+layout: {
+padding: {
+    top: 10,
+    bottom: 30
+
+}
+},
+plugins: {
+legend: {
+    position: 'top',
+    display: true
+},
+datalabels: {
+    anchor: 'end',
+    align: 'end',
+    clip: false,
+    formatter: function (value) {
+        return value;
+    },
+    font: {
+        size: 10
+    },
+    color: 'black'
+},
+title: {
+    display: true,
+    text: 'Média consolidada do {{ano_de_interesse}}º ano',
+    font: {
+        size: 18,
+        weight: 'bold'
+    },
+    padding: {
+        top: 10,
+        bottom: 50
+    }
+},
+},
+scales: {
+x: {
+    ticks: {
+        maxRotation: 70,
+        minRotation: 70,
+    },
+    barPercentage: 0.5, // Ajuste para aumentar o espaço entre colunas
+    categoryPercentage: 0.5 // Ajuste para aumentar o espaço entre colunas
+},
+y: {
+    beginAtZero: false,
+    grace: '10%',
+    min:50,
+}
+},
+},
+plugins: [ChartDataLabels] // Inclui o plugin Data Labels no gráfico
+});
+});
+}
+
+
+
+
+    function gerarCanvases(id_container) {
+        const container = document.getElementById('canvas-container');
+
+        const canvas = document.createElement('canvas');
+        canvas.id = id_container;
+        container.appendChild(canvas);
+        canvas.height = 200
+
+        ajustarResolucoes(canvas); // Ajusta a resolução do canvas
+
+    }
+
+    function renderizaGrafico(canvasId, criterioIndex, titulo) {
+
+        const url = '/apigrafico/desempenho/{{avaliacao.funcionario.pk}}/semestre/avaliador';
+        gerarCanvases(canvasId)
+
+
+        $.get(url, function (data) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['1º Semestre', '2º Semestre', '3º Semestre', '4º Semestre'],
+                    datasets: [
+                        {
+                            label: 'Notas Chefe',
+                            data: data.criterios_chefe[criterioIndex],
+                            backgroundColor: 'red',
+                            borderColor: 'red',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Notas Colega',
+                            data: data.criterios_colega[criterioIndex],
+                            backgroundColor: 'green',
+                            borderColor: 'green',
+                            borderWidth: 1,
+                            hidden: true
+                        },
+                        {
+                            label: 'Própria Nota',
+                            data: data.criterios_proprio[criterioIndex],
+                            backgroundColor: 'blue',
+                            borderColor: 'blue',
+                            borderWidth: 1,
+                            hidden: true
+                        },
+                        {
+                            label: 'Avaliação 360º',
+                            data: data.medias_criterios_avaliadores_avaliacao[criterioIndex],
+                            backgroundColor: 'orange',
+                            borderColor: 'orange',
+                            borderWidth: 3,
+                            borderDash: [5, 5]
+                        },
+                        {
+                            label: 'Avaliação externaº',
+                            data: data.media_avaliadores_externos[criterioIndex],
+                            backgroundColor: 'red',
+                            borderColor: 'red',
+                            borderWidth: 3,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: {
+
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: titulo,
+                            font: {
+                                size: 18
+                            },
+                            padding: {
+                                top: 30,
+                                bottom: 30
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 45
+                        }
+                    }
+                }
+            });
+        });
+
+    }
+
+
+
+
+
+
+
+    $('document').ready(function () {
+
+
+        renderiza_grafico_avaliacao_por_ano_media_geral('graf_avaliacao_media_geral')
+        renderiza_grafico_avaliacao_por_ano('graf_avaliacao')
+
+
+
+
+    })
+
+
+</script>
+
+<style>
+    .canvas-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+
+    .destaque-notas{
+        font-weight:bold;
+        font-size:1.5em;
+        color:#16ab0e;
+        }
+
+    canvas{
+        border: 1px solid #ccc;
+
+    }
+</style>
+
+<section class="vh-100">
+    <div class="container-fluid">
+        <div class="row d-flex justify-content h-100">
+            <div class="col-10">
+                {% if msg %}
+                <div class="alert alert-warning">
+                    {{msg}}
+                </div>
+                {% endif %}
+
+                <div class="alert alert-secondary">
+                    <strong>Avaliado:</strong> {{avaliacao.funcionario}}<br/>
+                    <strong>Departamento:</strong> {{avaliacao.funcionario.depto}}<br/>
+                    <strong>Grupo avaliado:</strong> {{avaliacao.funcionario.grupo_avaliacao}}<br>
+                    <strong>Tipo de avaliação: </strong>{{usuario.profile.tipo}}{% if usuario.profile.tipo == 'Colega'%}
+                    / Própria{%endif%}
+                </div>
+
+
+                <div>
+                                        <div class="container">
+                        <div id="resumo_media_anual" class="row alert alert-warning"
+                             style="    background-color: #fff2f2 !important;">
+
+                            <div class="col-12 text-right">
+                                <h4 class="text-right">Notas Consolidadas</h4>
+                            </div>
+                            <div class="col-4 fw-bold pt-2">1º Ano<p/></div>
+                            <div class="col-4 fw-bold pt-2">2º Ano<p/></div>
+                            <div class="col-4 fw-bold pt-2">3º Ano<p/></div>
+                            <div class="col-4 destaque-notas">{%if 1 in anos_corridos%}{{ media_anos.0|default:"-" }}{%endif%}<p/></div>
+                            <div class="col-4 destaque-notas">{%if 2 in anos_corridos%}{{media_anos.1|default:"-" }}{%endif%}<p/></div>
+                            <div class="col-4 destaque-notas">{%if 3 in anos_corridos%}{{media_anos.2|default:"-" }}{%endif%}<p/></div>
+
+                        </div>
+                    </div>
+
+                    <div id="canvas-container" class="canvas-container">
+
+                    </div>
+
+
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+
+            </div>
+            <div class="col-2 alert-success p-3">
+                <h4>Desempenho</h4>
+
+                {% if anos_corridos %}
+                <h5>Por Ano</h5>
+
+                <ul>
+                    {% for ano in anos_corridos %}
+                    <li>
+                        <a href="{% url 'painel_desempenho' avaliacao.funcionario.id ano %} ">{{ano}}º Ano</a>
+                    </li>
+                    {%endfor%}
+                </ul>
+                {%endif%}
+                <h5>Por Semestre</h5>
+
+                <ul>
+                    <li>
+                        <a href="{% url 'painel_desempenho' avaliacao.funcionario.id 0 %} ">Evolução por Categorias</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+</section>
+
+{% endblock %}

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect, JsonResponse
 import datetime
 import ast
 import logging
@@ -133,7 +133,7 @@ def add_criterios(request, avaliacao):
 
         pontos_assiduidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_assiduidade = round(pontos_assiduidade / itens_assiduidade, 1)
+    media_assiduidade = round(pontos_assiduidade / itens_assiduidade, 2)
 
     # DISCIPLINA
     pontos_disciplina = 0
@@ -150,7 +150,7 @@ def add_criterios(request, avaliacao):
 
         pontos_disciplina += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_disciplina = round(pontos_disciplina / itens_disciplina, 1)
+    media_disciplina = round(pontos_disciplina / itens_disciplina, 2)
 
     # INICIATIVA
     pontos_iniciativa = 0
@@ -166,7 +166,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_iniciativa += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_iniciativa = round(pontos_iniciativa / itens_iniciativa, 1)
+    media_iniciativa = round(pontos_iniciativa / itens_iniciativa, 2)
 
     # PRODUTIVIDADE
     pontos_produtividade = 0
@@ -182,7 +182,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_produtividade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_produtividade = round(pontos_produtividade / itens_produtividade, 1)
+    media_produtividade = round(pontos_produtividade / itens_produtividade, 2)
 
     # RESPONSABILIDADE
     pontos_responsabilidade = 0
@@ -198,7 +198,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_responsabilidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_responsabilidade = round(pontos_responsabilidade / itens_responsabilidade, 1)
+    media_responsabilidade = round(pontos_responsabilidade / itens_responsabilidade, 2)
 
     # COOPERACAO
     pontos_cooperacao = 0
@@ -214,7 +214,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_cooperacao += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_cooperacao = round(pontos_cooperacao / itens_cooperacao, 1)
+    media_cooperacao = round(pontos_cooperacao / itens_cooperacao, 2)
 
     # DINAMISMO
     pontos_dinamismo = 0
@@ -230,7 +230,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_dinamismo += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_dinamismo = round(pontos_dinamismo / itens_dinamismo, 1)
+    media_dinamismo = round(pontos_dinamismo / itens_dinamismo, 2)
 
     # ADAPTABILIDADE
     pontos_adaptabilidade = 0
@@ -246,7 +246,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_adaptabilidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_adaptabilidade = round(pontos_adaptabilidade / itens_adaptabilidade, 1)
+    media_adaptabilidade = round(pontos_adaptabilidade / itens_adaptabilidade, 2)
 
     # URBANIDADE
     pontos_urbanidade = 0
@@ -262,7 +262,7 @@ def add_criterios(request, avaliacao):
         )
         pontos_urbanidade += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_urbanidade = round(pontos_urbanidade / itens_urbanidade, 1)
+    media_urbanidade = round(pontos_urbanidade / itens_urbanidade, 2)
 
     # RELACOES
     pontos_relacoes = 0
@@ -278,13 +278,13 @@ def add_criterios(request, avaliacao):
         )
         pontos_relacoes += float(request.POST.get('pt_criterio' + str(item)))
 
-    media_relacoes = round(pontos_relacoes / itens_relacoes, 1)
+    media_relacoes = round(pontos_relacoes / itens_relacoes, 2)
 
     medias_criterios = [media_assiduidade, media_disciplina, media_iniciativa, media_produtividade,
                         media_responsabilidade, \
                         media_cooperacao, media_dinamismo, media_adaptabilidade, media_urbanidade, media_relacoes]
 
-    media_avaliacao = round(sum(medias_criterios) / len(medias_criterios), 0)
+    media_avaliacao = round(sum(medias_criterios) / len(medias_criterios), 2)
     return medias_criterios, media_avaliacao
 
 
@@ -349,15 +349,59 @@ def reativar_avaliacao(request, id_funcionario):
 
 
 @login_required()
-def relatorio_avaliacao(request, id_funcionario):
+def relatorio_avaliacao_criterios_por_avaliacao(request, id_funcionario, n_avaliacao):
     context = {'msg': 'Avaliação não pode ser exibida'}
     dados = []
 
-    avaliacoes = Avaliacao.objects.filter(funcionario=id_funcionario).all()
+    avaliacoes = Avaliacao.objects.filter(funcionario=id_funcionario, periodo_avaliado=n_avaliacao).all()
+
+    criterios = Criterio.objects.filter(avaliacao=avaliacoes[1])
+
+    print(criterios)
 
     for avaliacao in avaliacoes:
         avaliacao.media_criterios = ast.literal_eval(avaliacao.media_criterios)
         dados.append(avaliacao)
+
+    dados_criterio = []
+
+    for criterio in criterios:
+        # if criterio.descricao == '1 - Comparece regularmente ao trabalho':
+        # print('CAT 1 - Item A')
+        # criterio.descricao = criterio.categoria+' - Critérios 1'
+
+        dados_criterio.append(criterio)
+
+    context = {'avaliacoes': dados, 'criterios': dados_criterio}
+
+    return render(request, 'relatorio_avaliacao.html', context)
+
+
+@login_required()
+def relatorio_avaliacao_media_geral(request, id_funcionario=0, p_avaliacao=0, avaliador=0):
+    context = {'msg': 'Avaliação não pode ser exibida'}
+    dados = []
+
+    user = request.user.profile
+    if user.tipo == 'Comissão':
+
+        tipo_avaliadores = ['Todos', 'Próprio', 'Chefe Imediato', 'Colega']
+
+        avaliacoes = Avaliacao.objects.filter(funcionario__ativo=True).all().order_by('funcionario__nome',
+                                                                                      'periodo_avaliado')
+
+        if avaliador in range(1, 4):
+            avaliacoes = avaliacoes.filter(tipo_avaliador=tipo_avaliadores[avaliador])
+
+        if id_funcionario > 0:
+            avaliacoes = Avaliacao.filter(funcionario=id_funcionario)
+
+        if p_avaliacao > 0:
+            avaliacoes = avaliacoes.filter(periodo_avaliado=p_avaliacao)
+
+        for avaliacao in avaliacoes:
+            avaliacao.media_criterios = ast.literal_eval(avaliacao.media_criterios)
+            dados.append(avaliacao)
 
     context = {'avaliacoes': dados}
 
@@ -386,6 +430,7 @@ def resumo_avaliacao(request, id_avaliacao):
         except Funcionario.DoesNotExist:
             return redirect('list_avaliados')
 
+
 @login_required
 def list_avaliados(request):
     funcionarios = Funcionario.objects.filter(Q(id=request.user.profile.funcionario.id))
@@ -401,7 +446,8 @@ def list_avaliados(request):
         else:
             if request.user.profile.tipo == 'Colega':
                 funcionarios = Funcionario.objects.filter(
-                    Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True, ativo=True, avaliacao_pendente_colega=True) | Q(
+                    Q(subgrupo_avaliacao=request.user.profile.grupo_avaliado, avaliavel=True, ativo=True,
+                      avaliacao_pendente_colega=True) | Q(
                         id=request.user.profile.funcionario.id, avaliavel=True, avaliacao_pendente_auto=True))
 
     context = {'funcionarios': funcionarios, 'usuario': request.user}

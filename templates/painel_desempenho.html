@@ -1,0 +1,346 @@
+{% extends 'layout_base.html' %}
+
+{% block title %}
+Funcionário para Avaliação
+{% endblock %}
+
+
+{% block content %}
+
+<style xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+    .layout_txt, .form-control:disabled, .form-control[readonly]{
+       background:#fbfcff;
+    }
+
+
+</style>
+
+<script>
+
+
+    // Função para gerar o HTML dos canvases
+
+           function ajustarResolucoes(canvas) {
+               const ctx = canvas.getContext('2d');
+
+               canvas.style.border = 'none';
+           }
+
+
+
+
+                           function renderiza_semestre(canvasId){
+                           url = "/apigrafico/desempenho/{{avaliacao.funcionario.pk}}/semestre"
+
+                               $.get(url, function(data){
+
+                                   const ctx = document.getElementById(canvasId).getContext('2d');
+                                   canvas = document.getElementById(canvasId)
+                                   canvas.style.border = 'None';
+
+                                   new Chart(ctx, {
+                                     type: 'line',
+                                     data: {
+                                       labels: data.labels,
+                                       datasets: [
+                                       {
+                                         label: 'Média Chefe',
+                                         data: data.data['chefe'],
+                                       backgroundColor: 'red',
+                                       borderColor: 'red',
+                                         borderWidth: 2,
+                                                 borderDash: [5, 5]
+
+                                       },
+                                      {
+                                         label: 'Média Colega',
+                                         data: data.data['colega'],
+                                       backgroundColor: 'green',
+                                       borderColor: 'green',
+                                         borderWidth: 3,
+                                                                     borderDash: [10, 10]
+
+                                       },
+                                       {
+                                     label: 'Próprio',
+                                         data: data.data['proprio'],
+                                       backgroundColor: 'blue',
+                                       borderColor: 'blue',
+                                         borderWidth: 1
+                                       },
+                                       ]
+                                     },
+                                     options: {
+                                       responsive: true,
+                                       plugins: {
+                                           title: {
+                                               display: true, // Exibe o título
+                                               text: data.titulo,
+                                               font: {
+                                                   size: 18 // Tamanho da fonte do título
+                                               },
+                                                                                           padding: {
+                                               top: 30, // Espaçamento entre o título e o gráfico
+                                               bottom: 30}
+                                           }
+                                       },
+                                       scales: {
+                                           y: {
+                                               beginAtZero: false,
+                                                min:50,
+
+                                           }
+                                       }
+                                   }
+                                   });
+
+                               })
+
+                           }
+
+           function gerarCanvases(id_container) {
+               const container = document.getElementById('canvas-container');
+
+                   const canvas = document.createElement('canvas');
+                   canvas.id = id_container;
+                   container.appendChild(canvas);
+
+                   ajustarResolucoes(canvas); // Ajusta a resolução do canvas
+
+           }
+
+     function renderizaGrafico(canvasId, criterioIndex, titulo) {
+
+       const url = '/apigrafico/desempenho/{{avaliacao.funcionario.pk}}/semestre/avaliador';
+           gerarCanvases(canvasId)
+
+
+       $.get(url, function(data) {
+           const ctx = document.getElementById(canvasId).getContext('2d');
+
+           new Chart(ctx, {
+               type: 'line',
+               data: {
+                   labels: ['1º Semestre', '2º Semestre', '3º Semestre', '4º Semestre'],
+                   datasets: [
+                   {% if usuario.profile.tipo == 'Comissão'%}
+                       {
+                           label: 'Notas Chefe',
+                           data: data.criterios_chefe[criterioIndex],
+                           backgroundColor: 'red',
+                           borderColor: 'red',
+                           borderWidth: 2
+                       },
+                       {
+                           label: 'Notas Colega',
+                           data: data.criterios_colega[criterioIndex],
+                           backgroundColor: 'green',
+                           borderColor: 'green',
+                           borderWidth: 1,
+                           hidden: true
+                       },
+                       {% endif %}
+                       {
+                           label: 'Própria Nota',
+                           data: data.criterios_proprio[criterioIndex],
+                           backgroundColor: 'blue',
+                           borderColor: 'blue',
+                           borderWidth: 1,
+                           hidden: false
+                       },
+                       {
+                           label: 'Avaliação 360º',
+                           data: data.medias_criterios_avaliadores_avaliacao[criterioIndex],
+                           backgroundColor: 'orange',
+                           borderColor: 'orange',
+                           borderWidth: 3,
+                           borderDash: [5, 5]
+                       },
+                       {
+                           label: 'Avaliação externaº',
+                           data: data.media_avaliadores_externos[criterioIndex],
+                           backgroundColor: 'red',
+                           borderColor: 'red',
+                           borderWidth: 3,
+                           borderDash: [5, 5]
+                       }
+                   ]
+               },
+               options: {
+
+                   plugins: {
+                       title: {
+                           display: true,
+                           text: titulo,
+                           font: {
+                               size: 18
+                           },
+                           padding: {
+                               top: 30,
+                               bottom: 30
+                           }
+                       }
+                   },
+                   scales: {
+                       y: {
+                           beginAtZero: false,
+                           min: 45
+                       }
+                   }
+               }
+           });
+       });
+
+    }
+
+
+
+
+
+
+
+                       $('document').ready(function(){
+
+
+
+                            renderiza_semestre('graf_semestre_criterio')
+                           // Chamadas para renderizar os gráficos
+    renderizaGrafico('graf_criterio1_por_semestre', 0, '1. Assiduidade e Pontualidade');
+    renderizaGrafico('graf_criterio2_por_semestre', 1, '2. Disciplina');
+    renderizaGrafico('graf_criterio3_por_semestre', 2, '3. Capacidade de Iniciativa');
+    renderizaGrafico('graf_criterio4_por_semestre', 3, '4. Produtividade');
+    renderizaGrafico('graf_criterio5_por_semestre', 4, '5. Responsabilidade');
+    renderizaGrafico('graf_criterio6_por_semestre', 5, '6. Cooperação');
+    renderizaGrafico('graf_criterio7_por_semestre', 6, '7. Dinamismo');
+    renderizaGrafico('graf_criterio8_por_semestre', 7, '8. Adaptabilidade');
+    renderizaGrafico('graf_criterio9_por_semestre', 8, '9. Urbanidade');
+    renderizaGrafico('graf_criterio10_por_semestre', 9, '10. Relações Interpessoais');
+
+                        })
+
+
+</script>
+
+<style>
+    .canvas-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+    canvas {
+        border: 1px solid #ccc;
+        width: 400px; !important /* Tamanho do canvas na tela */
+        height: 300px; !important/* Tamanho do canvas na tela */
+    }
+
+    .canvas-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+
+    .destaque-notas{
+        font-weight:bold;
+        font-size:1.5em;
+        color:#16ab0e;
+        }
+
+    canvas{
+        border: 1px solid #ccc;
+
+    }
+</style>
+<section class="vh-100">
+    <div class="container-fluid">
+        <div class="row d-flex justify-content h-100">
+            <div class="col-10">
+                {% if msg %}
+                <div class="alert alert-warning">
+                    {{msg}}
+                </div>
+                {% endif %}
+
+<div class="alert alert-secondary">
+                    <strong>Avaliado:</strong> {{avaliacao.funcionario}}<br/>
+                    <strong>Departamento:</strong> {{avaliacao.funcionario.depto}}<br/>
+                    <strong>Grupo avaliado:</strong> {{avaliacao.funcionario.grupo_avaliacao}}<br>
+                    <strong>Tipo de avaliação: </strong>{{usuario.profile.tipo}}{% if usuario.profile.tipo == 'Colega'%}
+                    / Própria{%endif%}
+                </div>
+
+
+                <div>
+                    <div class="container">
+                        <div id="resumo_media_anual" class="row alert alert-warning"
+                             style="    background-color: #fff2f2 !important;">
+
+                            <div class="col-12 text-right">
+                                <h4 class="text-right">Notas Consolidadas</h4>
+                            </div>
+                            <div class="col-4 fw-bold pt-2">1º Ano<p/></div>
+                            <div class="col-4 fw-bold pt-2">2º Ano<p/></div>
+                            <div class="col-4 fw-bold pt-2">3º Ano<p/></div>
+                            <div class="col-4 destaque-notas">{%if 1 in anos_corridos%}{{ media_anos.0|default:"-" }}{%endif%}<p/></div>
+                            <div class="col-4 destaque-notas">{%if 2 in anos_corridos%}{{media_anos.1|default:"-" }}{%endif%}<p/></div>
+                            <div class="col-4 destaque-notas">{%if 3 in anos_corridos%}{{media_anos.2|default:"-" }}{%endif%}<p/></div>
+
+                        </div>
+                    </div>
+
+
+                    <div id="canvas-container_semestre" class="canvas-container">
+                        <canvas id="graf_semestre_criterio"></canvas>
+
+                    </div>
+                    <h4 class="pt-5 text-center">Evolução Consolidada dos Critérios</h4>
+                    <div id="canvas-container" class="canvas-container">
+
+                    </div>
+
+
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                <script>
+
+
+                </script>
+
+
+            </div>
+            <div class="col-2 alert-success p-3">
+                <h4>Desempenho</h4>
+
+                {% if anos_corridos %}
+                <h5>Por Ano</h5>
+
+                <ul>
+                    {% for ano in anos_corridos %}
+                    <li>
+                        <a href="{% url 'painel_desempenho' avaliacao.funcionario.id ano %} ">{{ano}}º Ano</a>
+                    </li>
+                    {%endfor%}
+                </ul>
+                {%endif%}
+                <h5>Por Semestre</h5>
+
+                <ul>
+                    <li>
+                        <a href="{% url 'painel_desempenho' avaliacao.funcionario.id 0 %} ">Evolução por Categorias</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+
+
